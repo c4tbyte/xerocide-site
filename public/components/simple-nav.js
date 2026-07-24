@@ -196,7 +196,7 @@ NAV_TEMPLATE.innerHTML = `
 <nav class="mobile-menu"></nav>
 `;
 
-class NavFade extends HTMLElement {
+class SimpleNav extends HTMLElement {
   static get observedAttributes() {
     return ["logo-src", "logo-alt", "logo-href", "links", "social"];
   }
@@ -280,4 +280,4 @@ class NavFade extends HTMLElement {
   }
 }
 
-customElements.define("nav-fade", NavFade);
+customElements.define("simple-nav", SimpleNav);
