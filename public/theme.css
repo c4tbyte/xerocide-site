@@ -13,8 +13,8 @@ html, body {
 
 simple-nav {
   --nav-font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --nav-font-size: 20px;
-  --nav-link-gap: 54px;
+  --nav-font-size: 26px;
+  --nav-link-gap: 60px;
   --nav-icon-size: 26px;
 }
 
