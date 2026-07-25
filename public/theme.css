@@ -13,6 +13,9 @@ html, body {
 
 simple-nav {
   --nav-font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --nav-font-size: 16px;
+  --nav-link-gap: 48px;
+  --nav-icon-size: 26px;
 }
 
 /* --- HERO --- */
