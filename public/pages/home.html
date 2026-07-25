@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Site</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -11,30 +11,34 @@
 </head>
 <body>
 
-  <simple-nav
-    logo-src="images/nav-logo.jpg"
-    logo-alt="Home"
-    logo-href="/"
-    links="
-      Home|/,
-      Shows|/shows,
-      Releases|/releases,
-      Media|/media,
-      About|/about,
-      Booking|/booking
-    "
-    social="
-      spotify|https://open.spotify.com/artist/4rYFE3Y8s6AgARellzfzL8?si=zWLyWuRRTFKZ2i-FRKWFdQ,
-      instagram|https://www.instagram.com/xerocidefl/,
-      email|mailto:booking@xerocide.com
-    "
-  ></simple-nav>
+  <div class="top-section">
+    <simple-nav
+      logo-src="logos/logo.svg"
+      logo-alt="Site"
+      logo-href="/"
+      links="
+        Home|/,
+        Shows|/shows,
+        Releases|/releases,
+        Media|/media,
+        About|/about,
+        Booking|/booking
+      "
+      social="
+        spotify|https://open.spotify.com/artist/4rYFE3Y8s6AgARellzfzL8?si=zWLyWuRRTFKZ2i-FRKWFdQ,
+        instagram|https://www.instagram.com/xerocidefl/,
+        email|mailto:booking@xerocide.com
+      "
+    ></simple-nav>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">LOGO</h1>
-    </div>
-  </section>
+    <section class="hero">
+      <img class="texture texture-left" src="images/texture-left.png" alt="" />
+      <img class="texture texture-right" src="images/texture-right.png" alt="" />
+      <div class="hero-content">
+        <h1 class="hero-title">LOGO</h1>
+      </div>
+    </section>
+  </div>
 
   <script src="components/helpers/text-helper.js"></script>
   <script src="components/simple-nav.js"></script>
