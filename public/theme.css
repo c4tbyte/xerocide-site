@@ -56,6 +56,9 @@ simple-nav {
   flex-direction: column;
   align-items: flex-start;
   margin-left: 4vw;
+  width: 18vw;
+  min-width: 140px;
+  max-width: 260px;
 }
 
 .hero-text {
@@ -67,7 +70,7 @@ simple-nav {
 .hero-text p {
   margin: 0;
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(28px, 4vw, 56px);
+  font-size: clamp(14px, 1.6vw, 22px);
   line-height: 1.05;
   letter-spacing: 0.02em;
   color: #fff;
