@@ -40,8 +40,7 @@ simple-nav {
   align-items: stretch;
   justify-content: flex-start;
   background-color: #0a0a0a;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.9);
-  padding-bottom: 1.5vh;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .hero-logo {
@@ -67,6 +66,7 @@ simple-nav {
   position: relative;
   z-index: 1;
   margin-top: 1vw;
+  margin-bottom: 2vh;
 }
 
 .hero-text p {
