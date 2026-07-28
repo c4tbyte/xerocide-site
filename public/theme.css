@@ -16,7 +16,7 @@ simple-nav {
   --nav-font-size: clamp(12px, 1.1vw, 16px);
   --nav-link-gap: clamp(20px, 3vw, 48px);
   --nav-icon-size: clamp(18px, 1.8vw, 26px);
-  --nav-logo-height: clamp(26px, 2.2vw, 40px);
+  --nav-logo-height: clamp(26px, 2.2vw, 30px);
   --nav-padding-y: clamp(10px, 1.4vw, 18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   position: relative;
