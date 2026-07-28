@@ -121,7 +121,7 @@ simple-nav {
 .texture-left {
   top: 0;
   left: 0;
-  width: 95vh;
+  width: 100vh;
   transform: translateY(-8.3%);
 }
 
