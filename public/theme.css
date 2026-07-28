@@ -40,6 +40,7 @@ simple-nav {
   align-items: stretch;
   justify-content: flex-start;
   background-color: #0a0a0a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .hero-logo {
@@ -119,7 +120,7 @@ simple-nav {
 .texture-left {
   top: 0;
   left: 0;
-  width: 85vh;
+  width: 95vh;
   transform: translateY(-8.3%);
 }
 
