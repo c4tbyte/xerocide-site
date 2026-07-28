@@ -13,22 +13,22 @@ html, body {
 
 simple-nav {
   --nav-font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --nav-font-size: 23px;
-  --nav-link-gap: 60px;
-  --nav-icon-size: 26px;
-  
+  --nav-font-size: clamp(12px, 1.1vw, 16px);
+  --nav-link-gap: clamp(20px, 3vw, 48px);
+  --nav-icon-size: clamp(18px, 1.8vw, 26px);
+  --nav-logo-height: clamp(26px, 3vw, 40px);
+  --nav-padding-y: clamp(10px, 1.4vw, 18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   position: relative;
   z-index: 2;
   background: transparent;
-
 }
 
 .top-section {
   position: relative;
   background-color: #0a0a0a;
 }
- 
+
 /* HERO */
 .hero {
   position: relative;
@@ -38,9 +38,9 @@ simple-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000000;
+  background-color: #0a0a0a;
 }
- 
+
 .texture {
   position: absolute;
   z-index: 0;
@@ -49,28 +49,26 @@ simple-nav {
   opacity: 0.55;
   mix-blend-mode: screen;
 }
- 
+
 .texture-left {
   top: 0;
   left: 0;
   width: 75vw;
-  max-width: 1000px;
   transform: translateY(-8.3%);
 }
- 
+
 .texture-right {
   top: 0;
   right: 0;
   width: 44vw;
-  max-width: 600px;
 }
- 
+
 .hero-content {
   position: relative;
   z-index: 1;
   text-align: center;
 }
- 
+
 .hero-title {
   font-size: clamp(32px, 8vw, 80px);
   font-weight: 700;
