@@ -106,14 +106,14 @@ simple-nav {
 .texture-left {
   top: 0;
   left: 0;
-  width: 75vw;
+  width: 65vh;
   transform: translateY(-8.3%);
 }
 
 .texture-right {
   top: 0;
   right: 0;
-  width: 44vw;
+  width: 38vh;
 }
 
 .hero-content {
