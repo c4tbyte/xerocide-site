@@ -91,7 +91,7 @@ simple-nav {
   object-fit: cover;
   object-position: center;
   z-index: 0;
-  box-shadow: 0 0 120px 40px #000000;
+  box-shadow: 0 0 300px 40px #000000;
 }
 
 .texture {
