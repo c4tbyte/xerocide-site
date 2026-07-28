@@ -91,12 +91,7 @@ simple-nav {
   object-fit: cover;
   object-position: center;
   z-index: 0;
-  mask-image: linear-gradient(to right, transparent 0%, black 40%, black 85%, transparent 100%),
-              linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-  mask-composite: intersect;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%, black 85%, transparent 100%),
-                      linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-  -webkit-mask-composite: source-in;
+  box-shadow: 0 0 150px 60px #0a0a0a;
 }
 
 .texture {
