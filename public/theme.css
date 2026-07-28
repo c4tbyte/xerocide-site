@@ -114,7 +114,7 @@ simple-nav {
   z-index: 0;
   pointer-events: none;
   user-select: none;
-  opacity: 0.75;
+  opacity: 0.85;
   mix-blend-mode: screen;
 }
 
