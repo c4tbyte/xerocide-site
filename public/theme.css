@@ -38,8 +38,19 @@ simple-nav {
   height: 50vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #0a0a0a;
+}
+
+.hero-logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 26vw;
+  min-width: 220px;
+  max-width: 420px;
+  align-self: center;
+  margin-left: 6vw;
 }
 
 .texture {
