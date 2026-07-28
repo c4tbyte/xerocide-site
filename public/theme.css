@@ -46,9 +46,9 @@ simple-nav {
   position: relative;
   z-index: 1;
   display: block;
-  width: 18vw;
-  min-width: 140px;
-  max-width: 260px;
+  width: 24vw;
+  min-width: 180px;
+  max-width: 340px;
 }
 
 .hero-left {
@@ -70,7 +70,7 @@ simple-nav {
 .hero-text p {
   margin: 0;
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(14px, 1.6vw, 22px);
+  font-size: clamp(18px, 2.2vw, 28px);
   line-height: 1.05;
   letter-spacing: 0.02em;
   color: #fff;
@@ -84,7 +84,7 @@ simple-nav {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 15vw;
+  left: 20vw;
   right: 0;
   width: auto;
   height: 100%;
