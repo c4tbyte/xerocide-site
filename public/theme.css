@@ -84,14 +84,14 @@ simple-nav {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 23vw;
+  left: 26vw;
   right: 0;
   width: auto;
   height: 100%;
   object-fit: cover;
   object-position: center;
   z-index: 0;
-  box-shadow: 0 0 300px 40px #000000;
+  box-shadow: 0 0 150px 40px #000000;
 }
 
 .texture {
