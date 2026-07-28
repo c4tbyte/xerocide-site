@@ -60,7 +60,7 @@ simple-nav {
   justify-content: space-between;
   position: relative;
   z-index: 1;
-  margin-bottom: 2vh;
+  padding-bottom: 2vh;
 }
 
 .hero-text {
@@ -128,6 +128,6 @@ simple-nav {
 .texture-right {
   top: 0;
   right: 0;
-  width: 45vh;
+  width: 65vh;
 }
 
