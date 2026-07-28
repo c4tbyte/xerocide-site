@@ -46,9 +46,8 @@ simple-nav {
   position: relative;
   z-index: 1;
   display: block;
-  width: 24vw;
-  min-width: 180px;
-  max-width: 340px;
+  width: 40vh;
+  min-width: 140px;
 }
 
 .hero-left {
@@ -70,7 +69,7 @@ simple-nav {
 .hero-text p {
   margin: 0;
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(18px, 2.2vw, 28px);
+  font-size: 4.2vh;
   line-height: 1.05;
   letter-spacing: 0.02em;
   color: #fff;
@@ -92,6 +91,19 @@ simple-nav {
   object-position: center;
   z-index: 0;
   box-shadow: 0 0 150px 40px #000000;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(32px, 8vw, 80px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: 0;
 }
 
 .texture {
@@ -116,15 +128,3 @@ simple-nav {
   width: 45vh;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-
-.hero-title {
-  font-size: clamp(32px, 8vw, 80px);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin: 0;
-}
