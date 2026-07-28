@@ -35,7 +35,7 @@ simple-nav {
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 50vh;
+  height: 53vh;
   display: flex;
   align-items: stretch;
   justify-content: flex-start;
@@ -60,7 +60,7 @@ simple-nav {
   justify-content: space-between;
   position: relative;
   z-index: 1;
-  padding-bottom: 10vh;
+  padding-bottom: 2.5vh;
 }
 
 .hero-text {
