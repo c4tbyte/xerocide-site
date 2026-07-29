@@ -113,10 +113,16 @@ simple-nav {
 .hero-right {
   position: absolute;
   top: 68%;
-  right: 8vw;
+  right: 10vw;
   transform: translateY(-50%);
   z-index: 2;
   max-width: 20vw;
+}
+
+.hero-right-cover {
+  display: block;
+  width: 8vh;
+  margin: 1vh 0;
 }
 
 .hero-right-title {
