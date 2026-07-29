@@ -110,6 +110,39 @@ simple-nav {
   box-shadow: 0 0 150px 40px #000000;
 }
 
+.hero-right {
+  position: absolute;
+  top: 50%;
+  right: 4vw;
+  transform: translateY(-50%);
+  z-index: 2;
+  max-width: 22vw;
+}
+
+.hero-right-title {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 2.6vh;
+  letter-spacing: 0.05em;
+  color: #6fdc4d;
+  margin: 0 0 1.5vh;
+}
+
+.hero-right-text {
+  font-size: 1.6vh;
+  line-height: 1.4;
+  color: #fff;
+  margin: 0 0 1.5vh;
+}
+
+.hero-right-link {
+  display: inline-block;
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.6vh;
+  letter-spacing: 0.05em;
+  color: #6fdc4d;
+  text-decoration: none;
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
