@@ -70,6 +70,7 @@ simple-nav {
   justify-content: space-between;
   position: relative;
   z-index: 1;
+  padding-bottom: 4vh;
 }
 
 .hero-text {
