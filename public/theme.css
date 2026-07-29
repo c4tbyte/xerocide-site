@@ -92,6 +92,10 @@ simple-nav {
   color: #6fdc4d;
 }
 
+.hero-text p.hero-text-accent {
+  color: #6fdc4d;
+}
+
 .hero-photo {
   position: absolute;
   top: 0;
