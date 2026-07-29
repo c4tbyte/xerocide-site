@@ -123,6 +123,14 @@ simple-nav {
   margin: 0;
 }
 
+.hero-badge {
+  position: absolute;
+  top: 2vh;
+  right: 2vw;
+  width: 12vh;
+  z-index: 2;
+}
+
 .texture {
   position: absolute;
   z-index: 0;
