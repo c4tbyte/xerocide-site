@@ -5,9 +5,9 @@ flyer-archive {
   --vc-min-height: 190px;
   --fa-min-height: 190px;
 
-  --lm-padding: 20px;
-  --vc-padding: 20px;
-  --fa-padding: 20px;
+  --lm-padding: 36px;
+  --vc-padding: 36px;
+  --fa-padding: 36px;
   
   --lm-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   --lm-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
@@ -225,6 +225,11 @@ simple-nav {
   height: 100%;
   overflow: hidden;
   min-width: 0;
+}
+
+.row-col > * {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
 }
 
 .row-divider {
