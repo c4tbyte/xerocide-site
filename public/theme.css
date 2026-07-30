@@ -193,3 +193,18 @@ simple-nav {
   width: 55vh;
 }
 
+.content-row {
+  display: flex;
+  align-items: stretch;
+  background-color: #0a0a0a;
+}
+
+.row-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.row-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}

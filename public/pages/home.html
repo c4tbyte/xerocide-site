@@ -53,8 +53,43 @@
     </section>
   </div>
 
-  <script src="components/helpers/text-helper.js"></script>
-  <script src="components/simple-nav.js"></script>
-  <script src="components/hero-release.js"></script>
+  <div class="content-row">
+    <div class="row-col">
+      <flyer-archive
+        api-endpoint="/api/serve-flyers"
+        title="Flyer Archive"
+        columns="3"
+      ></flyer-archive>
+    </div>
+    <div class="row-divider"></div>
+    <div class="row-col">
+      <band-merch
+        api-endpoint="https://api.bigcartel.com/YOUR_STORE_HANDLE/products.json"
+        store-url="https://YOUR_STORE_HANDLE.bigcartel.com"
+        match-name="XEROCIDE"
+        title="Merch"
+        view-all-text="View All Merch"
+        view-all-url="https://YOUR_STORE_HANDLE.bigcartel.com"
+      ></band-merch>
+    </div>
+    <div class="row-divider"></div>
+    <div class="row-col">
+      <video-carousel
+        api-endpoint="/api/serve-videos"
+        title="Media"
+      ></video-carousel>
+    </div>
+  </div>
+
+<script src="components/helpers/pagination-helper.js"></script>
+<script src="components/helpers/resize-helper.js"></script>
+<script src="components/helpers/swipe-helper.js"></script>
+<script src="components/band-merch.js"></script>
+<script src="components/video-carousel.js"></script>
+<script src="components/flyer-archive.js"></script>
+<script src="components/helpers/text-helper.js"></script>
+<script src="components/simple-nav.js"></script>
+<script src="components/hero-release.js"></script>
+  
 </body>
 </html>
