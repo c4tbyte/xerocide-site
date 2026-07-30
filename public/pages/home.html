@@ -45,17 +45,16 @@
         </div>
       </div>
       <div class="hero-right">
-        <h2 class="hero-right-title">NOW STREAMING...</h2>
-          <a href="https://open.spotify.com/album/0EDawMdIL4bDxmd9YgiA42?si=Up5L9mUzRjKHU68WAoZBUw" target="_blank" rel="noopener">
-            <img class="hero-right-cover" src="images/album-cover.jpeg" alt="Xerocide album cover" />
-         </a>
-        <p class="hero-right-text">XEROCIDE (Self-Titled)</p>
-        <a href="/releases" class="hero-right-link">LISTEN HERE →</a>
+        <hero-release
+          api-endpoint="/api/serve-release"
+          spotify-artist-url="https://open.spotify.com/artist/4rYFE3Y8s6AgARellzfzL8"
+        ></hero-release>
       </div>
     </section>
   </div>
 
   <script src="components/helpers/text-helper.js"></script>
   <script src="components/simple-nav.js"></script>
+  <script src="components/hero-release.js"></script>
 </body>
 </html>
