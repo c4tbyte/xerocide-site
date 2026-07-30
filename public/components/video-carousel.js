@@ -1,3 +1,9 @@
+// video-carousel.js
+// Reusable version of the video carousel that previously lived as inline
+// script on the artist-profile page. Fetches a list of {youtubeId, title}
+// from an api-endpoint and renders an embeddable, swipeable carousel with
+// side-overlay arrows.
+
 const VIDEO_TEMPLATE = document.createElement("template");
 VIDEO_TEMPLATE.innerHTML = `
 <style>
@@ -10,29 +16,38 @@ VIDEO_TEMPLATE.innerHTML = `
     --vc-font-heading: 'Arial Narrow', 'Helvetica Neue', sans-serif;
     --vc-font-body: 'Arial Narrow', 'Helvetica Neue', sans-serif;
     --vc-label-tracking: 0.12em;
- 
+    --vc-padding: 28px;
+    --vc-header-gap: 20px;
+    --vc-arrow-size: 32px;
+    --vc-arrow-offset: -8px;
+    --vc-min-height: 380px;
+
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: var(--vc-min-height, 380px);
+    min-height: var(--vc-min-height);
     background: var(--vc-bg);
     color: var(--vc-fg);
     font-family: var(--vc-font-body);
-    padding: 28px;
+    padding: var(--vc-padding);
     box-sizing: border-box;
   }
- 
+
   * { box-sizing: border-box; }
- 
+
   h2 {
-    margin: 0 0 20px;
+    margin: 0 0 var(--vc-header-gap);
     font-family: var(--vc-font-heading);
     font-size: 28px;
     font-weight: 700;
     letter-spacing: var(--vc-label-tracking);
     text-transform: uppercase;
   }
- 
+
+  .frame-wrap {
+    position: relative;
+  }
+
   .video-frame {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -41,7 +56,7 @@ VIDEO_TEMPLATE.innerHTML = `
     border: 1px solid var(--vc-border);
     touch-action: pan-y;
   }
- 
+
   .video-frame iframe {
     width: 100%;
     height: 100%;
@@ -49,31 +64,34 @@ VIDEO_TEMPLATE.innerHTML = `
     display: block;
     pointer-events: none; /* keep swipe gestures usable over the iframe */
   }
- 
-  .video-controls {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 12px;
-    align-items: center;
-    margin-top: 14px;
-  }
- 
+
   .video-arrow {
-    background: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--vc-bg);
     border: 1px solid var(--vc-fg);
     color: var(--vc-fg);
     cursor: pointer;
     font-size: 16px;
-    padding: 6px 14px;
-    opacity: 0.7;
+    width: var(--vc-arrow-size);
+    height: var(--vc-arrow-size);
     line-height: 1;
+    opacity: 0.7;
+    z-index: 2;
     transition: opacity 0.15s ease;
   }
- 
+
   .video-arrow:hover:not(:disabled) { opacity: 1; }
   .video-arrow:disabled { opacity: 0.25; cursor: default; }
- 
-  .video-meta { min-width: 0; text-align: center; }
+
+  .video-arrow.prev { left: var(--vc-arrow-offset); }
+  .video-arrow.next { right: var(--vc-arrow-offset); }
+
+  .video-meta {
+    margin-top: 14px;
+    text-align: center;
+  }
   .video-title {
     font-size: 13px;
     line-height: 1.4;
@@ -90,7 +108,7 @@ VIDEO_TEMPLATE.innerHTML = `
     text-transform: uppercase;
     color: var(--vc-muted);
   }
- 
+
   .footer {
     display: flex;
     margin-top: 26px;
@@ -98,7 +116,7 @@ VIDEO_TEMPLATE.innerHTML = `
     min-height: 48px;
     align-items: center;
   }
- 
+
   .view-all {
     font-family: var(--vc-font-heading);
     font-size: 16px;
@@ -112,9 +130,9 @@ VIDEO_TEMPLATE.innerHTML = `
     text-decoration: none;
     display: inline-block;
   }
- 
+
   .view-all:hover { opacity: 0.85; }
- 
+
   .state-message {
     font-size: 13px;
     color: var(--vc-muted);
@@ -122,27 +140,27 @@ VIDEO_TEMPLATE.innerHTML = `
     text-align: center;
   }
 </style>
- 
+
 <h2 part="title"></h2>
-<div class="video-frame"></div>
-<div class="video-controls" hidden>
-  <button class="prev video-arrow" aria-label="Previous video">&#8249;</button>
-  <div class="video-meta">
-    <div class="video-title"></div>
-    <div class="video-count"></div>
-  </div>
-  <button class="next video-arrow" aria-label="Next video">&#8250;</button>
+<div class="frame-wrap">
+  <button class="video-arrow prev" aria-label="Previous video" hidden>&#8249;</button>
+  <div class="video-frame"></div>
+  <button class="video-arrow next" aria-label="Next video" hidden>&#8250;</button>
+</div>
+<div class="video-meta">
+  <div class="video-title"></div>
+  <div class="video-count"></div>
 </div>
 <div class="footer" hidden>
   <a class="view-all" href="#" target="_blank" rel="noopener"></a>
 </div>
 `;
- 
+
 class VideoCarousel extends HTMLElement {
   static get observedAttributes() {
     return ["api-endpoint", "title", "view-all-text", "view-all-url"];
   }
- 
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -150,29 +168,29 @@ class VideoCarousel extends HTMLElement {
     this._videos = [];
     this._index = 0;
   }
- 
+
   connectedCallback() {
     this._render();
     this._loadData();
     this._setupSwipe();
   }
- 
+
   attributeChangedCallback() {
     if (this.isConnected) this._render();
   }
- 
+
   get apiEndpoint() { return this.getAttribute("api-endpoint"); }
   get titleText() { return this.getAttribute("title") || "Media"; }
   get viewAllText() { return this.getAttribute("view-all-text") || ""; }
   get viewAllUrl() { return this.getAttribute("view-all-url") || ""; }
- 
+
   _render() {
     const root = this.shadowRoot;
     root.querySelector("h2").textContent = this.titleText;
- 
+
     const footer = root.querySelector(".footer");
     const link = root.querySelector(".view-all");
- 
+
     if (this.viewAllText && this.viewAllUrl) {
       footer.hidden = false;
       link.textContent = this.viewAllText;
@@ -181,51 +199,49 @@ class VideoCarousel extends HTMLElement {
       footer.hidden = true;
     }
   }
- 
+
   async _loadData() {
     const frame = this.shadowRoot.querySelector(".video-frame");
- 
+
     if (!this.apiEndpoint) {
       frame.innerHTML = `<div class="state-message">Set api-endpoint to load videos.</div>`;
       return;
     }
- 
+
     frame.innerHTML = `<div class="state-message">Loading videos…</div>`;
- 
+
     try {
       const res = await fetch(this.apiEndpoint);
       if (!res.ok) throw new Error(`Server responded ${res.status}`);
       const data = await res.json();
- 
+
       this._videos = Array.isArray(data.videos) ? data.videos : [];
- 
+
       if (this._videos.length === 0) {
         frame.innerHTML = `<div class="state-message">No videos yet.</div>`;
-        this.shadowRoot.querySelector(".video-controls").hidden = true;
         return;
       }
- 
+
       this._showVideo(0);
     } catch (err) {
       console.error("[video-carousel] failed to load:", err);
       frame.innerHTML = `<div class="state-message">Couldn't load videos right now.</div>`;
     }
   }
- 
+
   _showVideo(index) {
     const videos = this._videos;
     if (videos.length === 0) return;
- 
+
     this._index = window.PaginationHelper.wrapPage(index, videos.length);
     const video = videos[this._index];
- 
+
     const frame = this.shadowRoot.querySelector(".video-frame");
     const titleEl = this.shadowRoot.querySelector(".video-title");
     const countEl = this.shadowRoot.querySelector(".video-count");
-    const controls = this.shadowRoot.querySelector(".video-controls");
     const prevBtn = this.shadowRoot.querySelector(".prev");
     const nextBtn = this.shadowRoot.querySelector(".next");
- 
+
     frame.innerHTML = `<iframe
       src="https://www.youtube.com/embed/${window.TextHelper.escapeAttr(video.youtubeId)}"
       title="${window.TextHelper.escapeAttr(video.title)}"
@@ -233,15 +249,18 @@ class VideoCarousel extends HTMLElement {
       allowfullscreen
       loading="lazy"
     ></iframe>`;
- 
+
     titleEl.textContent = video.title;
     countEl.textContent = `${this._index + 1} / ${videos.length}`;
-    controls.hidden = videos.length <= 1;
- 
+
+    const showArrows = videos.length > 1;
+    prevBtn.hidden = !showArrows;
+    nextBtn.hidden = !showArrows;
+
     prevBtn.onclick = () => this._showVideo(this._index - 1);
     nextBtn.onclick = () => this._showVideo(this._index + 1);
   }
- 
+
   _setupSwipe() {
     window.SwipeHelper.attachSwipeBehavior(
       this.shadowRoot.querySelector(".video-frame"),
@@ -253,5 +272,5 @@ class VideoCarousel extends HTMLElement {
     );
   }
 }
- 
+
 customElements.define("video-carousel", VideoCarousel);
