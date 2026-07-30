@@ -21,7 +21,7 @@ MERCH_TEMPLATE.innerHTML = `
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 380px;
+    min-height: var(--lm-min-height, 380px);
     background: var(--lm-bg);
     color: var(--lm-fg);
     font-family: var(--lm-font-body);

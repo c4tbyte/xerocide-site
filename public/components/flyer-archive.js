@@ -13,7 +13,7 @@ FLYER_TEMPLATE.innerHTML = `
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 380px;
+    min-height: var(--fa-min-height, 380px);
     background: var(--fa-bg);
     color: var(--fa-fg);
     font-family: var(--fa-font-heading);

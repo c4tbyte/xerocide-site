@@ -14,7 +14,7 @@ VIDEO_TEMPLATE.innerHTML = `
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 380px;
+    min-height: var(--vc-min-height, 380px);
     background: var(--vc-bg);
     color: var(--vc-fg);
     font-family: var(--vc-font-body);
