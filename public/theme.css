@@ -1,3 +1,11 @@
+band-merch,
+video-carousel,
+flyer-archive {
+  --lm-min-height: 190px;
+  --vc-min-height: 190px;
+  --fa-min-height: 190px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -195,12 +203,17 @@ simple-nav {
 
 .content-row {
   display: flex;
+  height: 300px;
   align-items: stretch;
-  background-color: #0a0a0a;
+  background-color: #000000;
+  position: relative;
+  z-index: 10;
 }
 
 .row-col {
   flex: 1 1 0;
+  height: 100%;
+  overflow: hidden;
   min-width: 0;
 }
 
