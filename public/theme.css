@@ -468,10 +468,19 @@ simple-nav {
 
   .hero-left {
     padding-bottom: 1.6vh;
+    align-items: center;
+  }
+
+  .hero-text {
+    text-align: center;
   }
 
   .hero-text p {
     font-size: 1.9vh;
+  }
+
+  .hero-text-accent {
+    display: none;
   }
 
   .hero-badge {
@@ -484,6 +493,8 @@ simple-nav {
 
   .texture-right {
     width: 16vh;
+    top: auto;
+    bottom: 0;
   }
 
   release-highlight[layout="row"] {
@@ -491,6 +502,17 @@ simple-nav {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .release-highlight-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .release-highlight-cover {
+    width: 96px;
+    height: 96px;
   }
 
   .release-highlight-buttons {
