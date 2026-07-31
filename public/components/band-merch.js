@@ -2,7 +2,7 @@ const MERCH_TEMPLATE = document.createElement("template");
 MERCH_TEMPLATE.innerHTML = `
 <style>
   :host {
-    --lm-bg: #000000;
+    --lm-bg: #0a0a0a;
     --lm-fg: #ffffff;
     --lm-muted: #888888;
     --lm-font-heading: 'Arial Narrow', 'Helvetica Neue', sans-serif;
@@ -257,6 +257,7 @@ class BandMerch extends HTMLElement {
       "api-endpoint",
       "store-url",
       "match-name",
+      "exclude-keywords",
       "title",
       "view-all-text",
       "view-all-url",
@@ -297,6 +298,12 @@ class BandMerch extends HTMLElement {
   get apiEndpoint() { return this.getAttribute("api-endpoint"); }
   get storeUrl() { return (this.getAttribute("store-url") || "").replace(/\/$/, ""); }
   get matchName() { return this.getAttribute("match-name") || ""; }
+  get excludeKeywords() {
+    return (this.getAttribute("exclude-keywords") || "")
+      .split(",")
+      .map((k) => normalizeForMatch(k))
+      .filter(Boolean);
+  }
  
   get columns() {
     if (window.matchMedia("(max-width: 700px)").matches) return 2;
@@ -346,10 +353,14 @@ class BandMerch extends HTMLElement {
       const allProducts = await response.json();
  
       const needle = normalizeForMatch(this.matchName);
+      const excludeList = this.excludeKeywords;
  
       const matches = allProducts.filter((p) => {
         if (p.status !== "active" || !p.images || !p.images.length) return false;
-        return needle && normalizeForMatch(p.name).includes(needle);
+        const normalizedName = normalizeForMatch(p.name);
+        if (!needle || !normalizedName.includes(needle)) return false;
+        if (excludeList.some((kw) => normalizedName.includes(kw))) return false;
+        return true;
       });
  
       this._flatList = matches;

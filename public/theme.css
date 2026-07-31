@@ -314,3 +314,139 @@ simple-nav {
 .about-link:hover {
   opacity: 0.8;
 }
+
+.mobile-only { display: none; }
+
+@media (max-width: 700px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: block; }
+}
+
+.mobile-only section {
+  padding: 24px 20px;
+  border-bottom: 2px solid #737373;
+  background: transparent;
+}
+
+.mobile-section-title,
+.mobile-only .about-title {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 16px;
+}
+
+.release-highlight-loading {
+  font-size: 13px;
+  color: #888;
+}
+
+.release-highlight-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.release-highlight-cover {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 1px solid #fff;
+  flex-shrink: 0;
+}
+
+.release-highlight-title {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.release-highlight-year {
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.release-highlight-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.release-highlight-btn {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 20px;
+  border: 1px solid #fff;
+  color: #fff;
+  text-align: center;
+  flex: 1;
+}
+
+.release-highlight-btn.listen {
+  background: #fff;
+  color: #000;
+}
+
+.release-highlight-btn:hover {
+  opacity: 0.85;
+}
+
+.mobile-view-all-btn {
+  display: block;
+  margin-top: 16px;
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 12px;
+  text-align: center;
+}
+
+.mobile-about .about-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b0b0ac;
+  margin: 0 0 16px;
+}
+
+.mobile-about .about-link {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6fdc4d;
+  text-decoration: none;
+}
+
+.mobile-band-photo {
+  padding: 0 !important;
+}
+
+.mobile-band-photo img {
+  width: 100%;
+  display: block;
+}
+
+@media (max-width: 700px) {
+  band-merch,
+  video-carousel,
+  flyer-archive {
+    --lm-padding: 0px;
+    --vc-padding: 0px;
+    --fa-padding: 0px;
+    --lm-min-height: auto;
+    --vc-min-height: auto;
+    --fa-min-height: auto;
+  }
+}

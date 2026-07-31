@@ -27,16 +27,17 @@
           <p style="margin-top: 0.5em;" class="hero-text-accent">EST. 2025</p>
         </div>
       </div>
-      <div class="hero-right">
-        <hero-release
-          api-endpoint="/api/serve-release"
+      <div class="hero-right desktop-only">
+        <release-highlight
+          layout="hero"
+          release-endpoint="/api/serve-release"
           spotify-artist-url="https://open.spotify.com/artist/4rYFE3Y8s6AgARellzfzL8"
-        ></hero-release>
+        ></release-highlight>
       </div>
     </section>
   </div>
 
-  <div class="content-row">
+  <div class="content-row desktop-only">
     <div class="row-col">
       <flyer-archive
         api-endpoint="/api/serve-flyers"
@@ -66,7 +67,7 @@
     </div>
   </div>
 
-  <div class="row-two">
+  <div class="row-two desktop-only">
     <div class="row-two-photo">
       <img src="images/band-photo.png" alt="Xerocide live" />
     </div>
@@ -78,7 +79,72 @@
     </div>
   </div>
 
+  <div class="mobile-only">
+
+    <section class="mobile-release">
+      <h2 class="mobile-section-title">Newest Release</h2>
+      <release-highlight
+        layout="row"
+        release-endpoint="/api/serve-release"
+        merch-endpoint="https://api.bigcartel.com/armageddonrecords/products.json"
+        store-url="https://armageddonrecords.bigcartel.com"
+        match-name="XEROCIDE"
+        cd-keywords="cd,cassette"
+        listen-text="Listen Now"
+        buy-text="Buy CD/Cassette"
+      ></release-highlight>
+    </section>
+
+    <section class="mobile-merch" id="mobileMerch" hidden>
+      <band-merch
+        api-endpoint="https://api.bigcartel.com/armageddonrecords/products.json"
+        store-url="https://armageddonrecords.bigcartel.com"
+        match-name="XEROCIDE"
+        exclude-keywords="CD,Cassette"
+        title="More Merch"
+        view-all-text="View All Merch"
+        view-all-url="https://armageddonrecords.bigcartel.com"
+        columns="2"
+      ></band-merch>
+    </section>
+
+    <section class="mobile-shows">
+      <flyer-archive
+        api-endpoint="/api/serve-flyers"
+        title="Shows"
+        columns="2"
+      ></flyer-archive>
+      <a class="mobile-view-all-btn" href="/shows">View All Shows</a>
+    </section>
+
+    <section class="mobile-media">
+      <video-carousel
+        api-endpoint="/api/serve-videos"
+        title="Media"
+        view-all-text="View All Media"
+        view-all-url="https://www.instagram.com/xerocidefl/"
+      ></video-carousel>
+    </section>
+
+    <section class="mobile-about">
+      <h2 class="about-title">No Genocide.<br>No Suicide.</h2>
+      <p class="about-text">Xerocide is more than just a name - it's the philosophy that defines one of Tampa's most authentic bands. Rooted in community, the band exists to liberate the soul and empower the mind through messages of resilience, solidarity, and purpose.</p>
+      <a class="about-link" href="/about">Read More →</a>
+    </section>
+
+    <section class="mobile-band-photo">
+      <img src="images/band-photo.png" alt="Xerocide live" />
+    </section>
+
+  </div>
+
   <div data-site-footer></div>
+
+  <script>
+    document.getElementById("mobileMerch").addEventListener("merch-empty", (e) => {
+      document.getElementById("mobileMerch").hidden = true;
+    });
+  </script>
 
 <script src="components/helpers/pagination-helper.js"></script>
 <script src="components/helpers/resize-helper.js"></script>
@@ -86,10 +152,10 @@
 <script src="components/band-merch.js"></script>
 <script src="components/video-carousel.js"></script>
 <script src="components/flyer-archive.js"></script>
+<script src="components/release-highlight.js"></script>
 <script src="components/helpers/text-helper.js"></script>
 <script src="components/simple-nav.js"></script>
 <script src="components/helpers/nav-helper.js"></script>
-<script src="components/hero-release.js"></script>
 <script src="components/simple-footer.js"></script>
 <script src="components/helpers/footer-helper.js"></script>
 
