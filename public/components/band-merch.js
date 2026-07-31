@@ -23,7 +23,7 @@ MERCH_TEMPLATE.innerHTML = `
     --lm-arrow-offset: -8px;
     --lm-min-height: 380px;
     --lm-footer-gap: 26px;
-    --lm-single-image-size: 140px;
+    --lm-single-image-size: 150px;
     --lm-image-border: none;
  
     position: relative;
@@ -125,9 +125,9 @@ MERCH_TEMPLATE.innerHTML = `
  
   .grid.single .card img {
     width: var(--lm-single-image-size);
-    max-width: var(--lm-single-image-size);
     height: var(--lm-single-image-size);
     aspect-ratio: 1 / 1;
+    object-fit: cover;
     flex-shrink: 0;
   }
  
