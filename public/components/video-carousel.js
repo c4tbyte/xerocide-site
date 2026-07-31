@@ -2,7 +2,7 @@ const VIDEO_TEMPLATE = document.createElement("template");
 VIDEO_TEMPLATE.innerHTML = `
 <style>
   :host {
-    --vc-bg: #0a0a0a;
+    --vc-bg: #000000;
     --vc-fg: #ffffff;
     --vc-muted: #888888;
     --vc-panel: #131313;

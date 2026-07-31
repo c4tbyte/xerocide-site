@@ -2,7 +2,7 @@ const MERCH_TEMPLATE = document.createElement("template");
 MERCH_TEMPLATE.innerHTML = `
 <style>
   :host {
-    --lm-bg: #0a0a0a;
+    --lm-bg: #000000;
     --lm-fg: #ffffff;
     --lm-muted: #888888;
     --lm-font-heading: 'Arial Narrow', 'Helvetica Neue', sans-serif;
