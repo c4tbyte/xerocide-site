@@ -62,11 +62,13 @@ export async function buildManifest() {
     if (!youtubeId) continue;
  
     const title = await getVideoTitle(rawUrl);
+    const quote = row.fields?.QUOTE || "";
  
     videos.push({
       youtubeId,
       title: title || "Untitled",
       url: rawUrl,
+      quote,
     });
   }
  
