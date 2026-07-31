@@ -277,6 +277,7 @@ simple-nav {
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 36px;
+  padding-right: 12px;
 }
 
 .about-title {
@@ -294,7 +295,7 @@ simple-nav {
   line-height: 1.6;
   color: #b0b0ac;
   margin: 0 0 20px;
-  max-width: 34ch;
+  max-width: none;
 }
 
 .about-link {
