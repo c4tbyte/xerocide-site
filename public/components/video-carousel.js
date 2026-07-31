@@ -30,14 +30,34 @@ VIDEO_TEMPLATE.innerHTML = `
  
   * { box-sizing: border-box; }
  
+  .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: var(--vc-header-gap);
+  }
+ 
   h2 {
-    margin: 0 0 var(--vc-header-gap);
+    margin: 0;
     font-family: var(--vc-font-heading);
     font-size: 28px;
     font-weight: 700;
     letter-spacing: var(--vc-label-tracking);
     text-transform: uppercase;
   }
+ 
+  .header .view-all {
+    font-family: var(--vc-font-heading);
+    font-size: 13px;
+    letter-spacing: var(--vc-label-tracking);
+    text-transform: uppercase;
+    color: var(--vc-fg);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+ 
+  .header .view-all:hover { opacity: 0.8; }
  
   .video-row {
     display: flex;
@@ -135,30 +155,6 @@ VIDEO_TEMPLATE.innerHTML = `
     color: var(--vc-muted);
   }
  
-  .footer {
-    display: flex;
-    margin-top: 26px;
-    justify-content: center;
-    min-height: 48px;
-    align-items: center;
-  }
- 
-  .view-all {
-    font-family: var(--vc-font-heading);
-    font-size: 16px;
-    letter-spacing: var(--vc-label-tracking);
-    text-transform: uppercase;
-    background: transparent;
-    color: var(--vc-fg);
-    border: 1px solid var(--vc-fg);
-    padding: 14px 28px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-  }
- 
-  .view-all:hover { opacity: 0.85; }
- 
   .state-message {
     font-size: 13px;
     color: var(--vc-muted);
@@ -167,7 +163,10 @@ VIDEO_TEMPLATE.innerHTML = `
   }
 </style>
  
-<h2 part="title"></h2>
+<div class="header">
+  <h2 part="title"></h2>
+  <a class="view-all" href="#" target="_blank" rel="noopener"></a>
+</div>
 <div class="video-row">
   <div class="frame-wrap">
     <button class="video-arrow prev" aria-label="Previous video" hidden>&#8249;</button>
@@ -181,9 +180,6 @@ VIDEO_TEMPLATE.innerHTML = `
 <div class="video-meta">
   <div class="video-title"></div>
   <div class="video-count"></div>
-</div>
-<div class="footer" hidden>
-  <a class="view-all" href="#" target="_blank" rel="noopener"></a>
 </div>
 `;
  
@@ -219,15 +215,14 @@ class VideoCarousel extends HTMLElement {
     const root = this.shadowRoot;
     root.querySelector("h2").textContent = this.titleText;
  
-    const footer = root.querySelector(".footer");
     const link = root.querySelector(".view-all");
  
     if (this.viewAllText && this.viewAllUrl) {
-      footer.hidden = false;
-      link.textContent = this.viewAllText;
+      link.hidden = false;
+      link.textContent = this.viewAllText + " →";
       link.href = this.viewAllUrl;
     } else {
-      footer.hidden = true;
+      link.hidden = true;
     }
   }
  
