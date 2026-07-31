@@ -503,47 +503,5 @@ simple-nav {
     flex: none;
     width: 130px;
   }
-
-.hero-text-accent {
-    display: none;
-  }
-
-  .hero-left {
-    align-items: center;
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .hero-text {
-    text-align: center;
-  }
-
-  .texture-right {
-    top: auto;
-    bottom: 0;
-  }
-
-  release-highlight[layout="row"] {
-    align-items: stretch;
-  }
-
-  .release-highlight-card {
-    align-items: stretch;
-  }
-
-  .release-highlight-cover {
-    height: 100%;
-    width: auto;
-    aspect-ratio: 1 / 1;
-  }
-
-  .mobile-about .about-title br {
-    display: none;
-  }
-
-  .mobile-about .about-title,
-  .mobile-about .about-text,
-  .mobile-about {
-    text-align: center;
-  }
 }
+
