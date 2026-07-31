@@ -40,6 +40,10 @@ MERCH_TEMPLATE.innerHTML = `
   * { box-sizing: border-box; }
  
   .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
     margin-bottom: var(--lm-header-gap);
   }
  
@@ -51,6 +55,18 @@ MERCH_TEMPLATE.innerHTML = `
     letter-spacing: var(--lm-label-tracking);
     text-transform: uppercase;
   }
+ 
+  .header .view-all {
+    font-family: var(--lm-font-heading);
+    font-size: 13px;
+    letter-spacing: var(--lm-label-tracking);
+    text-transform: uppercase;
+    color: var(--lm-button-fg);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+ 
+  .header .view-all:hover { opacity: 0.8; }
  
   .grid-wrap {
     position: relative;
@@ -177,31 +193,6 @@ MERCH_TEMPLATE.innerHTML = `
     letter-spacing: 0.04em;
   }
  
-  .footer {
-    display: flex;
-    margin-top: var(--lm-footer-gap);
-    justify-content: var(--lm-button-align);
-    min-height: 48px;
-    align-items: center;
-  }
- 
-  .view-all {
-    font-family: var(--lm-font-heading);
-    font-size: 16px;
-    letter-spacing: var(--lm-label-tracking);
-    text-transform: uppercase;
-    background: var(--lm-button-bg);
-    color: var(--lm-button-fg);
-    border: 1px solid var(--lm-button-border);
-    border-radius: var(--lm-button-radius);
-    padding: 14px 28px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-  }
- 
-  .view-all:hover { opacity: 0.85; }
- 
   .state-message {
     font-size: 13px;
     color: var(--lm-muted);
@@ -243,6 +234,7 @@ MERCH_TEMPLATE.innerHTML = `
  
 <div class="header">
   <h2 part="title"></h2>
+  <a class="view-all" href="#"></a>
 </div>
  
 <div class="grid-wrap">
@@ -253,9 +245,6 @@ MERCH_TEMPLATE.innerHTML = `
   <div class="grid"></div>
 </div>
 <div class="swipe-dots"></div>
-<div class="footer">
-  <a class="view-all" href="#"></a>
-</div>
 `;
  
 function normalizeForMatch(str) {
@@ -325,6 +314,7 @@ class BandMerch extends HTMLElement {
  
   get titleText() { return this.getAttribute("title") || "Merch"; }
   get viewAllText() { return this.getAttribute("view-all-text") || "View All Merch"; }
+  get viewAllArrow() { return this.viewAllText + " →"; }
  
   _render() {
     const root = this.shadowRoot;
@@ -335,7 +325,7 @@ class BandMerch extends HTMLElement {
     root.host.style.setProperty("--lm-button-align", buttonPosition);
  
     const viewAllLink = root.querySelector(".view-all");
-    viewAllLink.textContent = this.viewAllText;
+    viewAllLink.textContent = this.viewAllArrow;
     viewAllLink.href = this.getAttribute("view-all-url") || "#";
   }
  

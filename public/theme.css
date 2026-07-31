@@ -6,7 +6,7 @@ flyer-archive {
   --fa-min-height: 190px;
 
   --vc-video-max-height: 150px;
-  
+
   --lm-padding: 36px;
   --vc-padding: 36px;
   --fa-padding: 36px;
@@ -18,7 +18,6 @@ flyer-archive {
   --fa-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   
   --lm-single-image-size: 100px;
-  --lm-footer-gap: 12px;
   --lm-image-border: 1px solid #ffffff;
 }
 
