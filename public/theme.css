@@ -25,6 +25,10 @@ flyer-archive {
   --lm-image-border: 1px solid #ffffff;
 }
 
+simple-footer {
+  --sf-logo-offset: -5px;
+}
+
 * {
   margin: 0;
   padding: 0;

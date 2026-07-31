@@ -20,6 +20,7 @@ FOOTER_TEMPLATE.innerHTML = `
       --sf-border: #262626;
       --sf-link: #d4d4d4;
       --sf-link-hover: #ffffff;
+      --sf-logo-offset: 0px;
       --sf-input-bg: #000000;
       --sf-input-border: #404040;
       --sf-input-text: #ffffff;
@@ -72,7 +73,7 @@ FOOTER_TEMPLATE.innerHTML = `
     }
 
     .logo-link { display: inline-block; margin-bottom: 0.75rem; }
-    .logo-link img { display: block; max-height: 40px; width: auto; }
+    .logo-link img { display: block; max-height: 40px; width: auto; margin-left: var(--sf-logo-offset); }
     .logo-text {
       font-family: var(--sf-font-heading);
       font-size: 1.125rem;

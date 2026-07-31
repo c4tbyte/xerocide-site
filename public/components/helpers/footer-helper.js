@@ -4,7 +4,7 @@ function renderSiteFooter() {
       logo-src="images/nav-logo.jpg"
       logo-alt="Xerocide"
       logo-href="/"
-      about-text="Xerocide is a Tampa Bay metallic hardcore band built on community, resilience, and empowerment. Est. 2025."
+      about-text="Based in Tampa, Xerocide is a metallic hardcore band built on community, resilience, and empowerment. Est. 2025."
       columns="
         Quick Links:
           Shows|/shows,
