@@ -469,6 +469,8 @@ simple-nav {
   .hero-left {
     padding-bottom: 1.6vh;
     align-items: center;
+    justify-content: flex-start;
+    gap: 1vh;
   }
 
   .hero-text {
@@ -511,8 +513,8 @@ simple-nav {
   }
 
   .release-highlight-cover {
-    width: 96px;
-    height: 96px;
+    width: 98px;
+    height: 98px;
   }
 
   .release-highlight-buttons {
