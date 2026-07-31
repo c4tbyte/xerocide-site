@@ -5,6 +5,8 @@ flyer-archive {
   --vc-min-height: 190px;
   --fa-min-height: 190px;
 
+  --vc-video-max-height: 150px;
+  
   --lm-padding: 36px;
   --vc-padding: 36px;
   --fa-padding: 36px;
@@ -217,7 +219,7 @@ simple-nav {
 
 .content-row {
   display: flex;
-  height: 220px;
+  height: 260px;
   align-items: stretch;
   background-color: #000000;
   position: relative;
@@ -235,7 +237,9 @@ simple-nav {
   padding-left: 24px !important;
   padding-right: 24px !important;
   padding-top: 16px !important;
+  padding-bottom: 12px !important;
 }
+
 
 .row-divider {
   width: 1px;
