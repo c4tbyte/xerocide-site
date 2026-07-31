@@ -4,18 +4,19 @@ function renderSiteFooter() {
       logo-src="images/nav-logo.jpg"
       logo-alt="Xerocide"
       logo-href="/"
-      about-text="Tampa Bay metallic hardcore. Formed in 2025 to bring real heaviness back to the scene."
+      about-text="Xerocide is a Tampa Bay metallic hardcore band built on community, resilience, and empowerment. Est. 2025."
       columns="
         Quick Links:
-          Home|/,
           Shows|/shows,
           Releases|/releases,
-          Merch|https://YOUR_STORE_HANDLE.bigcartel.com;
+          Merch|https://armageddonrecords.bigcartel.com;
+        Media:
+          Photos|/photos,
+          Videos|/videos;
         Info:
-          About|/about,
-          Media|/media,
           Booking|/booking,
-          Contact|/contact
+          Contact|/contact,
+          Legal|/legal
       "
       connect-heading="Stay connected"
       connect-text="Follow along for new releases, shows, and merch drops."
