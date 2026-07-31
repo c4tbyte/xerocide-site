@@ -223,6 +223,7 @@ simple-nav {
   background-color: #000000;
   position: relative;
   z-index: 10;
+  border-bottom: 2px solid #737373;
 }
 
 .row-col {
