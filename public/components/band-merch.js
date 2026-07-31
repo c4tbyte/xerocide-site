@@ -1,9 +1,3 @@
-// band-merch.js
-// Same visual shell/architecture as latest-merch.js (grid, pagination,
-// swipe, page dots) but matches products by NAME instead of by category -
-// built for a single-band site where "categories" don't apply the same way.
-// Matching logic borrowed from the artist-profile page's renderMerch().
-
 const MERCH_TEMPLATE = document.createElement("template");
 MERCH_TEMPLATE.innerHTML = `
 <style>
@@ -28,6 +22,9 @@ MERCH_TEMPLATE.innerHTML = `
     --lm-arrow-size: 32px;
     --lm-arrow-offset: -8px;
     --lm-min-height: 380px;
+    --lm-footer-gap: 26px;
+    --lm-single-image-size: 140px;
+    --lm-image-border: none;
  
     position: relative;
     display: flex;
@@ -111,8 +108,9 @@ MERCH_TEMPLATE.innerHTML = `
   }
  
   .grid.single .card img {
-    width: 40%;
-    max-width: 220px;
+    width: var(--lm-single-image-size);
+    max-width: var(--lm-single-image-size);
+    height: var(--lm-single-image-size);
     aspect-ratio: 1 / 1;
     flex-shrink: 0;
   }
@@ -149,6 +147,7 @@ MERCH_TEMPLATE.innerHTML = `
     border-radius: var(--lm-image-radius);
     background: #000;
     display: block;
+    border: var(--lm-image-border);
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
@@ -180,7 +179,7 @@ MERCH_TEMPLATE.innerHTML = `
  
   .footer {
     display: flex;
-    margin-top: 26px;
+    margin-top: var(--lm-footer-gap);
     justify-content: var(--lm-button-align);
     min-height: 48px;
     align-items: center;
