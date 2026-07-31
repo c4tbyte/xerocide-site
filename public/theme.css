@@ -450,3 +450,34 @@ simple-nav {
     --fa-min-height: auto;
   }
 }
+
+@media (max-width: 700px) {
+  .hero {
+    height: 22vh; /* was 56vh */
+  }
+
+  .hero-logo {
+    width: 18vh;
+    margin-top: 0.6vh;
+  }
+
+  .hero-left {
+    padding-bottom: 1.6vh;
+  }
+
+  .hero-text p {
+    font-size: 1.9vh;
+  }
+
+  .hero-badge {
+    width: 7vh;
+  }
+
+  .texture-left {
+    width: 40vh;
+  }
+
+  .texture-right {
+    width: 22vh;
+  }
+}
