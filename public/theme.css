@@ -452,8 +452,13 @@ simple-nav {
 }
 
 @media (max-width: 700px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
   .hero {
-    height: 22vh; /* was 56vh */
+    height: 22vh;
+    overflow: hidden;
   }
 
   .hero-logo {
@@ -470,14 +475,32 @@ simple-nav {
   }
 
   .hero-badge {
-    width: 7vh;
+    display: none;
   }
 
   .texture-left {
-    width: 40vh;
+    width: 32vh;
   }
 
   .texture-right {
-    width: 22vh;
+    width: 16vh;
+  }
+
+  release-highlight[layout="row"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .release-highlight-buttons {
+    flex-direction: column-reverse;
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .release-highlight-btn {
+    flex: none;
+    width: 130px;
   }
 }

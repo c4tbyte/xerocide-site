@@ -1,15 +1,22 @@
 function renderSiteFooter() {
+  const isHome =
+    window.location.pathname === "/" ||
+    window.location.pathname.endsWith("home.html");
+  const isMobile = window.matchMedia("(max-width: 700px)").matches;
+  const hideBrand = isHome && isMobile;
+ 
   const footerHTML = `
     <simple-footer
+      hide-brand="${hideBrand}"
       logo-src="images/nav-logo.jpg"
       logo-alt="Xerocide"
       logo-href="/"
-      about-text="Based in Tampa, Xerocide is a metallic hardcore band built on community, resilience, and empowerment. Est. 2025."
+      about-text="Tampa Bay metallic hardcore. Formed in 2025 to bring real heaviness back to the scene."
       columns="
         Quick Links:
           Shows|/shows,
           Releases|/releases,
-          Merch|https://armageddonrecords.bigcartel.com;
+          Merch|https://YOUR_STORE_HANDLE.bigcartel.com;
         Media:
           Photos|/photos,
           Videos|/videos;
