@@ -4,7 +4,7 @@ flyer-archive {
   --lm-bg: transparent;
   --vc-bg: transparent;
   --fa-bg: transparent;
-  
+
   --lm-min-height: 190px;
   --vc-min-height: 190px;
   --fa-min-height: 190px;
@@ -248,4 +248,63 @@ simple-nav {
 .row-divider {
   width: 1px;
   background: rgba(255, 255, 255, 0.15);
+}
+
+.row-two {
+  display: flex;
+  align-items: stretch;
+  background-color: transparent;
+  border-bottom: 2px solid #737373;
+}
+
+.row-two-photo {
+  flex: 2;
+  min-width: 0;
+}
+
+.row-two-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.row-two-about {
+  flex: 1;
+  min-width: 0;
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-title {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 32px;
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 20px;
+}
+
+.about-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #b0b0ac;
+  margin: 0 0 20px;
+  max-width: 34ch;
+}
+
+.about-link {
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6fdc4d;
+  text-decoration: none;
+}
+
+.about-link:hover {
+  opacity: 0.8;
 }
