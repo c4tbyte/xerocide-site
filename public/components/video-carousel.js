@@ -27,6 +27,7 @@ VIDEO_TEMPLATE.innerHTML = `
     font-family: var(--vc-font-body);
     padding: var(--vc-padding);
     box-sizing: border-box;
+    justify-content: var(--vc-content-justify, flex-start);
   }
 
   * { box-sizing: border-box; }

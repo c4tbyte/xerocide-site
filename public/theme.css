@@ -314,7 +314,7 @@ simple-nav {
 .row-two {
   display: flex;
   height: auto;
-  align-items: flex-start;
+  align-items: stretch;
   background-color: transparent;
   border-bottom: 2px solid #737373;
 }
@@ -336,7 +336,7 @@ simple-nav {
   overflow: hidden;
   min-width: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .row-two-media video-carousel {
@@ -349,7 +349,8 @@ simple-nav {
   --vc-title-display: none;
   --vc-arrow-offset-quote: -34px;
   --vc-count-display: none;
-  --vc-min-height: auto;
+  --vc-min-height: 100%;
+  --vc-content-justify: center;
   height: auto;
   max-height: 100%;
   padding: 16px 24px 12px 24px !important;
