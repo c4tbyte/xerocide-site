@@ -350,7 +350,7 @@ simple-nav {
   --vc-arrow-offset-quote: -34px;
   --vc-count-display: none;
   --vc-min-height: 100%;
-  --vc-content-justify: center;
+  --vc-content-justify: flex-end;
   height: auto;
   max-height: 100%;
   padding: 16px 24px 12px 24px !important;
