@@ -95,6 +95,7 @@ VIDEO_TEMPLATE.innerHTML = `
   }
 
   .quote-source {
+    margin: 0;
     font-family: var(--vc-font-heading);
     font-size: var(--vc-quote-source-size, 13px);
     letter-spacing: 0.05em;
