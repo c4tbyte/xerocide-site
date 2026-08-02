@@ -1,3 +1,4 @@
+
 const MERCH_TEMPLATE = document.createElement("template");
 MERCH_TEMPLATE.innerHTML = `
 <style>
@@ -25,7 +26,7 @@ MERCH_TEMPLATE.innerHTML = `
     --lm-footer-gap: 26px;
     --lm-single-image-size: 150px;
     --lm-image-border: none;
- 
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -36,9 +37,9 @@ MERCH_TEMPLATE.innerHTML = `
     padding: var(--lm-padding);
     box-sizing: border-box;
   }
- 
+
   * { box-sizing: border-box; }
- 
+
   .header {
     display: flex;
     align-items: baseline;
@@ -46,7 +47,7 @@ MERCH_TEMPLATE.innerHTML = `
     gap: 16px;
     margin-bottom: var(--lm-header-gap);
   }
- 
+
   .header h2 {
     margin: 0;
     font-family: var(--lm-font-heading);
@@ -55,25 +56,25 @@ MERCH_TEMPLATE.innerHTML = `
     letter-spacing: var(--lm-label-tracking);
     text-transform: uppercase;
   }
- 
+
   .header .view-all {
     font-family: var(--lm-font-heading);
-    font-size: 13px;
+    font-size: var(--lm-view-all-font-size, 16px);
     letter-spacing: var(--lm-label-tracking);
     text-transform: uppercase;
     color: var(--lm-button-fg);
     text-decoration: none;
     white-space: nowrap;
   }
- 
+
   .header .view-all:hover { opacity: 0.8; }
- 
+
   .grid-wrap {
     position: relative;
     flex: 1;
     display: flex;
   }
- 
+
   .nav-arrows button {
     position: absolute;
     top: 50%;
@@ -89,13 +90,13 @@ MERCH_TEMPLATE.innerHTML = `
     opacity: 0.7;
     z-index: 2;
   }
- 
+
   .nav-arrows button:hover { opacity: 1; }
   .nav-arrows button:disabled { opacity: 0.25; cursor: default; }
- 
+
   .nav-arrows .prev { left: var(--lm-arrow-offset); }
   .nav-arrows .next { right: var(--lm-arrow-offset); }
- 
+
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--lm-columns), 1fr);
@@ -105,24 +106,24 @@ MERCH_TEMPLATE.innerHTML = `
     touch-action: pan-y;
     transition: transform 0.25s ease;
   }
- 
+
   .card {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
- 
+
   .grid.single {
     display: flex;
   }
- 
+
   .grid.single .card {
     flex-direction: row;
     align-items: center;
     gap: 20px;
     width: 100%;
   }
- 
+
   .grid.single .card img {
     width: var(--lm-single-image-size);
     height: var(--lm-single-image-size);
@@ -130,7 +131,7 @@ MERCH_TEMPLATE.innerHTML = `
     object-fit: cover;
     flex-shrink: 0;
   }
- 
+
   .grid.single .card-link {
     display: flex;
     flex-direction: row;
@@ -138,24 +139,24 @@ MERCH_TEMPLATE.innerHTML = `
     gap: 20px;
     width: 100%;
   }
- 
+
   .grid.single .card-text {
     display: flex;
     flex-direction: column;
     gap: 8px;
     min-width: 0;
   }
- 
+
   .grid.single .product-title {
     font-size: 18px;
     max-height: none;
     white-space: normal;
   }
- 
+
   .grid.single .product-meta {
     font-size: 14px;
   }
- 
+
   .card img {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -169,12 +170,12 @@ MERCH_TEMPLATE.innerHTML = `
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
- 
+
   .card a.card-link {
     color: inherit;
     text-decoration: none;
   }
- 
+
   .card .product-title {
     font-family: var(--lm-font-heading);
     font-size: 13px;
@@ -183,7 +184,7 @@ MERCH_TEMPLATE.innerHTML = `
     max-height: 2.6em;
     overflow: hidden;
   }
- 
+
   .card .product-meta {
     font-family: var(--lm-font-body);
     font-size: 11px;
@@ -192,7 +193,7 @@ MERCH_TEMPLATE.innerHTML = `
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
- 
+
   .state-message {
     font-size: 13px;
     color: var(--lm-muted);
@@ -200,7 +201,7 @@ MERCH_TEMPLATE.innerHTML = `
     text-align: center;
     width: 100%;
   }
- 
+
   .swipe-dots {
     display: flex;
     justify-content: center;
@@ -208,7 +209,7 @@ MERCH_TEMPLATE.innerHTML = `
     gap: 6px;
     margin-top: 12px;
   }
- 
+
   .swipe-dots .dot {
     width: 6px;
     height: 6px;
@@ -216,11 +217,11 @@ MERCH_TEMPLATE.innerHTML = `
     background: rgba(255, 255, 255, 0.3);
     transition: background 0.2s ease;
   }
- 
+
   .swipe-dots .dot.active {
     background: #ffffff;
   }
- 
+
   @media (max-width: 700px) {
     .grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -231,12 +232,12 @@ MERCH_TEMPLATE.innerHTML = `
     .card .product-meta { font-size: 9px; }
   }
 </style>
- 
+
 <div class="header">
   <h2 part="title"></h2>
   <a class="view-all" href="#"></a>
 </div>
- 
+
 <div class="grid-wrap">
   <div class="nav-arrows" hidden>
     <button class="prev" aria-label="Previous page">&#8249;</button>
@@ -246,11 +247,11 @@ MERCH_TEMPLATE.innerHTML = `
 </div>
 <div class="swipe-dots"></div>
 `;
- 
+
 function normalizeForMatch(str) {
   return (str || "").toLowerCase().replace(/[^a-z0-9]/g, "");
 }
- 
+
 class BandMerch extends HTMLElement {
   static get observedAttributes() {
     return [
@@ -265,7 +266,7 @@ class BandMerch extends HTMLElement {
       "columns",
     ];
   }
- 
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -273,12 +274,12 @@ class BandMerch extends HTMLElement {
     this._pages = [];
     this._page = 0;
   }
- 
+
   connectedCallback() {
     this._render();
     this._loadData();
     this._setupSwipe();
- 
+
     let lastWidth = window.innerWidth;
     window.ResizeHelper.onResizeOnce(this, () => {
       if (window.innerWidth === lastWidth) return;
@@ -287,14 +288,14 @@ class BandMerch extends HTMLElement {
       this._rebuildPages();
     });
   }
- 
+
   attributeChangedCallback() {
     if (this.isConnected) {
       this._render();
       this._loadData();
     }
   }
- 
+
   get apiEndpoint() { return this.getAttribute("api-endpoint"); }
   get storeUrl() { return (this.getAttribute("store-url") || "").replace(/\/$/, ""); }
   get matchName() { return this.getAttribute("match-name") || ""; }
@@ -304,57 +305,57 @@ class BandMerch extends HTMLElement {
       .map((k) => normalizeForMatch(k))
       .filter(Boolean);
   }
- 
+
   get columns() {
     if (window.matchMedia("(max-width: 700px)").matches) return 2;
     return Number(this.getAttribute("columns") || 2);
   }
- 
+
   get rows() {
     if (window.matchMedia("(max-width: 700px)").matches) return 2;
     return 1;
   }
- 
+
   get perPage() {
     return this.columns * this.rows;
   }
- 
+
   get titleText() { return this.getAttribute("title") || "Merch"; }
   get viewAllText() { return this.getAttribute("view-all-text") || "View All Merch"; }
   get viewAllArrow() { return this.viewAllText + " →"; }
- 
+
   _render() {
     const root = this.shadowRoot;
     root.querySelector("h2").textContent = this.titleText;
     root.host.style.setProperty("--lm-columns", String(this.columns));
- 
+
     const buttonPosition = this.getAttribute("button-position") || "center";
     root.host.style.setProperty("--lm-button-align", buttonPosition);
- 
+
     const viewAllLink = root.querySelector(".view-all");
     viewAllLink.textContent = this.viewAllArrow;
     viewAllLink.href = this.getAttribute("view-all-url") || "#";
   }
- 
+
   async _loadData() {
     const grid = this.shadowRoot.querySelector(".grid");
     const arrowsWrap = this.shadowRoot.querySelector(".nav-arrows");
- 
+
     if (!this.apiEndpoint || !this.matchName) {
       grid.innerHTML = `<div class="state-message">Set api-endpoint and match-name to load merch.</div>`;
       return;
     }
- 
+
     grid.innerHTML = `<div class="state-message">Loading merch…</div>`;
- 
+
     try {
       const response = await fetch(this.apiEndpoint);
       if (!response.ok) throw new Error(`Server responded ${response.status}`);
       const allProducts = await response.json();
- 
+
       const needle = normalizeForMatch(this.matchName);
       const excludeList = this.excludeKeywords;
- 
+
       const matches = allProducts.filter((p) => {
         if (p.status !== "active" || !p.images || !p.images.length) return false;
         const normalizedName = normalizeForMatch(p.name);
@@ -362,7 +363,7 @@ class BandMerch extends HTMLElement {
         if (excludeList.some((kw) => normalizedName.includes(kw))) return false;
         return true;
       });
- 
+
       this._flatList = matches;
       this._rebuildPages();
     } catch (err) {
@@ -371,46 +372,46 @@ class BandMerch extends HTMLElement {
       arrowsWrap.hidden = true;
     }
   }
- 
+
   _rebuildPages() {
     const flatList = this._flatList || [];
     const perPage = this.perPage;
- 
+
     this._pages = [];
     for (let i = 0; i < flatList.length; i += perPage) {
       this._pages.push(flatList.slice(i, i + perPage));
     }
- 
+
     this._page = 0;
     this._renderPage();
   }
- 
+
   _renderPage() {
     const grid = this.shadowRoot.querySelector(".grid");
     const arrowsWrap = this.shadowRoot.querySelector(".nav-arrows");
- 
+
     if (this._pages.length === 0) {
       this.style.display = "none";
       this.dispatchEvent(new CustomEvent("merch-empty", { bubbles: true, composed: true }));
       return;
     }
- 
+
     this.style.display = "";
- 
+
     const totalPages = this._totalPages();
     arrowsWrap.hidden = !(totalPages > 1);
- 
+
     const pageItems = this._pages[this._page];
     const isSingleItem = this._flatList.length === 1;
- 
+
     grid.classList.toggle("single", isSingleItem);
- 
+
     if (isSingleItem) {
       const p = pageItems[0];
       const image = p.images?.[0]?.url || "";
       const price = this._formatPrice(p);
       const link = `${this.storeUrl}${p.url}`;
- 
+
       grid.innerHTML = `
         <div class="card">
           <a class="card-link" href="${window.TextHelper.escapeAttr(link)}" target="_blank" rel="noopener">
@@ -440,33 +441,33 @@ class BandMerch extends HTMLElement {
         })
         .join("");
     }
- 
+
     requestAnimationFrame(() => {
       this.shadowRoot.querySelectorAll(".product-title").forEach((el) => {
         window.TextHelper.fitTextToLines(el, 2);
       });
     });
- 
+
     if (totalPages > 1) {
       const prevBtn = this.shadowRoot.querySelector(".prev");
       const nextBtn = this.shadowRoot.querySelector(".next");
       prevBtn.onclick = () => this._goToPage(this._page - 1);
       nextBtn.onclick = () => this._goToPage(this._page + 1);
     }
- 
+
     this._renderPageDots();
   }
- 
+
   _totalPages() {
     return window.PaginationHelper.getTotalPages(this._pages.length, 1);
   }
- 
+
   _goToPage(page) {
     if (this._pages.length === 0) return;
     this._page = window.PaginationHelper.wrapPage(page, this._totalPages());
     this._renderPage();
   }
- 
+
   _setupSwipe() {
     window.SwipeHelper.attachSwipeBehavior(
       this.shadowRoot.querySelector(".grid"),
@@ -477,12 +478,12 @@ class BandMerch extends HTMLElement {
       }
     );
   }
- 
+
   _renderPageDots() {
     const dotsEl = this.shadowRoot.querySelector(".swipe-dots");
     window.SwipeHelper.renderPageDots(dotsEl, this._page, this._totalPages());
   }
- 
+
   _formatPrice(product) {
     const prices = (product.options || []).map((o) => o.price);
     const min = prices.length ? Math.min(...prices) : product.price;
@@ -491,5 +492,5 @@ class BandMerch extends HTMLElement {
     return min === max ? fmt(min) : `${fmt(min)} – ${fmt(max)}`;
   }
 }
- 
+
 customElements.define("band-merch", BandMerch);

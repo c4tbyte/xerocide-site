@@ -29,6 +29,10 @@ FLYER_TEMPLATE.innerHTML = `
   * { box-sizing: border-box; }
  
   .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
     margin-bottom: var(--fa-header-gap);
   }
  
@@ -39,6 +43,17 @@ FLYER_TEMPLATE.innerHTML = `
     letter-spacing: var(--fa-label-tracking);
     text-transform: uppercase;
   }
+ 
+  .header .view-all {
+    font-size: var(--fa-view-all-font-size, 16px);
+    letter-spacing: var(--fa-label-tracking);
+    text-transform: uppercase;
+    color: var(--fa-fg);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+ 
+  .header .view-all:hover { opacity: 0.8; }
  
   .grid-wrap {
     position: relative;
@@ -71,8 +86,8 @@ FLYER_TEMPLATE.innerHTML = `
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--fa-columns), max-content);
-    gap: var(--fa-card-gap);
     justify-content: center;
+    gap: var(--fa-card-gap);
     flex: 1;
     align-content: start;
     touch-action: pan-y;
@@ -108,7 +123,7 @@ FLYER_TEMPLATE.innerHTML = `
     justify-content: center;
     align-items: center;
     gap: 6px;
-    margin-top: var(--fa-dots-gap, 24px);
+    margin-top: 12px;
   }
  
   .swipe-dots .dot {
@@ -136,6 +151,7 @@ FLYER_TEMPLATE.innerHTML = `
  
 <div class="header">
   <h2 part="title"></h2>
+  <a class="view-all" href="#"></a>
 </div>
  
 <div class="grid-wrap">
@@ -150,7 +166,7 @@ FLYER_TEMPLATE.innerHTML = `
  
 class FlyerArchive extends HTMLElement {
   static get observedAttributes() {
-    return ["api-endpoint", "title", "columns"];
+    return ["api-endpoint", "title", "columns", "view-all-text", "view-all-url"];
   }
  
   constructor() {
@@ -198,6 +214,18 @@ class FlyerArchive extends HTMLElement {
     const root = this.shadowRoot;
     root.querySelector("h2").textContent = this.titleText;
     root.host.style.setProperty("--fa-columns", String(this.columns));
+ 
+    const link = root.querySelector(".view-all");
+    const viewAllText = this.getAttribute("view-all-text");
+    const viewAllUrl = this.getAttribute("view-all-url");
+ 
+    if (viewAllText && viewAllUrl) {
+      link.hidden = false;
+      link.textContent = viewAllText + " →";
+      link.href = viewAllUrl;
+    } else {
+      link.hidden = true;
+    }
   }
  
   async _loadData() {

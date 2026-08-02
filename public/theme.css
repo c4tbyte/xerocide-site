@@ -29,6 +29,10 @@ flyer-archive {
   --fa-arrow-size: 24px;   
   --fa-arrow-font-size: 20px;
   --fa-dots-gap: 20px;
+
+  --lm-view-all-font-size: 16px;
+  --vc-view-all-font-size: 16px;
+  --fa-view-all-font-size: 16px;
 }
 
 simple-footer {
