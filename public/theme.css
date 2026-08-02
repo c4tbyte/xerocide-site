@@ -338,6 +338,16 @@ simple-nav {
 }
 
 .row-two-media video-carousel {
+  --vc-padding: 40px;
+  --vc-video-max-height: 260px;
+  --vc-row-direction: column;
+  --vc-quote-margin-left: 0;
+  --vc-quote-text-align: center;
+  --vc-title-display: none;
+  --vc-arrow-offset-quote: -34px;
+}
+
+.row-two-media video-carousel {
   width: 100%;
 }
 
