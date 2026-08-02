@@ -16,6 +16,9 @@ flyer-archive {
   --vc-arrow-size: 24px;
   --vc-frame-offset-left: 35px;
   --vc-video-row-offset-top: -10px;
+  --vc-quote-font-size: 16px;
+  --vc-quote-source-size: 13px;
+  --vc-quote-source-color: #6fdc4d;
 
   --lm-padding: 36px;
   --vc-padding: 36px;

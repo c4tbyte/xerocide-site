@@ -73,11 +73,31 @@ VIDEO_TEMPLATE.innerHTML = `
   }
 
   .quote-panel blockquote {
-    margin: 0;
-    font-size: 14px;
+    margin: 0 0 12px;
+    font-size: var(--vc-quote-font-size, 16px);
     line-height: 1.5;
-    color: #d6d6d3;
-    font-style: italic;
+    color: var(--vc-fg);
+    font-style: normal;
+  }
+
+  .quote-panel blockquote::before {
+    content: "\201C";
+  }
+
+  .quote-panel blockquote::after {
+    content: "\201D";
+  }
+
+  .quote-source {
+    font-family: var(--vc-font-heading);
+    font-size: var(--vc-quote-source-size, 13px);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--vc-quote-source-color, #6fdc4d);
+  }
+
+  .quote-source::before {
+    content: "- ";
   }
 
   .frame-wrap {
@@ -170,6 +190,7 @@ VIDEO_TEMPLATE.innerHTML = `
   </div>
   <div class="quote-panel">
     <blockquote></blockquote>
+    <p class="quote-source"></p>
   </div>
 </div>
 <div class="video-meta">
@@ -237,6 +258,7 @@ class VideoCarousel extends HTMLElement {
       const data = await res.json();
 
       this._videos = Array.isArray(data.videos) ? data.videos : [];
+      this._fallbackQuote = this._videos.find((v) => v.quote && v.quote.trim()) || null;
 
       if (this._videos.length === 0) {
         frame.innerHTML = `<div class="state-message">No videos yet.</div>`;
@@ -265,6 +287,7 @@ class VideoCarousel extends HTMLElement {
     const videoRow = this.shadowRoot.querySelector(".video-row");
     const quotePanel = this.shadowRoot.querySelector(".quote-panel");
     const quoteEl = this.shadowRoot.querySelector("blockquote");
+    const sourceEl = this.shadowRoot.querySelector(".quote-source");
 
     frame.innerHTML = `<iframe
       src="https://www.youtube.com/embed/${window.TextHelper.escapeAttr(video.youtubeId)}"
@@ -274,10 +297,15 @@ class VideoCarousel extends HTMLElement {
       loading="lazy"
     ></iframe>`;
 
-    const hasQuote = Boolean(video.quote && video.quote.trim());
+    const hasOwnQuote = Boolean(video.quote && video.quote.trim());
+    const quote = hasOwnQuote ? video : this._fallbackQuote;
+    const hasQuote = Boolean(quote);
+
     videoRow.classList.toggle("has-quote", hasQuote);
     quotePanel.hidden = !hasQuote;
-    quoteEl.textContent = hasQuote ? video.quote : "";
+    quoteEl.textContent = hasQuote ? quote.quote : "";
+    sourceEl.textContent = hasQuote && quote.quoteSource ? quote.quoteSource : "";
+    sourceEl.hidden = !(hasQuote && quote.quoteSource);
 
     titleEl.textContent = video.title;
     countEl.textContent = `${this._index + 1} / ${videos.length}`;
