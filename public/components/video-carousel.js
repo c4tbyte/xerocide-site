@@ -100,7 +100,6 @@ VIDEO_TEMPLATE.innerHTML = `
     height: 100%;
     border: 0;
     display: block;
-    pointer-events: none; /* keep swipe gestures usable over the iframe */
   }
 
   .video-arrow {
