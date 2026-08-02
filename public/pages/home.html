@@ -42,9 +42,7 @@
       <flyer-archive
         api-endpoint="/api/serve-flyers"
         title="Shows"
-        columns="4"
-        view-all-text="View All Shows"
-        view-all-url="/shows"
+        columns="3"
       ></flyer-archive>
     </div>
     <div class="row-divider"></div>
@@ -60,13 +58,10 @@
       ></band-merch>
     </div>
     <div class="row-divider"></div>
-    <div class="row-col">
-      <video-carousel
-        api-endpoint="/api/serve-videos"
-        title="Media"
-        view-all-text="View All Media"
-        view-all-url="https://www.instagram.com/xerocidefl/"
-      ></video-carousel>
+    <div class="row-col row-col-about">
+      <h2 class="about-title">No Genocide.<br>No Suicide.</h2>
+      <p class="about-text">Xerocide is more than just a name - it's the philosophy that defines one of Tampa's most authentic bands. Rooted in community, the band exists to liberate the soul and empower the mind through messages of resilience, solidarity, and purpose.</p>
+      <a class="about-link" href="/about">Read More →</a>
     </div>
   </div>
 
@@ -75,10 +70,13 @@
       <img src="images/band-photo.png" alt="Xerocide live" />
     </div>
     <div class="row-divider"></div>
-    <div class="row-two-about">
-      <h2 class="about-title">No Genocide.<br>No Suicide.</h2>
-      <p class="about-text">Xerocide is more than just a name - it's the philosophy that defines one of Tampa's most authentic bands. Rooted in community, the band exists to liberate the soul and empower the mind through messages of resilience, solidarity, and purpose.</p>
-      <a class="about-link" href="/about">Read More →</a>
+    <div class="row-two-media">
+      <video-carousel
+        api-endpoint="/api/serve-videos"
+        title="Media"
+        view-all-text="View All Media"
+        view-all-url="https://www.instagram.com/xerocidefl/"
+      ></video-carousel>
     </div>
   </div>
 
@@ -103,7 +101,6 @@
         api-endpoint="https://api.bigcartel.com/armageddonrecords/products.json"
         store-url="https://armageddonrecords.bigcartel.com"
         match-name="XEROCIDE"
-        title-fixes="Selt|Self"
         exclude-keywords="CD,Cassette"
         title="More Merch"
         view-all-text="View All Merch"
