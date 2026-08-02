@@ -72,6 +72,7 @@ FLYER_TEMPLATE.innerHTML = `
     display: grid;
     grid-template-columns: repeat(var(--fa-columns), max-content);
     gap: var(--fa-card-gap);
+    justify-content: center;
     flex: 1;
     align-content: start;
     touch-action: pan-y;
