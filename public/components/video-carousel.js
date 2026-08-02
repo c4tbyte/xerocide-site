@@ -81,11 +81,11 @@ VIDEO_TEMPLATE.innerHTML = `
   }
 
   .quote-panel blockquote::before {
-    content: "\201C";
+    content: "\\201C";
   }
 
   .quote-panel blockquote::after {
-    content: "\201D";
+    content: "\\201D";
   }
 
   .quote-source {
