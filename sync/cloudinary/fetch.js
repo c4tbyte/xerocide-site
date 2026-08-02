@@ -14,7 +14,7 @@ function deliveryUrl(publicId, opts = {}) {
  
 export async function buildManifest() {
   const resources = await cloudinary.search
-    .expression(`folder="${FLYER_FOLDER}"`)
+    .expression(`asset_folder="${FLYER_FOLDER}"`)
     .sort_by("created_at", "desc")
     .max_results(100)
     .execute();
