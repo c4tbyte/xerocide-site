@@ -148,13 +148,13 @@ MERCH_TEMPLATE.innerHTML = `
   }
 
   .grid.single .product-title {
-    font-size: 18px;
+    font-size: var(--lm-single-title-size, 18px);
     max-height: none;
     white-space: normal;
   }
 
   .grid.single .product-meta {
-    font-size: 14px;
+    font-size: var(--lm-single-price-size, 14px);
   }
 
   .card img {
