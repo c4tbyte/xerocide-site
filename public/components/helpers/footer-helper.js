@@ -11,7 +11,7 @@ function renderSiteFooter() {
       logo-src="images/nav-logo.jpg"
       logo-alt="Xerocide"
       logo-href="/"
-      about-text="Tampa Bay metallic hardcore. Formed in 2025 to bring real heaviness back to the scene."
+      about-text="Formed in 2025, Xerocide is a metallic hardcore band dedicated to creating music that empowers the mind and liberates the soul."
       columns="
         Quick Links:
           Shows|/shows,

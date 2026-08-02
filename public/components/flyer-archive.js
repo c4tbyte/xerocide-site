@@ -1,8 +1,3 @@
-// flyer-archive.js
-// Shows flyers from the cloudinary-backed archive, 3 per page by default,
-// with side-overlay arrows/swipe/dots to page through groups. Same
-// architectural pattern as band-merch.js.
-
 const FLYER_TEMPLATE = document.createElement("template");
 FLYER_TEMPLATE.innerHTML = `
 <style>
@@ -84,12 +79,16 @@ FLYER_TEMPLATE.innerHTML = `
   }
  
   .card {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
   }
  
   .card img {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+    max-height: var(--fa-card-max-height, 140px);
     aspect-ratio: var(--fa-card-aspect-ratio, 3 / 4);
     object-fit: cover;
     background: #000;

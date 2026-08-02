@@ -24,7 +24,7 @@ flyer-archive {
   --lm-single-image-size: 150px;
   --lm-image-border: 1px solid #ffffff;
 
-   --fa-card-aspect-ratio: 3 / 5;
+   --fa-card-max-height: 140px;
 }
 
 simple-footer {
