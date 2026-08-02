@@ -19,6 +19,8 @@ flyer-archive {
   --vc-quote-font-size: 16px;
   --vc-quote-source-size: 13px;
   --vc-quote-source-color: #6fdc4d;
+  --vc-quote-max-width: 260px;
+  --vc-arrow-offset-quote: 8px;
 
   --lm-padding: 36px;
   --vc-padding: 36px;

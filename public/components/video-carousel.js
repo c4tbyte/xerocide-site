@@ -68,7 +68,10 @@ VIDEO_TEMPLATE.innerHTML = `
   }
 
   .quote-panel {
-    flex: 1;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: var(--vc-quote-max-width, 260px);
+    margin-left: auto;
     min-width: 0;
   }
 
@@ -146,6 +149,10 @@ VIDEO_TEMPLATE.innerHTML = `
 
   .video-arrow.prev { left: var(--vc-arrow-offset); }
   .video-arrow.next { right: var(--vc-arrow-offset); }
+
+  .video-row.has-quote .video-arrow.next {
+    right: var(--vc-arrow-offset-quote, -8px);
+  }
 
   .video-meta {
     margin-top: var(--vc-meta-gap, 14px);
