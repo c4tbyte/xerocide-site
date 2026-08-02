@@ -64,6 +64,7 @@ VIDEO_TEMPLATE.innerHTML = `
     display: flex;
     align-items: center;
     gap: 20px;
+    margin-top: var(--vc-video-row-offset-top, 0px);
   }
 
   .quote-panel {
