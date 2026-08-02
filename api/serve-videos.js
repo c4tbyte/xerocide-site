@@ -2,10 +2,15 @@ import { getManifest } from "../sync/airtable/read.js";
  
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Cache-Control", "public, max-age=1800");
+ 
+  const forceFresh = req.query.fresh === "1";
+  res.setHeader(
+    "Cache-Control",
+    forceFresh ? "no-store" : "public, max-age=1800"
+  );
  
   try {
-    const manifest = await getManifest();
+    const manifest = await getManifest(forceFresh);
     res.status(200).json({ videos: manifest.videos || [] });
   } catch (err) {
     console.error(err);
