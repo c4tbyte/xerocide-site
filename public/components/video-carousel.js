@@ -62,6 +62,7 @@ VIDEO_TEMPLATE.innerHTML = `
 
   .video-row {
     display: flex;
+    flex-direction: var(--vc-row-direction, row);
     align-items: center;
     gap: 20px;
     margin-top: var(--vc-video-row-offset-top, 0px);
@@ -71,8 +72,9 @@ VIDEO_TEMPLATE.innerHTML = `
     flex: 0 0 auto;
     width: 100%;
     max-width: var(--vc-quote-max-width, 260px);
-    margin-left: auto;
+    margin-left: var(--vc-quote-margin-left, auto);
     min-width: 0;
+    text-align: var(--vc-quote-text-align, left);
   }
 
   .quote-panel blockquote {
@@ -159,6 +161,7 @@ VIDEO_TEMPLATE.innerHTML = `
     text-align: center;
   }
   .video-title {
+    display: var(--vc-title-display, block);
     font-size: 12px;
     letter-spacing: 0.04em;
     text-transform: uppercase;

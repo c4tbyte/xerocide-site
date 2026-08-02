@@ -1,56 +1,6 @@
-band-merch,
-video-carousel,
-flyer-archive {
-  --lm-bg: transparent;
-  --vc-bg: transparent;
-  --fa-bg: transparent;
-
-  --lm-min-height: 190px;
-  --vc-min-height: 190px;
-  --fa-min-height: 190px;
-
-  --vc-video-max-height: 180px;  
-  --vc-arrow-offset: -34px;      
-  --vc-arrow-font-size: 20px;    
-  --vc-meta-gap: 20px;
-  --vc-arrow-size: 24px;
-  --vc-frame-offset-left: 35px;
-  --vc-video-row-offset-top: -10px;
-  --vc-quote-font-size: 16px;
-  --vc-quote-source-size: 13px;
-  --vc-quote-source-color: #6fdc4d;
-  --vc-quote-max-width: 260px;
-  --vc-arrow-offset-quote: 8px;
-
-  --lm-padding: 36px;
-  --vc-padding: 36px;
-  --fa-padding: 36px;
-  
-  --lm-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --lm-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --vc-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --vc-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --fa-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  
-  --lm-single-image-size: 150px;
-  --lm-image-border: 1px solid #ffffff;
-  --lm-single-title-size: 25px;
-  --lm-single-price-size: 25px; 
-
-  --fa-card-max-height: 140px;
-  --fa-card-gap: 30px;     
-  --fa-arrow-size: 24px;   
-  --fa-arrow-font-size: 20px;
-  --fa-dots-gap: 20px;
-
-  --lm-view-all-font-size: 16px;
-  --vc-view-all-font-size: 16px;
-  --fa-view-all-font-size: 16px;
-}
-
-simple-footer {
-  --sf-logo-offset: -5px;
-}
+/* ==========================================================================
+   RESET / BASE
+   ========================================================================== */
 
 * {
   margin: 0;
@@ -64,6 +14,70 @@ html, body {
   color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
+
+
+/* ==========================================================================
+   COMPONENT THEME VARIABLES (band-merch, video-carousel, flyer-archive)
+   ========================================================================== */
+
+band-merch,
+video-carousel,
+flyer-archive {
+  --lm-bg: transparent;
+  --vc-bg: transparent;
+  --fa-bg: transparent;
+
+  --lm-min-height: 190px;
+  --vc-min-height: 190px;
+  --fa-min-height: 190px;
+
+  --vc-video-max-height: 180px;
+  --vc-arrow-offset: -34px;
+  --vc-arrow-font-size: 20px;
+  --vc-meta-gap: 20px;
+  --vc-arrow-size: 24px;
+  --vc-frame-offset-left: 35px;
+  --vc-video-row-offset-top: -10px;
+  --vc-quote-font-size: 16px;
+  --vc-quote-source-size: 13px;
+  --vc-quote-source-color: #6fdc4d;
+  --vc-quote-max-width: 260px;
+  --vc-arrow-offset-quote: 8px;
+
+  --lm-padding: 36px;
+  --vc-padding: 36px;
+  --fa-padding: 36px;
+
+  --lm-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --lm-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --vc-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --vc-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --fa-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+
+  --lm-single-image-size: 150px;
+  --lm-image-border: 1px solid #ffffff;
+  --lm-single-title-size: 25px;
+  --lm-single-price-size: 25px;
+
+  --fa-card-max-height: 140px;
+  --fa-card-gap: 30px;
+  --fa-arrow-size: 24px;
+  --fa-arrow-font-size: 20px;
+  --fa-dots-gap: 20px;
+
+  --lm-view-all-font-size: 16px;
+  --vc-view-all-font-size: 16px;
+  --fa-view-all-font-size: 16px;
+}
+
+simple-footer {
+  --sf-logo-offset: -5px;
+}
+
+
+/* ==========================================================================
+   NAV
+   ========================================================================== */
 
 simple-nav {
   --nav-font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
@@ -84,7 +98,11 @@ simple-nav {
   background-color: #0a0a0a;
 }
 
-/* HERO */
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
 .hero {
   position: relative;
   z-index: 1;
@@ -247,6 +265,11 @@ simple-nav {
   width: 55vh;
 }
 
+
+/* ==========================================================================
+   DESKTOP - CONTENT ROW (Shows / Merch / About)
+   ========================================================================== */
+
 .content-row {
   display: flex;
   height: 260px;
@@ -271,11 +294,22 @@ simple-nav {
   padding-bottom: 12px !important;
 }
 
-
 .row-divider {
   width: 1px;
   background: rgba(255, 255, 255, 0.15);
 }
+
+.row-col-about {
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+/* ==========================================================================
+   DESKTOP - ROW TWO (Band Photo / Media)
+   ========================================================================== */
 
 .row-two {
   display: flex;
@@ -296,16 +330,21 @@ simple-nav {
   display: block;
 }
 
-.row-two-about {
+.row-two-media {
   flex: 1;
   min-width: 0;
-  padding: 36px 24px;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 36px;
-  padding-right: 12px;
+  align-items: stretch;
 }
+
+.row-two-media video-carousel {
+  width: 100%;
+}
+
+
+/* ==========================================================================
+   ABOUT TEXT (shared styling, used in .row-col-about and mobile)
+   ========================================================================== */
 
 .about-title {
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
@@ -338,12 +377,22 @@ simple-nav {
   opacity: 0.8;
 }
 
+
+/* ==========================================================================
+   MOBILE / DESKTOP VISIBILITY TOGGLE
+   ========================================================================== */
+
 .mobile-only { display: none; }
 
 @media (max-width: 700px) {
   .desktop-only { display: none !important; }
   .mobile-only { display: block; }
 }
+
+
+/* ==========================================================================
+   MOBILE - SHARED SECTION STYLES
+   ========================================================================== */
 
 .mobile-only section {
   padding: 24px 20px;
@@ -360,6 +409,11 @@ simple-nav {
   color: #fff;
   margin: 0 0 16px;
 }
+
+
+/* ==========================================================================
+   MOBILE - NEWEST RELEASE (release-highlight)
+   ========================================================================== */
 
 .release-highlight-loading {
   font-size: 13px;
@@ -422,6 +476,11 @@ simple-nav {
   opacity: 0.85;
 }
 
+
+/* ==========================================================================
+   MOBILE - SHOWS
+   ========================================================================== */
+
 .mobile-view-all-btn {
   display: block;
   margin-top: 16px;
@@ -435,6 +494,11 @@ simple-nav {
   padding: 12px;
   text-align: center;
 }
+
+
+/* ==========================================================================
+   MOBILE - ABOUT
+   ========================================================================== */
 
 .mobile-about .about-text {
   font-size: 13px;
@@ -452,6 +516,11 @@ simple-nav {
   text-decoration: none;
 }
 
+
+/* ==========================================================================
+   MOBILE - BAND PHOTO
+   ========================================================================== */
+
 .mobile-band-photo {
   padding: 0 !important;
 }
@@ -460,6 +529,11 @@ simple-nav {
   width: 100%;
   display: block;
 }
+
+
+/* ==========================================================================
+   MOBILE MEDIA QUERIES
+   ========================================================================== */
 
 @media (max-width: 700px) {
   band-merch,
@@ -471,7 +545,7 @@ simple-nav {
     --lm-min-height: auto;
     --vc-min-height: auto;
     --fa-min-height: auto;
-    --fa-card-max-height: 100px; 
+    --fa-card-max-height: 100px;
   }
 }
 
@@ -552,24 +626,4 @@ simple-nav {
     flex: none;
     width: 130px;
   }
-
-.row-col-about {
-  padding: 36px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
-
-.row-two-media {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: stretch;
-}
-
-.row-two-media video-carousel {
-  width: 100%;
-}
-
-}
-
