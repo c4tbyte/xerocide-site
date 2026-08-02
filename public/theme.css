@@ -348,6 +348,7 @@ simple-nav {
   --vc-title-display: none;
   --vc-arrow-offset-quote: -34px;
   height: 100%;
+  padding: 48px !important;
   overflow: hidden;
 }
 
