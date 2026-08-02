@@ -28,7 +28,7 @@ flyer-archive {
   --fa-card-gap: 30px;     
   --fa-arrow-size: 24px;   
   --fa-arrow-font-size: 20px;
-  --fa-dots-gap: 26px;
+  --fa-dots-gap: 20px;
 
   --lm-view-all-font-size: 16px;
   --vc-view-all-font-size: 16px;
@@ -458,6 +458,7 @@ simple-nav {
     --lm-min-height: auto;
     --vc-min-height: auto;
     --fa-min-height: auto;
+    --fa-card-max-height: 100px; 
   }
 }
 

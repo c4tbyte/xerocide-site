@@ -145,7 +145,7 @@ FLYER_TEMPLATE.innerHTML = `
   }
  
   @media (max-width: 700px) {
-    :host { --fa-columns: 2; }
+    :host { --fa-columns: 3; }
   }
 </style>
  
