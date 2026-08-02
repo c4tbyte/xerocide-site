@@ -340,7 +340,7 @@ simple-nav {
 
 .row-two-media video-carousel {
   --vc-padding: 48px;        
-  --vc-video-max-height: 190px;
+  --vc-video-max-height: 210px;
   --vc-row-direction: column;
   --vc-quote-margin-left: 0;
   --vc-quote-text-align: center;
