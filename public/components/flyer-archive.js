@@ -123,7 +123,7 @@ FLYER_TEMPLATE.innerHTML = `
     justify-content: center;
     align-items: center;
     gap: 6px;
-    margin-top: 12px;
+    margin-top: var(--fa-dots-gap, 24px);
   }
  
   .swipe-dots .dot {
