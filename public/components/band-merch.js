@@ -259,6 +259,7 @@ class BandMerch extends HTMLElement {
       "store-url",
       "match-name",
       "exclude-keywords",
+      "title-fixes",
       "title",
       "view-all-text",
       "view-all-url",
@@ -299,6 +300,18 @@ class BandMerch extends HTMLElement {
   get apiEndpoint() { return this.getAttribute("api-endpoint"); }
   get storeUrl() { return (this.getAttribute("store-url") || "").replace(/\/$/, ""); }
   get matchName() { return this.getAttribute("match-name") || ""; }
+
+  get titleFixes() {
+    return window.TextHelper.parsePairs(this.getAttribute("title-fixes"));
+  }
+
+  _fixTitle(name) {
+    let fixed = name;
+    this.titleFixes.forEach(({ label: find, url: replace }) => {
+      if (find) fixed = fixed.split(find).join(replace);
+    });
+    return fixed;
+  }
   get excludeKeywords() {
     return (this.getAttribute("exclude-keywords") || "")
       .split(",")
@@ -364,7 +377,7 @@ class BandMerch extends HTMLElement {
         return true;
       });
 
-      this._flatList = matches;
+      this._flatList = matches.map((p) => ({ ...p, name: this._fixTitle(p.name) }));
       this._rebuildPages();
     } catch (err) {
       console.error("[band-merch] failed to load:", err);
