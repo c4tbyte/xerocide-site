@@ -54,7 +54,7 @@ FLYER_TEMPLATE.innerHTML = `
     border: 1px solid var(--fa-fg);
     color: var(--fa-fg);
     cursor: pointer;
-    font-size: 16px;
+    font-size: var(--fa-arrow-font-size, 16px);
     width: var(--fa-arrow-size);
     height: var(--fa-arrow-size);
     line-height: 1;
