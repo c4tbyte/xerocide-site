@@ -6,7 +6,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const FLYER_FOLDER = "XEROCIDE/Flyers";
+const FLYER_FOLDER = "Flyers";
  
 function deliveryUrl(publicId, opts = {}) {
   return cloudinary.url(publicId, { secure: true, ...opts });
