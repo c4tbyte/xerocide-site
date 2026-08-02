@@ -12,7 +12,9 @@ flyer-archive {
   --vc-video-max-height: 200px;  
   --vc-arrow-offset: -18px;      
   --vc-arrow-font-size: 20px;    
-  --vc-meta-gap: 20px;    
+  --vc-meta-gap: 20px;
+  --vc-arrow-size: 24px;
+  --vc-frame-offset-left: 40px;   
 
   --lm-padding: 36px;
   --vc-padding: 36px;

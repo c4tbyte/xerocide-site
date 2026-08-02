@@ -84,6 +84,7 @@ VIDEO_TEMPLATE.innerHTML = `
     flex: 0 0 auto;
     max-width: calc(var(--vc-video-max-height) * 16 / 9);
     width: 100%;
+    margin-left: var(--vc-frame-offset-left, 0px);
   }
 
   .video-frame {
