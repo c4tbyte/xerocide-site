@@ -5,7 +5,7 @@
 
 import { put } from "@vercel/blob";
 import { buildManifest as buildSpotifyManifest } from "../sync/spotify/fetch.js";
-import { buildManifest as buildFlyerManifest } from "../sync/cloudinary/archive/fetch.js";
+import { buildManifest as buildFlyerManifest } from "../sync/cloudinary/fetch.js";
 import { buildManifest as buildVideosManifest } from "../sync/airtable/fetch.js";
  
 const SOURCES = [

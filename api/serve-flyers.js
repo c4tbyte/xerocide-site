@@ -1,4 +1,4 @@
-import { getManifest } from "../sync/cloudinary/archive/read.js";
+import { getManifest } from "../sync/cloudinary/read.js";
  
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");

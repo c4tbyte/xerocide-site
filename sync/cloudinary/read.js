@@ -20,7 +20,6 @@ function readFromFallback() {
     process.cwd(),
     "sync",
     "cloudinary",
-    "archive",
     "fallback.json"
   );
   const raw = fs.readFileSync(filePath, "utf-8");
