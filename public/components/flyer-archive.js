@@ -202,7 +202,6 @@ class FlyerArchive extends HTMLElement {
   get titleText() { return this.getAttribute("title") || "Flyer Archive"; }
  
   get columns() {
-    if (window.matchMedia("(max-width: 700px)").matches) return 2;
     return Number(this.getAttribute("columns") || 3);
   }
  
