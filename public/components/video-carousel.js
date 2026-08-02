@@ -172,6 +172,7 @@ VIDEO_TEMPLATE.innerHTML = `
     white-space: nowrap;
   }
   .video-count {
+    display: var(--vc-count-display, block);
     margin-top: 4px;
     font-family: var(--vc-font-body);
     font-size: 10px;

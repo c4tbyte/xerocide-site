@@ -348,6 +348,7 @@ simple-nav {
   --vc-quote-max-width: 460px;
   --vc-title-display: none;
   --vc-arrow-offset-quote: -34px;
+  --vc-count-display: none;
   height: 100%;
   padding: 16px 24px 12px 24px !important;
   overflow: hidden;
