@@ -66,17 +66,6 @@ VIDEO_TEMPLATE.innerHTML = `
     gap: 20px;
   }
 
-  .video-row.has-quote .frame-wrap {
-    flex: 0 0 auto;
-    margin: 0;
-  }
-
-  .video-row:not(.has-quote) .frame-wrap {
-    flex: 1;
-    max-width: none;
-    margin: 0;
-  }
-
   .quote-panel {
     flex: 1;
     min-width: 0;
@@ -92,7 +81,9 @@ VIDEO_TEMPLATE.innerHTML = `
 
   .frame-wrap {
     position: relative;
+    flex: 0 0 auto;
     max-width: calc(var(--vc-video-max-height) * 16 / 9);
+    width: 100%;
   }
 
   .video-frame {
