@@ -332,6 +332,7 @@ simple-nav {
 
 .row-two-media {
   flex: 1;
+  min-height: 0;
   overflow: hidden;
   min-width: 0;
   display: flex;
@@ -348,7 +349,7 @@ simple-nav {
   --vc-title-display: none;
   --vc-arrow-offset-quote: -34px;
   height: 100%;
-  padding: 36px !important;
+  padding: 16px 24px 12px 24px !important;
   overflow: hidden;
 }
 
