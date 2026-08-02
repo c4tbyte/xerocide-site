@@ -110,7 +110,7 @@ VIDEO_TEMPLATE.innerHTML = `
     border: 1px solid var(--vc-fg);
     color: var(--vc-fg);
     cursor: pointer;
-    font-size: 16px;
+    font-size: var(--vc-arrow-font-size, 16px);
     width: var(--vc-arrow-size);
     height: var(--vc-arrow-size);
     line-height: 1;
@@ -126,13 +126,15 @@ VIDEO_TEMPLATE.innerHTML = `
   .video-arrow.next { right: var(--vc-arrow-offset); }
 
   .video-meta {
-    margin-top: 14px;
+    margin-top: var(--vc-meta-gap, 14px);
     text-align: center;
   }
   .video-title {
-    font-size: 13px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     line-height: 1.4;
-    color: #d6d6d3;
+    color: var(--vc-muted);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
