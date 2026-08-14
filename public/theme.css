@@ -18,8 +18,6 @@ html, body {
 
 /* ==========================================================================
    COMPONENT THEME VARIABLES (band-merch, video-carousel, flyer-archive)
-   All sizing below scales with viewport instead of staying fixed, so it
-   can never overflow a row that itself also scales (see .content-row).
    ========================================================================== */
 
 band-merch,
@@ -271,9 +269,6 @@ simple-nav {
 
 /* ==========================================================================
    DESKTOP - CONTENT ROW (Shows / Merch / About)
-   The row itself now scales with viewport height (clamp) instead of a
-   fixed px value, so it grows/shrinks in step with the components inside
-   it rather than fighting them.
    ========================================================================== */
 
 .content-row {
@@ -421,11 +416,11 @@ simple-nav {
 
 @media (min-width: 1600px) {
   .row-two-photo {
-    max-width: clamp(700px, 68vw, 1100px); /* was capped at 880px - lets it extend further right */
+    max-width: clamp(700px, 68vw, 1100px); 
   }
 
   .row-two {
-    height: clamp(320px, 34vh, 400px); /* more room, fixes the video clipping */
+    height: clamp(320px, 34vh, 400px);
   }
 
   .row-two-media video-carousel {
