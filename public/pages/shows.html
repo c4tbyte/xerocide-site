@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shows — Xerocide</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --accent: #4fdc2a;
+    --text: #eee;
+    --text-dim: #888;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+  }
+
+  /* ---------- Nav ---------- */
+  header.site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid #1c1c1c;
+  }
+  .logo {
+    font-weight: 800;
+    letter-spacing: .08em;
+    font-size: 20px;
+  }
+  nav.main-links {
+    display: flex;
+    gap: 32px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .06em;
+  }
+  nav.main-links a {
+    color: var(--text);
+    text-decoration: none;
+    opacity: .8;
+  }
+  nav.main-links a.active {
+    color: var(--accent);
+    opacity: 1;
+  }
+  nav.main-links a:hover { opacity: 1; }
+  .nav-icons {
+    display: flex;
+    gap: 16px;
+    color: var(--text);
+  }
+  @media (max-width: 800px) {
+    nav.main-links { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .shows-hero {
+    padding: 56px 40px 40px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .shows-hero h1 {
+    font-size: 56px;
+    margin: 0;
+    letter-spacing: .01em;
+  }
+  .shows-hero .tagline {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: .06em;
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  /* ---------- Year filter tabs ---------- */
+  .year-tabs {
+    display: flex;
+    gap: 28px;
+    margin-top: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #1c1c1c;
+    font-size: 13px;
+    letter-spacing: .06em;
+    font-weight: 700;
+  }
+  .year-tabs button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+    padding: 0 0 14px;
+    position: relative;
+  }
+  .year-tabs button.active {
+    color: var(--accent);
+  }
+  .year-tabs button.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  /* ---------- Gallery section ---------- */
+  .shows-gallery {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 40px 100px;
+  }
+
+  flyer-gallery {
+    --fg-accent: var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="logo">XEROCIDE</div>
+  <nav class="main-links">
+    <a href="index.html">Home</a>
+    <a href="shows.html" class="active">Shows</a>
+    <a href="releases.html">Releases</a>
+    <a href="media.html">Media</a>
+    <a href="about.html">About</a>
+    <a href="booking.html">Booking</a>
+  </nav>
+  <div class="nav-icons">
+    <!-- swap these for real icons/links whenever -->
+    <span>&#9835;</span>
+    <span>&#9679;</span>
+    <span>&#9993;</span>
+  </div>
+</header>
+
+<section class="shows-hero">
+  <h1>SHOWS</h1>
+  <div class="tagline">FLYERS FROM THE PIT</div>
+
+  <div class="year-tabs" id="yearTabs">
+    <button class="active" data-year="all">All</button>
+    <button data-year="2025">2025</button>
+    <button data-year="2024">2024</button>
+    <button data-year="2023">2023</button>
+    <button data-year="2022">2022</button>
+    <button data-year="2021">2021</button>
+  </div>
+</section>
+
+<section class="shows-gallery">
+  <flyer-gallery
+    id="showsGallery"
+    cloud-name="YOUR_CLOUDINARY_CLOUD_NAME"
+    base-transform="f_auto,q_auto"
+    featured-transform="w_900"
+    grid-transform="w_500,h_650,c_fill"
+    frame-base-url="frames/"
+  ></flyer-gallery>
+</section>
+
+<script src="flyer-gallery.js"></script>
+<script>
+  /* ============================================================
+     FLYER DATA
+     Replace publicId with your real Cloudinary public IDs.
+     `year` here is just page-level metadata for the tab filter
+     below — the component itself doesn't know about years.
+     ============================================================ */
+  const allFlyers = [
+    { publicId: 'xerocide/xerocide-june20', alt: 'Xerocide, Burden, Enervate, Rampage Manser — Tampa FL', year: 2024 },
+    { publicId: 'xerocide/813day',          alt: '813 Day — Tampa FL',                      year: 2024 },
+    { publicId: 'xerocide/fl-rules',        alt: 'FL Rules — Xerocide, Kharma',              year: 2024 },
+    { publicId: 'xerocide/end-it',          alt: 'End It — Xerocide, Judiciary',             year: 2024 },
+    { publicId: 'xerocide/option',          alt: 'Option — Jobb Tomb',                       year: 2024 },
+    { publicId: 'xerocide/judiciary',       alt: 'Judiciary — Burden',                       year: 2024 },
+    { publicId: 'xerocide/day-by-day',      alt: 'Day By Day — Burdee',                      year: 2024 },
+    { publicId: 'xerocide/xead-heat',       alt: 'Xead Heat — Judiciary, Englewood FL',       year: 2024 },
+    { publicId: 'xerocide/no-cure',         alt: 'No Cure — July 20th',                      year: 2024 },
+    { publicId: 'xerocide/cold-as-life',    alt: 'Cold As Life — Englewood FL',               year: 2024 },
+    { publicId: 'xerocide/foreseen',        alt: 'Foreseen — Englewood FL',                   year: 2024 },
+    { publicId: 'xerocide/burn',            alt: 'Burn — Tampa FL',                          year: 2024 },
+    { publicId: 'xerocide/zakk',            alt: 'Zakk — Tampa FL',                          year: 2024 },
+  ];
+
+  const gallery = document.getElementById('showsGallery');
+
+  function renderYear(year) {
+    const filtered = year === 'all'
+      ? allFlyers
+      : allFlyers.filter(f => String(f.year) === String(year));
+    gallery.images = filtered;
+  }
+
+  renderYear('all');
+
+  document.getElementById('yearTabs').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-year]');
+    if (!btn) return;
+    document.querySelectorAll('#yearTabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderYear(btn.dataset.year);
+  });
+</script>
+
+</body>
+</html>
