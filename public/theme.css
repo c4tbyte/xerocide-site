@@ -326,7 +326,8 @@ simple-nav {
 }
 
 .row-two-photo {
-  flex: 2;
+  flex: 0 1 auto;
+  max-width: clamp(500px, 62vw, 880px);
   min-width: 0;
 }
 
