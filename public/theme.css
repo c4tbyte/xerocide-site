@@ -236,12 +236,17 @@ simple-nav {
   margin: 0;
 }
 
-.hero-badge {
+.hero-badge-link {
   position: absolute;
   top: 2vh;
   right: 2vw;
   width: 18vh;
   z-index: 2;
+}
+
+.hero-badge {
+  display: block;
+  width: 100%;
 }
 
 .texture {
