@@ -1,3 +1,4 @@
+
 const FLYER_TEMPLATE = document.createElement("template");
 FLYER_TEMPLATE.innerHTML = `
 <style>
@@ -14,7 +15,7 @@ FLYER_TEMPLATE.innerHTML = `
     --fa-arrow-size: 32px;
     --fa-arrow-offset: -8px;
     --fa-min-height: 380px;
- 
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -25,9 +26,9 @@ FLYER_TEMPLATE.innerHTML = `
     padding: var(--fa-padding);
     box-sizing: border-box;
   }
- 
+
   * { box-sizing: border-box; }
- 
+
   .header {
     display: flex;
     align-items: baseline;
@@ -35,7 +36,7 @@ FLYER_TEMPLATE.innerHTML = `
     gap: 16px;
     margin-bottom: var(--fa-header-gap);
   }
- 
+
   .header h2 {
     margin: 0;
     font-size: 28px;
@@ -43,7 +44,7 @@ FLYER_TEMPLATE.innerHTML = `
     letter-spacing: var(--fa-label-tracking);
     text-transform: uppercase;
   }
- 
+
   .header .view-all {
     font-size: var(--fa-view-all-font-size, 16px);
     letter-spacing: var(--fa-label-tracking);
@@ -52,15 +53,15 @@ FLYER_TEMPLATE.innerHTML = `
     text-decoration: none;
     white-space: nowrap;
   }
- 
+
   .header .view-all:hover { opacity: 0.8; }
- 
+
   .grid-wrap {
     position: relative;
     flex: 1;
     display: flex;
   }
- 
+
   .nav-arrows button {
     position: absolute;
     top: 50%;
@@ -76,13 +77,13 @@ FLYER_TEMPLATE.innerHTML = `
     opacity: 0.7;
     z-index: 2;
   }
- 
+
   .nav-arrows button:hover { opacity: 1; }
   .nav-arrows button:disabled { opacity: 0.25; cursor: default; }
- 
+
   .nav-arrows .prev { left: var(--fa-arrow-offset); }
   .nav-arrows .next { right: var(--fa-arrow-offset); }
- 
+
   .grid {
     display: grid;
     grid-template-columns: repeat(var(--fa-columns), max-content);
@@ -93,18 +94,18 @@ FLYER_TEMPLATE.innerHTML = `
     touch-action: pan-y;
     transition: transform 0.25s ease;
   }
- 
+
   .card {
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
   }
- 
+
   .card img {
     width: auto;
     max-width: var(--fa-card-max-width, clamp(70px, 9vw, 140px));
-    max-height: var(--fa-card-max-height, 140px);
+    max-height: var(--fa-card-max-height, clamp(90px, 12vh, 180px));
     aspect-ratio: var(--fa-card-aspect-ratio, 3 / 4);
     object-fit: cover;
     background: #000;
@@ -115,9 +116,9 @@ FLYER_TEMPLATE.innerHTML = `
     backface-visibility: hidden;
     transition: opacity 0.15s ease;
   }
- 
+
   .card:hover img { opacity: 0.85; }
- 
+
   .swipe-dots {
     display: flex;
     justify-content: center;
@@ -125,7 +126,7 @@ FLYER_TEMPLATE.innerHTML = `
     gap: 6px;
     margin-top: var(--fa-dots-gap, 24px);
   }
- 
+
   .swipe-dots .dot {
     width: 6px;
     height: 6px;
@@ -133,9 +134,9 @@ FLYER_TEMPLATE.innerHTML = `
     background: rgba(255, 255, 255, 0.3);
     transition: background 0.2s ease;
   }
- 
+
   .swipe-dots .dot.active { background: #ffffff; }
- 
+
   .state-message {
     font-size: 13px;
     color: var(--fa-muted);
@@ -143,17 +144,17 @@ FLYER_TEMPLATE.innerHTML = `
     text-align: center;
     width: 100%;
   }
- 
+
   @media (max-width: 700px) {
     :host { --fa-columns: 2; }
   }
 </style>
- 
+
 <div class="header">
   <h2 part="title"></h2>
   <a class="view-all" href="#"></a>
 </div>
- 
+
 <div class="grid-wrap">
   <div class="nav-arrows" hidden>
     <button class="prev" aria-label="Previous flyers">&#8249;</button>
@@ -163,12 +164,12 @@ FLYER_TEMPLATE.innerHTML = `
 </div>
 <div class="swipe-dots"></div>
 `;
- 
+
 class FlyerArchive extends HTMLElement {
   static get observedAttributes() {
     return ["api-endpoint", "title", "columns", "view-all-text", "view-all-url"];
   }
- 
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -176,12 +177,12 @@ class FlyerArchive extends HTMLElement {
     this._pages = [];
     this._page = 0;
   }
- 
+
   connectedCallback() {
     this._render();
     this._loadData();
     this._setupSwipe();
- 
+
     let lastWidth = window.innerWidth;
     window.ResizeHelper.onResizeOnce(this, () => {
       if (window.innerWidth === lastWidth) return;
@@ -190,34 +191,34 @@ class FlyerArchive extends HTMLElement {
       this._rebuildPages();
     });
   }
- 
+
   attributeChangedCallback() {
     if (this.isConnected) {
       this._render();
       this._loadData();
     }
   }
- 
+
   get apiEndpoint() { return this.getAttribute("api-endpoint"); }
   get titleText() { return this.getAttribute("title") || "Flyer Archive"; }
- 
+
   get columns() {
     return Number(this.getAttribute("columns") || 3);
   }
- 
+
   get perPage() {
     return this.columns;
   }
- 
+
   _render() {
     const root = this.shadowRoot;
     root.querySelector("h2").textContent = this.titleText;
     root.host.style.setProperty("--fa-columns", String(this.columns));
- 
+
     const link = root.querySelector(".view-all");
     const viewAllText = this.getAttribute("view-all-text");
     const viewAllUrl = this.getAttribute("view-all-url");
- 
+
     if (viewAllText && viewAllUrl) {
       link.hidden = false;
       link.textContent = viewAllText + " →";
@@ -226,23 +227,23 @@ class FlyerArchive extends HTMLElement {
       link.hidden = true;
     }
   }
- 
+
   async _loadData() {
     const grid = this.shadowRoot.querySelector(".grid");
     const arrowsWrap = this.shadowRoot.querySelector(".nav-arrows");
- 
+
     if (!this.apiEndpoint) {
       grid.innerHTML = `<div class="state-message">Set api-endpoint to load flyers.</div>`;
       return;
     }
- 
+
     grid.innerHTML = `<div class="state-message">Loading flyers…</div>`;
- 
+
     try {
       const res = await fetch(this.apiEndpoint);
       if (!res.ok) throw new Error(`Server responded ${res.status}`);
       const data = await res.json();
- 
+
       this._flatList = Array.isArray(data.flyers) ? data.flyers : [];
       this._rebuildPages();
     } catch (err) {
@@ -251,36 +252,36 @@ class FlyerArchive extends HTMLElement {
       arrowsWrap.hidden = true;
     }
   }
- 
+
   _rebuildPages() {
     const flatList = this._flatList || [];
     const perPage = this.perPage;
- 
+
     this._pages = [];
     for (let i = 0; i < flatList.length; i += perPage) {
       this._pages.push(flatList.slice(i, i + perPage));
     }
- 
+
     this._page = 0;
     this._renderPage();
   }
- 
+
   _renderPage() {
     const grid = this.shadowRoot.querySelector(".grid");
     const arrowsWrap = this.shadowRoot.querySelector(".nav-arrows");
- 
+
     if (this._pages.length === 0) {
       grid.innerHTML = `<div class="state-message">No flyers yet.</div>`;
       arrowsWrap.hidden = true;
       this.shadowRoot.querySelector(".swipe-dots").innerHTML = "";
       return;
     }
- 
+
     const totalPages = this._totalPages();
     arrowsWrap.hidden = !(totalPages > 1);
- 
+
     const pageItems = this._pages[this._page];
- 
+
     grid.innerHTML = pageItems
       .map((flyer) => {
         const thumb = flyer.thumb || flyer.full || "";
@@ -292,27 +293,27 @@ class FlyerArchive extends HTMLElement {
         `;
       })
       .join("");
- 
+
     if (totalPages > 1) {
       const prevBtn = this.shadowRoot.querySelector(".prev");
       const nextBtn = this.shadowRoot.querySelector(".next");
       prevBtn.onclick = () => this._goToPage(this._page - 1);
       nextBtn.onclick = () => this._goToPage(this._page + 1);
     }
- 
+
     this._renderPageDots();
   }
- 
+
   _totalPages() {
     return window.PaginationHelper.getTotalPages(this._pages.length, 1);
   }
- 
+
   _goToPage(page) {
     if (this._pages.length === 0) return;
     this._page = window.PaginationHelper.wrapPage(page, this._totalPages());
     this._renderPage();
   }
- 
+
   _setupSwipe() {
     window.SwipeHelper.attachSwipeBehavior(
       this.shadowRoot.querySelector(".grid"),
@@ -323,11 +324,11 @@ class FlyerArchive extends HTMLElement {
       }
     );
   }
- 
+
   _renderPageDots() {
     const dotsEl = this.shadowRoot.querySelector(".swipe-dots");
     window.SwipeHelper.renderPageDots(dotsEl, this._page, this._totalPages());
   }
 }
- 
+
 customElements.define("flyer-archive", FlyerArchive);

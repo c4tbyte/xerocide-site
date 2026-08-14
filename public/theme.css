@@ -29,7 +29,7 @@ flyer-archive {
 
   --lm-min-height: 190px;
   --vc-min-height: 190px;
-  --fa-min-height: 190px;
+  --fa-min-height: clamp(160px, 20vh, 240px);
 
   --vc-video-max-height: 180px;
   --vc-arrow-offset: -34px;
@@ -59,8 +59,8 @@ flyer-archive {
   --lm-single-title-size: 25px;
   --lm-single-price-size: 25px;
 
-  --fa-card-max-height: 120px;
-  --fa-card-gap: 16px;
+  --fa-card-max-height: clamp(100px, 13vh, 160px);
+  --fa-card-gap: clamp(16px, 2vw, 30px);
   --fa-arrow-size: 24px;
   --fa-arrow-font-size: 20px;
   --fa-dots-gap: 20px;
