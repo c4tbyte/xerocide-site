@@ -309,7 +309,7 @@ simple-nav {
   padding: clamp(20px, 3vh, 36px) clamp(16px, 1.8vw, 24px);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 
@@ -375,25 +375,25 @@ simple-nav {
 
 .about-title {
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: clamp(16px, 3vh, 24px);
   line-height: 1.05;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0 0 clamp(12px, 1.6vh, 20px);
+  margin: 0 0 clamp(8px, 1.6vh, 20px);
 }
 
 .about-text {
-  font-size: clamp(11px, 1vw, 13px);
-  line-height: 1.6;
+  font-size: clamp(10px, 1.6vh, 13px);
+  line-height: 1.5;
   color: #b0b0ac;
-  margin: 0 0 clamp(12px, 1.6vh, 20px);
+  margin: 0 0 clamp(8px, 1.6vh, 20px);
   max-width: none;
 }
 
 .about-link {
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(12px, 1.2vw, 14px);
+  font-size: clamp(11px, 1.8vh, 14px);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #6fdc4d;
