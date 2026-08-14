@@ -59,8 +59,8 @@ flyer-archive {
   --lm-single-title-size: 25px;
   --lm-single-price-size: 25px;
 
-  --fa-card-max-height: 140px;
-  --fa-card-gap: 30px;
+  --fa-card-max-height: 120px;
+  --fa-card-gap: 16px;
   --fa-arrow-size: 24px;
   --fa-arrow-font-size: 20px;
   --fa-dots-gap: 20px;
