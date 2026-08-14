@@ -419,7 +419,7 @@ simple-nav {
   .mobile-only { display: block; }
 }
 
-@media (min-width: 1300px) {
+@media (min-width: 1600px) {
   .row-two-photo {
     max-width: clamp(700px, 68vw, 1100px); /* was capped at 880px - lets it extend further right */
   }
