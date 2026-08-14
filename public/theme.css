@@ -319,7 +319,7 @@ simple-nav {
 
 .row-two {
   display: flex;
-  height: clamp(280px, 30vh, 340px);
+  height: clamp(280px, 32vh, 380px);
   align-items: stretch;
   background-color: transparent;
   border-bottom: 2px solid #737373;
@@ -655,5 +655,16 @@ simple-nav {
   .release-highlight-btn {
     flex: none;
     width: 130px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .row-two {
+    height: clamp(340px, 34vh, 420px);
+  }
+
+  .row-two-media video-carousel {
+    --vc-video-max-height: clamp(280px, 30vh, 380px);
+    --vc-arrow-offset: clamp(-70px, -4.5vw, -50px);
   }
 }
