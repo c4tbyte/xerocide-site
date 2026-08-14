@@ -65,7 +65,7 @@ VIDEO_TEMPLATE.innerHTML = `
     display: flex;
     flex-direction: var(--vc-row-direction, row);
     align-items: center;
-    gap: 20px;
+    gap: var(--vc-row-gap, 20px);
     margin-top: var(--vc-video-row-offset-top, 0px);
   }
 
@@ -311,8 +311,10 @@ class VideoCarousel extends HTMLElement {
     ></iframe>`;
 
     const hasOwnQuote = Boolean(video.quote && video.quote.trim());
+    const showQuoteAttr = this.getAttribute("show-quote");
+    const quoteDisabled = showQuoteAttr === "false";
     const quote = hasOwnQuote ? video : this._fallbackQuote;
-    const hasQuote = Boolean(quote);
+    const hasQuote = !quoteDisabled && Boolean(quote);
 
     videoRow.classList.toggle("has-quote", hasQuote);
     quotePanel.hidden = !hasQuote;
