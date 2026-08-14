@@ -61,7 +61,7 @@ flyer-archive {
 
   --fa-card-max-height: clamp(150px, 20vh, 240px);
   --fa-card-max-width: clamp(110px, 15vw, 180px);
-  --fa-card-gap: clamp(16px, 2vw, 30px);
+  --fa-card-gap: clamp(12px, 2vw, 24px);
   --fa-arrow-size: 24px;
   --fa-arrow-font-size: 20px;
   --fa-dots-gap: 20px;
