@@ -657,14 +657,3 @@ simple-nav {
     width: 130px;
   }
 }
-
-@media (min-width: 1400px) {
-  .row-two {
-    height: clamp(340px, 34vh, 420px);
-  }
-
-  .row-two-media video-carousel {
-    --vc-video-max-height: clamp(280px, 30vh, 380px);
-    --vc-arrow-offset: clamp(-70px, -4.5vw, -50px);
-  }
-}
