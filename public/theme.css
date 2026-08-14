@@ -18,6 +18,8 @@ html, body {
 
 /* ==========================================================================
    COMPONENT THEME VARIABLES (band-merch, video-carousel, flyer-archive)
+   All sizing below scales with viewport instead of staying fixed, so it
+   can never overflow a row that itself also scales (see .content-row).
    ========================================================================== */
 
 band-merch,
@@ -27,26 +29,26 @@ flyer-archive {
   --vc-bg: transparent;
   --fa-bg: transparent;
 
-  --lm-min-height: 190px;
-  --vc-min-height: 190px;
-  --fa-min-height: clamp(160px, 20vh, 240px);
+  --lm-min-height: clamp(160px, 20vh, 220px);
+  --vc-min-height: clamp(160px, 20vh, 220px);
+  --fa-min-height: clamp(160px, 20vh, 220px);
 
-  --vc-video-max-height: 180px;
-  --vc-arrow-offset: -34px;
-  --vc-arrow-font-size: 20px;
-  --vc-meta-gap: 20px;
-  --vc-arrow-size: 24px;
-  --vc-frame-offset-left: 35px;
-  --vc-video-row-offset-top: -10px;
-  --vc-quote-font-size: 16px;
-  --vc-quote-source-size: 13px;
+  --vc-video-max-height: clamp(120px, 14vh, 190px);
+  --vc-arrow-offset: clamp(-40px, -3vw, -24px);
+  --vc-arrow-font-size: clamp(16px, 1.4vw, 20px);
+  --vc-meta-gap: clamp(12px, 1.6vh, 20px);
+  --vc-arrow-size: clamp(20px, 1.8vw, 26px);
+  --vc-frame-offset-left: clamp(20px, 3vw, 40px);
+  --vc-video-row-offset-top: clamp(-14px, -1vh, -6px);
+  --vc-quote-font-size: clamp(13px, 1.2vw, 16px);
+  --vc-quote-source-size: clamp(11px, 1vw, 13px);
   --vc-quote-source-color: #6fdc4d;
-  --vc-quote-max-width: 260px;
-  --vc-arrow-offset-quote: 8px;
+  --vc-quote-max-width: clamp(200px, 22vw, 280px);
+  --vc-arrow-offset-quote: clamp(4px, 0.6vw, 10px);
 
-  --lm-padding: 36px;
-  --vc-padding: 36px;
-  --fa-padding: 36px;
+  --lm-padding: clamp(20px, 2.6vw, 36px);
+  --vc-padding: clamp(20px, 2.6vw, 36px);
+  --fa-padding: clamp(20px, 2.6vw, 36px);
 
   --lm-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   --lm-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
@@ -54,21 +56,21 @@ flyer-archive {
   --vc-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   --fa-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
 
-  --lm-single-image-size: 150px;
+  --lm-single-image-size: clamp(100px, 13vh, 150px);
   --lm-image-border: 1px solid #ffffff;
-  --lm-single-title-size: 25px;
-  --lm-single-price-size: 25px;
+  --lm-single-title-size: clamp(16px, 1.8vw, 25px);
+  --lm-single-price-size: clamp(16px, 1.8vw, 25px);
 
-  --fa-card-max-height: clamp(150px, 20vh, 240px);
-  --fa-card-max-width: clamp(110px, 15vw, 180px);
-  --fa-card-gap: clamp(12px, 2vw, 18px);
-  --fa-arrow-size: 24px;
-  --fa-arrow-font-size: 20px;
-  --fa-dots-gap: 20px;
+  --fa-card-max-height: clamp(90px, 15vh, 180px);
+  --fa-card-max-width: clamp(70px, 11vw, 135px);
+  --fa-card-gap: clamp(10px, 1.6vw, 18px);
+  --fa-arrow-size: clamp(20px, 1.8vw, 26px);
+  --fa-arrow-font-size: clamp(16px, 1.4vw, 20px);
+  --fa-dots-gap: clamp(12px, 1.6vh, 20px);
 
-  --lm-view-all-font-size: 16px;
-  --vc-view-all-font-size: 16px;
-  --fa-view-all-font-size: 16px;
+  --lm-view-all-font-size: clamp(12px, 1.1vw, 16px);
+  --vc-view-all-font-size: clamp(12px, 1.1vw, 16px);
+  --fa-view-all-font-size: clamp(12px, 1.1vw, 16px);
 }
 
 simple-footer {
@@ -269,11 +271,14 @@ simple-nav {
 
 /* ==========================================================================
    DESKTOP - CONTENT ROW (Shows / Merch / About)
+   The row itself now scales with viewport height (clamp) instead of a
+   fixed px value, so it grows/shrinks in step with the components inside
+   it rather than fighting them.
    ========================================================================== */
 
 .content-row {
   display: flex;
-  height: 260px;
+  height: clamp(220px, 27vh, 300px);
   align-items: stretch;
   background-color: transparent;
   position: relative;
@@ -289,10 +294,10 @@ simple-nav {
 }
 
 .row-col > * {
-  padding-left: 24px !important;
-  padding-right: 24px !important;
-  padding-top: 16px !important;
-  padding-bottom: 12px !important;
+  padding-left: clamp(16px, 1.8vw, 24px) !important;
+  padding-right: clamp(16px, 1.8vw, 24px) !important;
+  padding-top: clamp(10px, 1.4vh, 16px) !important;
+  padding-bottom: clamp(8px, 1vh, 12px) !important;
 }
 
 .row-divider {
@@ -301,7 +306,7 @@ simple-nav {
 }
 
 .row-col-about {
-  padding: 36px 24px;
+  padding: clamp(20px, 3vh, 36px) clamp(16px, 1.8vw, 24px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -341,20 +346,21 @@ simple-nav {
 }
 
 .row-two-media video-carousel {
-  --vc-padding: 48px;        
-  --vc-video-max-height: 190px;
+  --vc-padding: clamp(24px, 3.5vw, 48px);
+  --vc-video-max-height: clamp(130px, 15vh, 190px);
   --vc-row-direction: column;
   --vc-quote-margin-left: 0;
   --vc-quote-text-align: center;
-  --vc-quote-max-width: 460px;
+  --vc-quote-max-width: clamp(280px, 35vw, 460px);
   --vc-title-display: none;
-  --vc-arrow-offset-quote: -34px;
+  --vc-arrow-offset-quote: clamp(-40px, -2.5vw, -24px);
   --vc-count-display: none;
   --vc-min-height: 100%;
   --vc-content-justify: flex-end;
   height: auto;
   max-height: 100%;
-  padding: 16px 24px 12px 24px !important;
+  padding: clamp(10px, 1.4vh, 16px) clamp(16px, 1.8vw, 24px)
+           clamp(8px, 1vh, 12px) clamp(16px, 1.8vw, 24px) !important;
   overflow: hidden;
 }
 
@@ -369,25 +375,25 @@ simple-nav {
 
 .about-title {
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 24px;
+  font-size: clamp(18px, 2vw, 24px);
   line-height: 1.05;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0 0 20px;
+  margin: 0 0 clamp(12px, 1.6vh, 20px);
 }
 
 .about-text {
-  font-size: 13px;
+  font-size: clamp(11px, 1vw, 13px);
   line-height: 1.6;
   color: #b0b0ac;
-  margin: 0 0 20px;
+  margin: 0 0 clamp(12px, 1.6vh, 20px);
   max-width: none;
 }
 
 .about-link {
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 14px;
+  font-size: clamp(12px, 1.2vw, 14px);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #6fdc4d;
