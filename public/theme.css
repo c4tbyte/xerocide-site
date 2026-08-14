@@ -319,7 +319,7 @@ simple-nav {
 
 .row-two {
   display: flex;
-  height: auto;
+  height: clamp(200px, 24vh, 320px);
   align-items: stretch;
   background-color: transparent;
   border-bottom: 2px solid #737373;
@@ -332,7 +332,7 @@ simple-nav {
 
 .row-two-photo img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
 }
 
@@ -347,7 +347,9 @@ simple-nav {
 
 .row-two-media video-carousel {
   --vc-padding: clamp(24px, 3.5vw, 48px);
-  --vc-video-max-height: clamp(130px, 15vh, 190px);
+  --vc-video-max-height: clamp(140px, 18vh, 220px);
+  --vc-quote-font-size: clamp(11px, 2vh, 16px);
+  --vc-quote-source-size: clamp(9px, 1.6vh, 13px);
   --vc-row-direction: column;
   --vc-quote-margin-left: 0;
   --vc-quote-text-align: center;
