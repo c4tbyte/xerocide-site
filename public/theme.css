@@ -419,6 +419,19 @@ simple-nav {
   .mobile-only { display: block; }
 }
 
+@media (min-width: 1300px) {
+  .row-two-photo {
+    max-width: clamp(700px, 68vw, 1100px); /* was capped at 880px - lets it extend further right */
+  }
+
+  .row-two {
+    height: clamp(320px, 34vh, 400px); /* more room, fixes the video clipping */
+  }
+
+  .row-two-media video-carousel {
+    --vc-video-max-height: clamp(200px, 26vh, 300px);
+  }
+}
 
 /* ==========================================================================
    MOBILE - SHARED SECTION STYLES
