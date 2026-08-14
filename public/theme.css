@@ -309,7 +309,7 @@ simple-nav {
   padding: clamp(20px, 3vh, 36px) clamp(16px, 1.8vw, 24px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 
