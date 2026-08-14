@@ -103,7 +103,7 @@ FLYER_TEMPLATE.innerHTML = `
  
   .card img {
     width: auto;
-    max-width: 100%;
+    max-width: var(--fa-card-max-width, clamp(70px, 9vw, 140px));
     max-height: var(--fa-card-max-height, 140px);
     aspect-ratio: var(--fa-card-aspect-ratio, 3 / 4);
     object-fit: cover;
@@ -145,7 +145,7 @@ FLYER_TEMPLATE.innerHTML = `
   }
  
   @media (max-width: 700px) {
-    :host { --fa-columns: 3; }
+    :host { --fa-columns: 2; }
   }
 </style>
  
