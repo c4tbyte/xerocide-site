@@ -156,12 +156,10 @@
 </section>
 
 <section class="shows-gallery">
+  <!-- No cloud-name/transform attributes needed — image urls come
+       pre-built (thumb/full) from your own /api/serve-flyers backend. -->
   <flyer-gallery
     id="showsGallery"
-    cloud-name="YOUR_CLOUDINARY_CLOUD_NAME"
-    base-transform="f_auto,q_auto"
-    featured-transform="w_900"
-    grid-transform="w_500,h_650,c_fill"
     frame-base-url="frames/"
   ></flyer-gallery>
 </section>
@@ -169,28 +167,60 @@
 <script src="flyer-gallery.js"></script>
 <script>
   /* ============================================================
-     FLYER DATA
-     Replace publicId with your real Cloudinary public IDs.
-     `year` here is just page-level metadata for the tab filter
-     below — the component itself doesn't know about years.
+     FLYER DATA — pulled from your own backend, not Cloudinary
+     directly, same pattern as the <flyer-archive> component on
+     the homepage.
+     ------------------------------------------------------------
+     Your server-side code (sync/cloudinary/.../fetch.js) holds the
+     Cloudinary API secret and queries the Flyers folder directly
+     via the authenticated Search API — no tags needed. It caches
+     the result and serves it through this endpoint as:
+
+       { flyers: [ { thumb, full, createdAt }, ... ] }
+
+     (sorted newest-first, same shape flyer-archive.js expects).
+
+     Upload a new flyer to the Flyers folder → your existing
+     /api/refresh job (or scheduled sync) picks it up → it shows
+     here automatically. Nothing in this file needs to change.
+
+     If /api/serve-flyers doesn't exist yet in your project, it
+     needs a small backend file mirroring sync/cloudinary/archive/
+     fetch.js — same idea, just returning ALL flyers instead of a
+     featured subset. Let me know and I'll build it to match.
      ============================================================ */
-  const allFlyers = [
-    { publicId: 'xerocide/xerocide-june20', alt: 'Xerocide, Burden, Enervate, Rampage Manser — Tampa FL', year: 2024 },
-    { publicId: 'xerocide/813day',          alt: '813 Day — Tampa FL',                      year: 2024 },
-    { publicId: 'xerocide/fl-rules',        alt: 'FL Rules — Xerocide, Kharma',              year: 2024 },
-    { publicId: 'xerocide/end-it',          alt: 'End It — Xerocide, Judiciary',             year: 2024 },
-    { publicId: 'xerocide/option',          alt: 'Option — Jobb Tomb',                       year: 2024 },
-    { publicId: 'xerocide/judiciary',       alt: 'Judiciary — Burden',                       year: 2024 },
-    { publicId: 'xerocide/day-by-day',      alt: 'Day By Day — Burdee',                      year: 2024 },
-    { publicId: 'xerocide/xead-heat',       alt: 'Xead Heat — Judiciary, Englewood FL',       year: 2024 },
-    { publicId: 'xerocide/no-cure',         alt: 'No Cure — July 20th',                      year: 2024 },
-    { publicId: 'xerocide/cold-as-life',    alt: 'Cold As Life — Englewood FL',               year: 2024 },
-    { publicId: 'xerocide/foreseen',        alt: 'Foreseen — Englewood FL',                   year: 2024 },
-    { publicId: 'xerocide/burn',            alt: 'Burn — Tampa FL',                          year: 2024 },
-    { publicId: 'xerocide/zakk',            alt: 'Zakk — Tampa FL',                          year: 2024 },
-  ];
+
+  const API_ENDPOINT = '/api/serve-flyers';
 
   const gallery = document.getElementById('showsGallery');
+  let allFlyers = [];
+
+  function randomFrameId() {
+    return Math.floor(Math.random() * 12) + 1; // frames 1–12
+  }
+
+  function yearFromDate(iso) {
+    const d = iso ? new Date(iso) : null;
+    return d && !isNaN(d) ? d.getFullYear() : null;
+  }
+
+  async function loadFlyers() {
+    const res = await fetch(API_ENDPOINT);
+    if (!res.ok) {
+      console.error('shows: could not load flyer data', res.status);
+      return [];
+    }
+    const data = await res.json();
+    const flyers = Array.isArray(data.flyers) ? data.flyers : [];
+    // backend already sorts newest-first — first item becomes the
+    // large pinned flyer, the rest fill the grid.
+    return flyers.map((f, i) => ({
+      url: i === 0 ? (f.full || f.thumb) : (f.thumb || f.full),
+      alt: 'Show flyer',
+      year: yearFromDate(f.createdAt),
+      frameId: randomFrameId(),
+    }));
+  }
 
   function renderYear(year) {
     const filtered = year === 'all'
@@ -199,7 +229,10 @@
     gallery.images = filtered;
   }
 
-  renderYear('all');
+  loadFlyers().then(items => {
+    allFlyers = items;
+    renderYear('all');
+  });
 
   document.getElementById('yearTabs').addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-year]');
@@ -209,6 +242,7 @@
     renderYear(btn.dataset.year);
   });
 </script>
+
 
 </body>
 </html>
