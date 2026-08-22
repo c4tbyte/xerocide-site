@@ -12,19 +12,19 @@ const FRAME_META = {
   11: { w: 289, h: 327, hole: { left: 0.1246, top: 0.0826, right: 0.8927, bottom: 0.9083 } },
   12: { w: 300, h: 327, hole: { left: 0.1667, top: 0.1070, right: 0.8867, bottom: 0.9083 } },
 };
-const FEATURED_DEFAULT_FRAME = 4;              // the pushpin frame
+const FEATURED_DEFAULT_FRAME = 4;
 const GRID_FRAME_CYCLE = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12];
-const ROTATIONS = [-2, 1.5, -1, 2.2, -1.6, 1.1, -2.4, 1.8]; // deg, cosmetic jitter
- 
+const ROTATIONS = [-2, 1.5, -1, 2.2, -1.6, 1.1, -2.4, 1.8];
+
 class FlyerGallery extends HTMLElement {
   static get observedAttributes() {
     return ['cloud-name', 'base-transform', 'featured-transform', 'grid-transform', 'frame-base-url'];
   }
- 
+
   constructor() {
     super();
     this._images = [];
-    this._visibleCount = 12; // how many grid tiles are showing (excludes featured)
+    this._visibleCount = 12;
     this._source = {
       cloudName: '',
       baseTransform: 'f_auto,q_auto',
@@ -34,18 +34,18 @@ class FlyerGallery extends HTMLElement {
     };
     this.attachShadow({ mode: 'open' });
   }
- 
+
   connectedCallback() {
     this._readAttributes();
     this._readInlineJSON();
     this._render();
   }
- 
+
   attributeChangedCallback() {
     this._readAttributes();
     this._render();
   }
- 
+
   _readAttributes() {
     this._source.cloudName = this.getAttribute('cloud-name') || this._source.cloudName;
     this._source.baseTransform = this.getAttribute('base-transform') || this._source.baseTransform;
@@ -53,9 +53,9 @@ class FlyerGallery extends HTMLElement {
     this._source.gridTransform = this.getAttribute('grid-transform') || this._source.gridTransform;
     this._source.frameBaseUrl = this.getAttribute('frame-base-url') || this._source.frameBaseUrl;
   }
- 
+
   _readInlineJSON() {
-    if (this._images.length) return; // JS-set data takes priority
+    if (this._images.length) return;
     const script = this.querySelector('script[type="application/json"]');
     if (script) {
       try {
@@ -65,13 +65,12 @@ class FlyerGallery extends HTMLElement {
       }
     }
   }
- 
-  /** Swap photo backend and/or frame asset host without re-declaring images */
+
   setSource(partial) {
     Object.assign(this._source, partial);
     this._render();
   }
- 
+
   set images(list) {
     this._images = Array.isArray(list) ? list : [];
     this._visibleCount = 12;
@@ -80,30 +79,30 @@ class FlyerGallery extends HTMLElement {
   get images() {
     return this._images;
   }
- 
+
   loadMore(n = 12) {
     this._visibleCount += n;
     this._render();
   }
- 
+
   _resolvePhotoUrl(item, transformExtra) {
     if (item.url) return item.url;
     if (!item.publicId || !this._source.cloudName) return '';
     const t = [this._source.baseTransform, transformExtra].filter(Boolean).join(',');
     return `https://res.cloudinary.com/${this._source.cloudName}/image/upload/${t}/${item.publicId}`;
   }
- 
+
   _frameUrl(id) {
     const padded = String(id).padStart(2, '0');
     return `${this._source.frameBaseUrl}frame-${padded}.png`;
   }
- 
+
   _render() {
     const root = this.shadowRoot;
     const [featured, ...rest] = this._images;
     const visible = rest.slice(0, this._visibleCount);
     const hasMore = rest.length > this._visibleCount;
- 
+
     root.innerHTML = `<style>${FlyerGallery.STYLES}</style>` +
       `<div class="fg-wrap">` +
         `<div class="fg-featured-col">${featured ? this._tile(featured, {
@@ -122,13 +121,13 @@ class FlyerGallery extends HTMLElement {
           (hasMore ? `<button class="fg-load-more" part="load-more">Load More Flyers</button>` : '') +
         `</div>` +
       `</div>`;
- 
+
     const loadMoreBtn = root.querySelector('.fg-load-more');
     if (loadMoreBtn) {
       loadMoreBtn.addEventListener('click', () => this.loadMore());
     }
   }
- 
+
   _tile(item, opts) {
     const { isFeatured, frameId, transform, rotation } = opts;
     const meta = FRAME_META[frameId] || FRAME_META[1];
@@ -136,28 +135,28 @@ class FlyerGallery extends HTMLElement {
     const frameSrc = this._frameUrl(frameId);
     const h = meta.hole;
     const photoInset = `${(h.top * 100).toFixed(2)}% ${(100 - h.right * 100).toFixed(2)}% ${(100 - h.bottom * 100).toFixed(2)}% ${(h.left * 100).toFixed(2)}%`;
- 
+
     const inner = `
       <div class="fg-frame-box" style="aspect-ratio:${meta.w}/${meta.h}; transform:rotate(${rotation}deg);">
-        <img class="fg-photo-img" style="inset:${photoInset};" src="${photoSrc}" alt="${this._esc(item.alt || '')}" loading="lazy" />
+        <div class="fg-photo-slot" style="inset:${photoInset};">
+          <img class="fg-photo-img" src="${photoSrc}" alt="${this._esc(item.alt || '')}" loading="lazy" />
+        </div>
         <img class="fg-frame-img" src="${frameSrc}" alt="" aria-hidden="true" />
       </div>`;
- 
+
     const cls = isFeatured ? 'fg-tile-link fg-tile-featured' : 'fg-tile-link fg-tile-grid';
     return item.href
       ? `<a class="${cls}" href="${this._esc(item.href)}">${inner}</a>`
       : `<div class="${cls}">${inner}</div>`;
   }
- 
+
   _esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
   }
 }
- 
-/* ---- Component-internal styles. Layout/behavior is fixed; only the
-   caption colors and photo filter are exposed as theme variables. ---- */
+
 FlyerGallery.STYLES = `
   :host {
     display: block;
@@ -165,7 +164,7 @@ FlyerGallery.STYLES = `
     --fg-accent: #4fdc2a;
     font-family: inherit;
   }
- 
+
   .fg-wrap {
     display: grid;
     grid-template-columns: 1fr 1.55fr;
@@ -175,21 +174,24 @@ FlyerGallery.STYLES = `
   @media (max-width: 900px) {
     .fg-wrap { grid-template-columns: 1fr; }
   }
- 
+
   .fg-tile-link {
     display: block;
     text-decoration: none;
     color: inherit;
   }
- 
-  /* ---------- Shared frame box: photo + frame PNG stacked ---------- */
+
   .fg-frame-box {
     position: relative;
     width: 100%;
     filter: drop-shadow(0 16px 30px rgba(0,0,0,.55));
   }
-  .fg-photo-img {
+  .fg-photo-slot {
     position: absolute;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .fg-photo-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -197,7 +199,6 @@ FlyerGallery.STYLES = `
     display: block;
     background: #0c0c0c;
     filter: var(--fg-photo-filter);
-    z-index: 1;
   }
   .fg-frame-img {
     position: absolute;
@@ -209,14 +210,12 @@ FlyerGallery.STYLES = `
     z-index: 2;
     user-select: none;
   }
- 
-  /* ---------- Featured (large) ---------- */
+
   .fg-tile-featured .fg-frame-box {
     max-width: 420px;
     margin: 0 auto;
   }
- 
-  /* ---------- Grid ---------- */
+
   .fg-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -225,8 +224,7 @@ FlyerGallery.STYLES = `
   @media (max-width: 900px) {
     .fg-grid { grid-template-columns: repeat(2, 1fr); }
   }
- 
-  /* ---------- Load more ---------- */
+
   .fg-load-more {
     margin-top: 32px;
     display: block;
@@ -247,5 +245,5 @@ FlyerGallery.STYLES = `
     color: #05130a;
   }
 `;
- 
+
 customElements.define('flyer-gallery', FlyerGallery);
