@@ -1,5 +1,11 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/pages/home.html" }
-  ]
+    { "source": "/", "destination": "/pages/home.html" },
+    { "source": "/shows", "destination": "/pages/shows.html" }
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "sync/**/*.json"
+    }
+  }
 }
