@@ -147,16 +147,11 @@ class FlyerGallery extends HTMLElement {
         `<div class="fg-grid-col">` +
           `<div class="fg-grid">${gridTiles}</div>` +
           (totalPages > 1 ? `
-          <div class="fg-page-nav">
-            <button class="fg-page-btn fg-page-prev" aria-label="Previous flyers">&#8249;</button>
-            <button class="fg-page-btn fg-page-next" aria-label="Next flyers">&#8250;</button>
-          </div>` : '') +
+          <button class="fg-page-btn fg-page-next" aria-label="Next flyers">&#8250;</button>` : '') +
         `</div>` +
       `</div>`;
 
-    const prevBtn = root.querySelector('.fg-page-prev');
     const nextBtn = root.querySelector('.fg-page-next');
-    if (prevBtn) prevBtn.addEventListener('click', () => this.prevPage());
     if (nextBtn) nextBtn.addEventListener('click', () => this.nextPage());
 
     root.querySelectorAll('.fg-tile-grid:not(.fg-tile-empty)').forEach(el => {
@@ -313,12 +308,15 @@ FlyerGallery.STYLES = `
   }
 
   .fg-grid-col {
-    flex: 0 0 840px;
+    position: relative;
+    flex: 0 0 896px;
     max-width: 100%;
+    box-sizing: border-box;
+    padding-right: 56px;
   }
   .fg-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 22px 16px;
     min-height: 790px;
     align-content: start;
@@ -326,25 +324,24 @@ FlyerGallery.STYLES = `
   @media (max-width: 500px) {
     .fg-grid { grid-template-columns: repeat(2, 1fr); min-height: 0; }
     .fg-featured-col { min-height: 0; }
+    .fg-grid-col { padding-right: 0; }
+    .fg-page-btn {
+      position: static;
+      transform: none;
+      display: block;
+      margin: 20px auto 0;
+    }
   }
 
-  .fg-page-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 48px;
-    margin: 28px auto 0;
-    padding: 10px 28px;
-    width: fit-content;
+  .fg-page-btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: none;
     border: 1px solid #333;
     border-radius: 6px;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  .fg-page-btn {
-    background: none;
-    border: none;
-    padding: 4px 8px;
+    padding: 10px 12px;
     color: #888;
     font-size: 22px;
     line-height: 1;
