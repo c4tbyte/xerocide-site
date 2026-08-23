@@ -234,7 +234,6 @@ FlyerGallery.STYLES = `
   }
   .fg-tile-grid.is-selected .fg-frame-box {
     transform: rotate(var(--fg-rot, 0deg)) scale(1.05);
-    filter: drop-shadow(0 16px 30px rgba(0,0,0,.55)) drop-shadow(0 0 8px var(--fg-accent));
   }
   .fg-photo-slot {
     position: absolute;
@@ -255,6 +254,9 @@ FlyerGallery.STYLES = `
     filter: none;
   }
   .fg-tile-grid.is-selected .fg-photo-img {
+    filter: none;
+  }
+  .fg-tile-featured .fg-photo-img {
     filter: none;
   }
   .fg-frame-img {
@@ -308,24 +310,22 @@ FlyerGallery.STYLES = `
   .fg-page-nav {
     display: flex;
     justify-content: center;
-    gap: 14px;
+    align-items: center;
+    gap: 48px;
     margin-top: 28px;
   }
   .fg-page-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: transparent;
-    border: 1px solid var(--fg-accent);
-    color: var(--fg-accent);
-    font-size: 16px;
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    color: #888;
+    font-size: 22px;
     line-height: 1;
     cursor: pointer;
-    transition: background .15s ease, color .15s ease;
+    transition: color .15s ease;
   }
   .fg-page-btn:hover {
-    background: var(--fg-accent);
-    color: #05130a;
+    color: #ddd;
   }
 `;
 
