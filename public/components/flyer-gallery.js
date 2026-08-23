@@ -282,14 +282,14 @@ FlyerGallery.STYLES = `
   }
 
   .fg-featured-col {
-    flex: 0 0 560px;
+    flex: 0 0 600px;
     max-width: 100%;
     min-height: 790px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 20px;
   }
   .fg-tile-featured {
     display: flex;
@@ -298,7 +298,7 @@ FlyerGallery.STYLES = `
   }
   .fg-tile-featured .fg-frame-box {
     width: 100%;
-    max-width: 560px;
+    max-width: 600px;
   }
 
   .fg-tile-grid {
