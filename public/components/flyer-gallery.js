@@ -117,6 +117,7 @@ class FlyerGallery extends HTMLElement {
             frameId: it.frameId || GRID_FRAME_CYCLE[i % GRID_FRAME_CYCLE.length],
             transform: this._source.gridTransform,
             rotation: ROTATIONS[i % ROTATIONS.length],
+            idx: i + 1,
           })).join('')}</div>` +
           (hasMore ? `<button class="fg-load-more" part="load-more">Load More Flyers</button>` : '') +
         `</div>` +
@@ -126,10 +127,24 @@ class FlyerGallery extends HTMLElement {
     if (loadMoreBtn) {
       loadMoreBtn.addEventListener('click', () => this.loadMore());
     }
+
+    root.querySelectorAll('.fg-tile-grid').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        this._promoteToFeatured(Number(el.dataset.idx));
+      });
+    });
+  }
+
+  _promoteToFeatured(idx) {
+    if (!Number.isInteger(idx) || idx <= 0 || idx >= this._images.length) return;
+    const [item] = this._images.splice(idx, 1);
+    this._images.unshift(item);
+    this._render();
   }
 
   _tile(item, opts) {
-    const { isFeatured, frameId, transform, rotation } = opts;
+    const { isFeatured, frameId, transform, rotation, idx } = opts;
     const meta = FRAME_META[frameId] || FRAME_META[1];
     const photoSrc = this._resolvePhotoUrl(item, transform);
     const frameSrc = this._frameUrl(frameId);
@@ -137,7 +152,7 @@ class FlyerGallery extends HTMLElement {
     const photoInset = `${(h.top * 100).toFixed(2)}% ${(100 - h.right * 100).toFixed(2)}% ${(100 - h.bottom * 100).toFixed(2)}% ${(h.left * 100).toFixed(2)}%`;
 
     const inner = `
-      <div class="fg-frame-box" style="aspect-ratio:${meta.w}/${meta.h}; transform:rotate(${rotation}deg);">
+      <div class="fg-frame-box" style="aspect-ratio:${meta.w}/${meta.h}; --fg-rot:${rotation}deg;">
         <div class="fg-photo-slot" style="inset:${photoInset};">
           <img class="fg-photo-img" src="${photoSrc}" alt="${this._esc(item.alt || '')}" loading="lazy" />
         </div>
@@ -145,9 +160,10 @@ class FlyerGallery extends HTMLElement {
       </div>`;
 
     const cls = isFeatured ? 'fg-tile-link fg-tile-featured' : 'fg-tile-link fg-tile-grid';
+    const idxAttr = isFeatured ? '' : ` data-idx="${idx}"`;
     return item.href
-      ? `<a class="${cls}" href="${this._esc(item.href)}">${inner}</a>`
-      : `<div class="${cls}">${inner}</div>`;
+      ? `<a class="${cls}"${idxAttr} href="${this._esc(item.href)}">${inner}</a>`
+      : `<div class="${cls}"${idxAttr}>${inner}</div>`;
   }
 
   _esc(s) {
@@ -169,7 +185,7 @@ FlyerGallery.STYLES = `
     display: grid;
     grid-template-columns: 1fr 1.55fr;
     gap: 40px;
-    align-items: start;
+    align-items: stretch;
   }
   @media (max-width: 900px) {
     .fg-wrap { grid-template-columns: 1fr; }
@@ -183,8 +199,12 @@ FlyerGallery.STYLES = `
 
   .fg-frame-box {
     position: relative;
-    width: 100%;
     filter: drop-shadow(0 16px 30px rgba(0,0,0,.55));
+    transform: rotate(var(--fg-rot, 0deg)) scale(1);
+    transition: transform .2s ease;
+  }
+  .fg-tile-link:hover .fg-frame-box {
+    transform: rotate(var(--fg-rot, 0deg)) scale(1.06);
   }
   .fg-photo-slot {
     position: absolute;
@@ -199,6 +219,10 @@ FlyerGallery.STYLES = `
     display: block;
     background: #0c0c0c;
     filter: var(--fg-photo-filter);
+    transition: filter .25s ease;
+  }
+  .fg-tile-link:hover .fg-photo-img {
+    filter: none;
   }
   .fg-frame-img {
     position: absolute;
@@ -211,9 +235,25 @@ FlyerGallery.STYLES = `
     user-select: none;
   }
 
+  .fg-featured-col {
+    display: flex;
+  }
+  .fg-tile-featured {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
   .fg-tile-featured .fg-frame-box {
-    max-width: 420px;
-    margin: 0 auto;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .fg-tile-grid {
+    cursor: pointer;
+  }
+  .fg-tile-grid .fg-frame-box {
+    width: 100%;
   }
 
   .fg-grid {
