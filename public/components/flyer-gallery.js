@@ -284,9 +284,11 @@ FlyerGallery.STYLES = `
   .fg-featured-col {
     flex: 0 0 560px;
     max-width: 100%;
+    min-height: 790px;
+    box-sizing: border-box;
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-self: center;
     padding: 24px;
   }
   .fg-tile-featured {
@@ -323,6 +325,7 @@ FlyerGallery.STYLES = `
   }
   @media (max-width: 500px) {
     .fg-grid { grid-template-columns: repeat(2, 1fr); min-height: 0; }
+    .fg-featured-col { min-height: 0; }
   }
 
   .fg-page-nav {
