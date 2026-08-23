@@ -125,6 +125,16 @@ class FlyerGallery extends HTMLElement {
     if (this._page >= totalPages) this._page = 0;
     const start = this._page * GRID_PAGE_SIZE;
     const visible = this._images.slice(start, start + GRID_PAGE_SIZE);
+    const emptyCount = GRID_PAGE_SIZE - visible.length;
+
+    const gridTiles = visible.map((it, i) => this._tile(it, {
+      isFeatured: false,
+      frameId: it.frameId || GRID_FRAME_CYCLE[i % GRID_FRAME_CYCLE.length],
+      transform: this._source.gridTransform,
+      rotation: ROTATIONS[i % ROTATIONS.length],
+      idx: start + i,
+      isSelected: start + i === this._selectedIndex,
+    })).join('') + Array.from({ length: emptyCount }, (_, j) => this._emptyTile(visible.length + j)).join('');
 
     root.innerHTML = `<style>${FlyerGallery.STYLES}</style>` +
       `<div class="fg-wrap">` +
@@ -135,14 +145,7 @@ class FlyerGallery extends HTMLElement {
           rotation: 0,
         }) : ''}</div>` +
         `<div class="fg-grid-col">` +
-          `<div class="fg-grid">${visible.map((it, i) => this._tile(it, {
-            isFeatured: false,
-            frameId: it.frameId || GRID_FRAME_CYCLE[i % GRID_FRAME_CYCLE.length],
-            transform: this._source.gridTransform,
-            rotation: ROTATIONS[i % ROTATIONS.length],
-            idx: start + i,
-            isSelected: start + i === this._selectedIndex,
-          })).join('')}</div>` +
+          `<div class="fg-grid">${gridTiles}</div>` +
           (totalPages > 1 ? `
           <div class="fg-page-nav">
             <button class="fg-page-btn fg-page-prev" aria-label="Previous flyers">&#8249;</button>
@@ -156,12 +159,20 @@ class FlyerGallery extends HTMLElement {
     if (prevBtn) prevBtn.addEventListener('click', () => this.prevPage());
     if (nextBtn) nextBtn.addEventListener('click', () => this.nextPage());
 
-    root.querySelectorAll('.fg-tile-grid').forEach(el => {
+    root.querySelectorAll('.fg-tile-grid:not(.fg-tile-empty)').forEach(el => {
       el.addEventListener('click', (e) => {
         e.preventDefault();
         this._selectFeatured(Number(el.dataset.idx));
       });
     });
+  }
+
+  _emptyTile(i) {
+    const frameId = GRID_FRAME_CYCLE[i % GRID_FRAME_CYCLE.length];
+    const meta = FRAME_META[frameId] || FRAME_META[1];
+    return `<div class="fg-tile-grid fg-tile-empty" aria-hidden="true">
+      <div class="fg-frame-box" style="aspect-ratio:${meta.w}/${meta.h};"></div>
+    </div>`;
   }
 
   _selectFeatured(idx) {
@@ -293,6 +304,10 @@ FlyerGallery.STYLES = `
   .fg-tile-grid .fg-frame-box {
     width: 100%;
   }
+  .fg-tile-empty {
+    visibility: hidden;
+    cursor: default;
+  }
 
   .fg-grid-col {
     flex: 0 0 840px;
@@ -302,9 +317,11 @@ FlyerGallery.STYLES = `
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 22px 16px;
+    min-height: 790px;
+    align-content: start;
   }
   @media (max-width: 500px) {
-    .fg-grid { grid-template-columns: repeat(2, 1fr); }
+    .fg-grid { grid-template-columns: repeat(2, 1fr); min-height: 0; }
   }
 
   .fg-page-nav {
@@ -312,7 +329,11 @@ FlyerGallery.STYLES = `
     justify-content: center;
     align-items: center;
     gap: 48px;
-    margin-top: 28px;
+    margin: 28px auto 0;
+    padding: 10px 28px;
+    width: fit-content;
+    border: 1px solid #333;
+    border-radius: 6px;
   }
   .fg-page-btn {
     background: none;
