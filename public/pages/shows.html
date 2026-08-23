@@ -25,38 +25,37 @@
     margin: 0;
   }
 
+  .page-video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  .page-video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.55);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  simple-nav {
+    background: var(--bg) !important;
+  }
+
   .shows-hero {
-    position: relative;
-    overflow: hidden;
     padding: 56px 40px 40px;
     max-width: 1800px;
     margin: 0 auto;
     text-align: center;
-  }
-
-  .shows-hero-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .shows-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(10, 10, 10, 0.55);
-    z-index: 1;
-  }
-
-  .shows-hero h1,
-  .year-tabs {
-    position: relative;
-    z-index: 2;
   }
 
   .shows-hero h1 {
@@ -116,16 +115,17 @@
 
 <div data-site-nav></div>
 
-<section class="shows-hero">
-  <video
-    class="shows-hero-video"
-    src="https://res.cloudinary.com/aibcokyw/video/upload/v1787465714/shows-bg_bmyucq.mp4"
-    autoplay
-    muted
-    loop
-    playsinline
-  ></video>
+<video
+  class="page-video-bg"
+  src="https://res.cloudinary.com/aibcokyw/video/upload/v1787465714/shows-bg_bmyucq.mp4"
+  autoplay
+  muted
+  loop
+  playsinline
+></video>
+<div class="page-video-overlay"></div>
 
+<section class="shows-hero">
   <h1>SHOWS</h1>
 
   <div class="year-tabs" id="yearTabs">
