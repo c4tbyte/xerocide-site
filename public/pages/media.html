@@ -186,7 +186,8 @@
   var statusEl = document.getElementById('vg-status');
 
   var autoScrollPaused = false;
-  var autoScrollSpeed = 0.15;
+  var autoScrollSpeed = 0.3;
+  var scrollAccumulator = 0;
 
   listEl.addEventListener('mouseenter', function () {
     autoScrollPaused = true;
@@ -200,10 +201,11 @@
     if (!autoScrollPaused) {
       var maxScroll = listEl.scrollHeight - listEl.clientHeight;
       if (maxScroll > 0) {
-        listEl.scrollTop += autoScrollSpeed;
-        if (listEl.scrollTop >= maxScroll) {
-          listEl.scrollTop = 0;
+        scrollAccumulator += autoScrollSpeed;
+        if (scrollAccumulator >= maxScroll) {
+          scrollAccumulator = 0;
         }
+        listEl.scrollTop = scrollAccumulator;
       }
     }
     requestAnimationFrame(tickAutoScroll);
