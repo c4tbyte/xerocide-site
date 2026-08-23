@@ -15,6 +15,16 @@ const FRAME_META = {
 const FEATURED_DEFAULT_FRAME = 4;
 const GRID_FRAME_CYCLE = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12];
 const ROTATIONS = [-2, 1.5, -1, 2.2, -1.6, 1.1, -2.4, 1.8];
+const GRID_PAGE_SIZE = 12;
+
+function getTotalPages(itemCount, perPage) {
+  return Math.max(1, Math.ceil(itemCount / perPage));
+}
+function wrapPage(page, totalPages) {
+  if (page < 0) return totalPages - 1;
+  if (page >= totalPages) return 0;
+  return page;
+}
 
 class FlyerGallery extends HTMLElement {
   static get observedAttributes() {
@@ -24,7 +34,8 @@ class FlyerGallery extends HTMLElement {
   constructor() {
     super();
     this._images = [];
-    this._visibleCount = 12;
+    this._page = 0;
+    this._selectedIndex = 0;
     this._source = {
       cloudName: '',
       baseTransform: 'f_auto,q_auto',
@@ -73,15 +84,23 @@ class FlyerGallery extends HTMLElement {
 
   set images(list) {
     this._images = Array.isArray(list) ? list : [];
-    this._visibleCount = 12;
+    this._page = 0;
+    this._selectedIndex = 0;
     this._render();
   }
   get images() {
     return this._images;
   }
 
-  loadMore(n = 12) {
-    this._visibleCount += n;
+  nextPage() {
+    const total = getTotalPages(this._images.length, GRID_PAGE_SIZE);
+    this._page = wrapPage(this._page + 1, total);
+    this._render();
+  }
+
+  prevPage() {
+    const total = getTotalPages(this._images.length, GRID_PAGE_SIZE);
+    this._page = wrapPage(this._page - 1, total);
     this._render();
   }
 
@@ -99,9 +118,14 @@ class FlyerGallery extends HTMLElement {
 
   _render() {
     const root = this.shadowRoot;
-    const [featured, ...rest] = this._images;
-    const visible = rest.slice(0, this._visibleCount);
-    const hasMore = rest.length > this._visibleCount;
+    const total = this._images.length;
+    if (this._selectedIndex >= total) this._selectedIndex = 0;
+    const featured = this._images[this._selectedIndex];
+
+    const totalPages = getTotalPages(total, GRID_PAGE_SIZE);
+    if (this._page >= totalPages) this._page = 0;
+    const start = this._page * GRID_PAGE_SIZE;
+    const visible = this._images.slice(start, start + GRID_PAGE_SIZE);
 
     root.innerHTML = `<style>${FlyerGallery.STYLES}</style>` +
       `<div class="fg-wrap">` +
@@ -117,34 +141,38 @@ class FlyerGallery extends HTMLElement {
             frameId: it.frameId || GRID_FRAME_CYCLE[i % GRID_FRAME_CYCLE.length],
             transform: this._source.gridTransform,
             rotation: ROTATIONS[i % ROTATIONS.length],
-            idx: i + 1,
+            idx: start + i,
+            isSelected: start + i === this._selectedIndex,
           })).join('')}</div>` +
-          (hasMore ? `<button class="fg-load-more" part="load-more">Load More Flyers</button>` : '') +
+          (totalPages > 1 ? `
+          <div class="fg-page-nav">
+            <button class="fg-page-btn fg-page-prev" aria-label="Previous flyers">&#8249;</button>
+            <button class="fg-page-btn fg-page-next" aria-label="Next flyers">&#8250;</button>
+          </div>` : '') +
         `</div>` +
       `</div>`;
 
-    const loadMoreBtn = root.querySelector('.fg-load-more');
-    if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', () => this.loadMore());
-    }
+    const prevBtn = root.querySelector('.fg-page-prev');
+    const nextBtn = root.querySelector('.fg-page-next');
+    if (prevBtn) prevBtn.addEventListener('click', () => this.prevPage());
+    if (nextBtn) nextBtn.addEventListener('click', () => this.nextPage());
 
     root.querySelectorAll('.fg-tile-grid').forEach(el => {
       el.addEventListener('click', (e) => {
         e.preventDefault();
-        this._promoteToFeatured(Number(el.dataset.idx));
+        this._selectFeatured(Number(el.dataset.idx));
       });
     });
   }
 
-  _promoteToFeatured(idx) {
-    if (!Number.isInteger(idx) || idx <= 0 || idx >= this._images.length) return;
-    const [item] = this._images.splice(idx, 1);
-    this._images.unshift(item);
+  _selectFeatured(idx) {
+    if (!Number.isInteger(idx) || idx < 0 || idx >= this._images.length) return;
+    this._selectedIndex = idx;
     this._render();
   }
 
   _tile(item, opts) {
-    const { isFeatured, frameId, transform, rotation, idx } = opts;
+    const { isFeatured, frameId, transform, rotation, idx, isSelected } = opts;
     const meta = FRAME_META[frameId] || FRAME_META[1];
     const photoSrc = this._resolvePhotoUrl(item, transform);
     const frameSrc = this._frameUrl(frameId);
@@ -159,7 +187,8 @@ class FlyerGallery extends HTMLElement {
         <img class="fg-frame-img" src="${frameSrc}" alt="" aria-hidden="true" />
       </div>`;
 
-    const cls = isFeatured ? 'fg-tile-link fg-tile-featured' : 'fg-tile-link fg-tile-grid';
+    let cls = isFeatured ? 'fg-tile-link fg-tile-featured' : 'fg-tile-link fg-tile-grid';
+    if (isSelected) cls += ' is-selected';
     const idxAttr = isFeatured ? '' : ` data-idx="${idx}"`;
     return item.href
       ? `<a class="${cls}"${idxAttr} href="${this._esc(item.href)}">${inner}</a>`
@@ -204,6 +233,10 @@ FlyerGallery.STYLES = `
   .fg-tile-link:hover .fg-frame-box {
     transform: rotate(var(--fg-rot, 0deg)) scale(1.06);
   }
+  .fg-tile-grid.is-selected .fg-frame-box {
+    transform: rotate(var(--fg-rot, 0deg)) scale(1.05);
+    filter: drop-shadow(0 16px 30px rgba(0,0,0,.55)) drop-shadow(0 0 8px var(--fg-accent));
+  }
   .fg-photo-slot {
     position: absolute;
     overflow: hidden;
@@ -220,6 +253,9 @@ FlyerGallery.STYLES = `
     transition: filter .25s ease;
   }
   .fg-tile-link:hover .fg-photo-img {
+    filter: none;
+  }
+  .fg-tile-grid.is-selected .fg-photo-img {
     filter: none;
   }
   .fg-frame-img {
@@ -270,22 +306,25 @@ FlyerGallery.STYLES = `
     .fg-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
-  .fg-load-more {
-    margin-top: 32px;
-    display: block;
-    margin-inline: auto;
+  .fg-page-nav {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .fg-page-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
     background: transparent;
     border: 1px solid var(--fg-accent);
     color: var(--fg-accent);
-    font: inherit;
-    font-size: 12px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    padding: 12px 28px;
+    font-size: 16px;
+    line-height: 1;
     cursor: pointer;
     transition: background .15s ease, color .15s ease;
   }
-  .fg-load-more:hover {
+  .fg-page-btn:hover {
     background: var(--fg-accent);
     color: #05130a;
   }
