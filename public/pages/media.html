@@ -186,19 +186,16 @@
   var statusEl = document.getElementById('vg-status');
 
   var autoScrollPaused = false;
-  var autoScrollSpeed = 0.15;
+  var autoScrollSpeed = 0.3;
   var scrollAccumulator = 0;
 
   listEl.addEventListener('mouseenter', function () {
     autoScrollPaused = true;
-    updateDuplicateForLoop();
   });
 
   listEl.addEventListener('mouseleave', function () {
     scrollAccumulator = listEl.scrollTop;
     autoScrollPaused = false;
-    updateDuplicateForLoop();
-    listEl.scrollTop = scrollAccumulator;
   });
 
   function tickAutoScroll() {
@@ -282,21 +279,9 @@
       listEl.appendChild(buildItem(v));
     });
     singleSetHeight = listEl.scrollHeight;
-    updateDuplicateForLoop();
-  }
-
-  function updateDuplicateForLoop() {
-    var items = listEl.querySelectorAll('li');
-    var extra = items.length - videos.length;
-    for (var i = 0; i < extra; i++) {
-      listEl.removeChild(listEl.lastChild);
-    }
-
-    if (!autoScrollPaused) {
-      videos.forEach(function (v) {
-        listEl.appendChild(buildItem(v));
-      });
-    }
+    videos.forEach(function (v) {
+      listEl.appendChild(buildItem(v));
+    });
   }
 
   function setStatus(message) {
