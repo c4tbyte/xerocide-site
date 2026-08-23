@@ -233,11 +233,11 @@ FlyerGallery.STYLES = `
   }
 
   .fg-featured-col {
-    flex: 0 0 460px;
+    flex: 0 0 380px;
     max-width: 100%;
     display: flex;
     justify-content: center;
-    padding: 28px;
+    padding: 24px;
   }
   .fg-tile-featured {
     display: flex;
@@ -246,7 +246,7 @@ FlyerGallery.STYLES = `
   }
   .fg-tile-featured .fg-frame-box {
     width: 100%;
-    max-width: 460px;
+    max-width: 380px;
   }
 
   .fg-tile-grid {
@@ -257,13 +257,16 @@ FlyerGallery.STYLES = `
   }
 
   .fg-grid-col {
-    flex: 1 1 380px;
-    min-width: 0;
+    flex: 0 0 760px;
+    max-width: 100%;
   }
   .fg-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 170px));
-    gap: 26px 18px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px 22px;
+  }
+  @media (max-width: 500px) {
+    .fg-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   .fg-load-more {
