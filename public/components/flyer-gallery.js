@@ -333,26 +333,26 @@ FlyerGallery.STYLES = `
     }
   }
 
-  .fg-page-btn {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    background: none;
-    border: 1px solid #333;
-    border-radius: 6px;
-    padding: 10px 12px;
-    color: #888;
-    font-size: 22px;
-    line-height: 1;
-    cursor: pointer;
-    transition: color .15s ease;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  .fg-page-btn:hover {
-    color: #ddd;
-  }
+.fg-page-btn {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: #fff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #000;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.fg-page-btn:hover {
+  color: #333;
+}
 `;
 
 customElements.define('flyer-gallery', FlyerGallery);
