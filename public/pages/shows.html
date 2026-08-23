@@ -29,6 +29,7 @@
     padding: 56px 40px 40px;
     max-width: 1800px;
     margin: 0 auto;
+    text-align: center;
   }
 
   .shows-hero h1 {
@@ -37,16 +38,8 @@
     letter-spacing: 0.01em;
   }
 
-  .shows-hero .tagline {
-    color: var(--accent);
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    font-size: 14px;
-    margin-top: 6px;
-  }
-
   .year-tabs {
-    display: flex;
+    display: none;
     gap: 28px;
     margin-top: 32px;
     padding-bottom: 16px;
@@ -98,7 +91,6 @@
 
 <section class="shows-hero">
   <h1>SHOWS</h1>
-  <div class="tagline">FLYERS FROM THE PIT</div>
 
   <div class="year-tabs" id="yearTabs">
     <button class="active" data-year="all">All</button>
