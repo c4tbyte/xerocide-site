@@ -185,6 +185,32 @@
   var playerEl = document.getElementById('vg-player');
   var statusEl = document.getElementById('vg-status');
 
+  var autoScrollPaused = false;
+  var autoScrollSpeed = 0.15;
+
+  listEl.addEventListener('mouseenter', function () {
+    autoScrollPaused = true;
+  });
+
+  listEl.addEventListener('mouseleave', function () {
+    autoScrollPaused = false;
+  });
+
+  function tickAutoScroll() {
+    if (!autoScrollPaused) {
+      var maxScroll = listEl.scrollHeight - listEl.clientHeight;
+      if (maxScroll > 0) {
+        listEl.scrollTop += autoScrollSpeed;
+        if (listEl.scrollTop >= maxScroll) {
+          listEl.scrollTop = 0;
+        }
+      }
+    }
+    requestAnimationFrame(tickAutoScroll);
+  }
+
+  requestAnimationFrame(tickAutoScroll);
+
   var videos = [];
   var selectedId = null;
 
