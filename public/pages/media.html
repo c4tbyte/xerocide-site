@@ -31,7 +31,7 @@
       padding: 32px;
       box-sizing: border-box;
       border: 1px solid #737373;
-      margin: 32px 20px;
+      margin: 32px 80px;
     }
     #video-gallery .vg-heading {
       font-family: 'Archivo Black', 'Arial Black', sans-serif;
@@ -43,7 +43,7 @@
     #video-gallery .vg-grid {
       display: grid;
       grid-template-columns: minmax(240px, 1fr) minmax(300px, 1.2fr);
-      gap: 80px;
+      gap: 40px;
       align-items: stretch;
       height: clamp(360px, 45vh, 520px);
     }
@@ -186,7 +186,7 @@
   var statusEl = document.getElementById('vg-status');
 
   var autoScrollPaused = false;
-  var autoScrollSpeed = 0.15;
+  var autoScrollSpeed = 0.3;
   var scrollAccumulator = 0;
 
   listEl.addEventListener('mouseenter', function () {
