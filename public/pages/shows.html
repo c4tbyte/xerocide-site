@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shows — Xerocide</title>
+<link rel="stylesheet" href="/theme.css">
 <style>
   :root {
     --bg: #0a0a0a;
@@ -11,7 +12,9 @@
     --text: #eee;
     --text-dim: #888;
   }
+
   * { box-sizing: border-box; }
+
   body {
     background: var(--bg);
     color: var(--text);
@@ -19,65 +22,26 @@
     margin: 0;
   }
 
-  /* ---------- Nav ---------- */
-  header.site-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 40px;
-    border-bottom: 1px solid #1c1c1c;
-  }
-  .logo {
-    font-weight: 800;
-    letter-spacing: .08em;
-    font-size: 20px;
-  }
-  nav.main-links {
-    display: flex;
-    gap: 32px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .06em;
-  }
-  nav.main-links a {
-    color: var(--text);
-    text-decoration: none;
-    opacity: .8;
-  }
-  nav.main-links a.active {
-    color: var(--accent);
-    opacity: 1;
-  }
-  nav.main-links a:hover { opacity: 1; }
-  .nav-icons {
-    display: flex;
-    gap: 16px;
-    color: var(--text);
-  }
-  @media (max-width: 800px) {
-    nav.main-links { display: none; }
-  }
-
-  /* ---------- Hero ---------- */
   .shows-hero {
     padding: 56px 40px 40px;
     max-width: 1800px;
     margin: 0 auto;
   }
+
   .shows-hero h1 {
     font-size: 56px;
     margin: 0;
-    letter-spacing: .01em;
+    letter-spacing: 0.01em;
   }
+
   .shows-hero .tagline {
     color: var(--accent);
     font-weight: 700;
-    letter-spacing: .06em;
+    letter-spacing: 0.06em;
     font-size: 14px;
     margin-top: 6px;
   }
 
-  /* ---------- Year filter tabs ---------- */
   .year-tabs {
     display: flex;
     gap: 28px;
@@ -85,9 +49,10 @@
     padding-bottom: 16px;
     border-bottom: 1px solid #1c1c1c;
     font-size: 13px;
-    letter-spacing: .06em;
+    letter-spacing: 0.06em;
     font-weight: 700;
   }
+
   .year-tabs button {
     background: none;
     border: none;
@@ -98,18 +63,21 @@
     padding: 0 0 14px;
     position: relative;
   }
+
   .year-tabs button.active {
     color: var(--accent);
   }
+
   .year-tabs button.active::after {
     content: '';
     position: absolute;
-    left: 0; right: 0; bottom: -1px;
+    left: 0;
+    right: 0;
+    bottom: -1px;
     height: 2px;
     background: var(--accent);
   }
 
-  /* ---------- Gallery section ---------- */
   .shows-gallery {
     max-width: 1800px;
     margin: 0 auto;
@@ -123,23 +91,7 @@
 </head>
 <body>
 
-<header class="site-nav">
-  <div class="logo">XEROCIDE</div>
-  <nav class="main-links">
-    <a href="/">Home</a>
-    <a href="/shows" class="active">Shows</a>
-    <a href="releases.html">Releases</a>
-    <a href="media.html">Media</a>
-    <a href="about.html">About</a>
-    <a href="booking.html">Booking</a>
-  </nav>
-  <div class="nav-icons">
-    <!-- swap these for real icons/links whenever -->
-    <span>&#9835;</span>
-    <span>&#9679;</span>
-    <span>&#9993;</span>
-  </div>
-</header>
+<div data-site-nav></div>
 
 <section class="shows-hero">
   <h1>SHOWS</h1>
@@ -156,56 +108,35 @@
 </section>
 
 <section class="shows-gallery">
-  <!-- No cloud-name/transform attributes needed — image urls come
-       pre-built (thumb/full) from your own /api/serve-flyers backend. -->
   <flyer-gallery
     id="showsGallery"
     frame-base-url="/components/frames/"
   ></flyer-gallery>
 </section>
 
+<div data-site-footer></div>
+
+<script src="/components/helpers/text-helper.js"></script>
+<script src="/components/simple-nav.js"></script>
+<script src="/components/helpers/nav-helper.js"></script>
+<script src="/components/simple-footer.js"></script>
+<script src="/components/helpers/footer-helper.js"></script>
 <script src="/components/flyer-gallery.js"></script>
+
 <script>
-  /* ============================================================
-     FLYER DATA — pulled from your own backend, not Cloudinary
-     directly, same pattern as the <flyer-archive> component on
-     the homepage.
-     ------------------------------------------------------------
-     Your server-side code (sync/cloudinary/.../fetch.js) holds the
-     Cloudinary API secret and queries the Flyers folder directly
-     via the authenticated Search API — no tags needed. It caches
-     the result and serves it through this endpoint as:
-
-       { flyers: [ { thumb, full, createdAt }, ... ] }
-
-     (sorted newest-first, same shape flyer-archive.js expects).
-
-     Upload a new flyer to the Flyers folder → your existing
-     /api/refresh job (or scheduled sync) picks it up → it shows
-     here automatically. Nothing in this file needs to change.
-
-     If /api/serve-flyers doesn't exist yet in your project, it
-     needs a small backend file mirroring sync/cloudinary/archive/
-     fetch.js — same idea, just returning ALL flyers instead of a
-     featured subset. Let me know and I'll build it to match.
-     ============================================================ */
-
   const API_ENDPOINT = '/api/serve-flyers';
+  const AVAILABLE_FRAME_IDS = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12];
 
   const gallery = document.getElementById('showsGallery');
   let allFlyers = [];
-
-  // keep this in sync with FRAME_META's keys in flyer-gallery.js —
-  // whenever a frame PNG is added or removed, update this list too.
-  const AVAILABLE_FRAME_IDS = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12];
 
   function randomFrameId() {
     return AVAILABLE_FRAME_IDS[Math.floor(Math.random() * AVAILABLE_FRAME_IDS.length)];
   }
 
   function yearFromDate(iso) {
-    const d = iso ? new Date(iso) : null;
-    return d && !isNaN(d) ? d.getFullYear() : null;
+    const date = iso ? new Date(iso) : null;
+    return date && !isNaN(date) ? date.getFullYear() : null;
   }
 
   async function loadFlyers() {
@@ -214,14 +145,14 @@
       console.error('shows: could not load flyer data', res.status);
       return [];
     }
+
     const data = await res.json();
     const flyers = Array.isArray(data.flyers) ? data.flyers : [];
-    // backend already sorts newest-first — first item becomes the
-    // large pinned flyer, the rest fill the grid.
-    return flyers.map((f, i) => ({
-      url: i === 0 ? (f.full || f.thumb) : (f.thumb || f.full),
+
+    return flyers.map((flyer, i) => ({
+      url: i === 0 ? (flyer.full || flyer.thumb) : (flyer.thumb || flyer.full),
       alt: 'Show flyer',
-      year: yearFromDate(f.createdAt),
+      year: yearFromDate(flyer.createdAt),
       frameId: randomFrameId(),
     }));
   }
@@ -229,11 +160,11 @@
   function renderYear(year) {
     const filtered = year === 'all'
       ? allFlyers
-      : allFlyers.filter(f => String(f.year) === String(year));
+      : allFlyers.filter((f) => String(f.year) === String(year));
     gallery.images = filtered;
   }
 
-  loadFlyers().then(items => {
+  loadFlyers().then((items) => {
     allFlyers = items;
     renderYear('all');
   });
@@ -241,12 +172,12 @@
   document.getElementById('yearTabs').addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-year]');
     if (!btn) return;
-    document.querySelectorAll('#yearTabs button').forEach(b => b.classList.remove('active'));
+
+    document.querySelectorAll('#yearTabs button').forEach((b) => b.classList.remove('active'));
     btn.classList.add('active');
     renderYear(btn.dataset.year);
   });
 </script>
-
 
 </body>
 </html>
