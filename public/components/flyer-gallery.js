@@ -184,6 +184,7 @@ FlyerGallery.STYLES = `
   .fg-wrap {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 50px;
     align-items: flex-start;
   }
@@ -233,7 +234,7 @@ FlyerGallery.STYLES = `
   }
 
   .fg-featured-col {
-    flex: 0 0 380px;
+    flex: 0 0 480px;
     max-width: 100%;
     display: flex;
     justify-content: center;
@@ -246,7 +247,7 @@ FlyerGallery.STYLES = `
   }
   .fg-tile-featured .fg-frame-box {
     width: 100%;
-    max-width: 380px;
+    max-width: 480px;
   }
 
   .fg-tile-grid {
