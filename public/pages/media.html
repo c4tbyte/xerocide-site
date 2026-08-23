@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Media — Xerocide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body style="margin:0; background:#0a0a0a;">
+
+<div data-site-nav></div>
+
+<div id="video-gallery" class="vg-root">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    #video-gallery.vg-root {
+      --vg-bg: #0a0a0a;
+      --vg-white: #f4f4f2;
+      --vg-dim: #6b6b68;
+      --vg-line: #232320;
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--vg-bg);
+      background-image: radial-gradient(rgba(255,255,255,0.035) 0.6px, transparent 0.6px);
+      background-size: 3px 3px;
+      color: var(--vg-white);
+      padding: 48px 40px;
+      box-sizing: border-box;
+      border-top: 1px solid var(--vg-line);
+      border-bottom: 1px solid var(--vg-line);
+    }
+    #video-gallery .vg-heading {
+      font-family: 'Archivo Black', 'Arial Black', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      letter-spacing: 0.01em;
+      margin: 0 0 40px 0;
+      color: var(--vg-white);
+    }
+    #video-gallery .vg-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(300px, 1.7fr);
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      #video-gallery .vg-grid { grid-template-columns: 1fr; }
+    }
+    #video-gallery .vg-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    #video-gallery .vg-item {
+      all: unset;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 6px 0 6px 16px;
+      border-left: 2px solid transparent;
+      color: var(--vg-dim);
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transform-origin: left center;
+      transition: color 160ms ease, transform 160ms ease, border-color 160ms ease, padding 160ms ease;
+    }
+    #video-gallery .vg-item:hover,
+    #video-gallery .vg-item:focus-visible {
+      color: var(--vg-white);
+      transform: scale(1.16);
+      padding-left: 20px;
+    }
+    #video-gallery .vg-item:focus-visible {
+      outline: 1px dashed var(--vg-white);
+      outline-offset: 4px;
+    }
+    #video-gallery .vg-item.is-selected {
+      color: var(--vg-white);
+      font-weight: 700;
+      border-left-color: var(--vg-white);
+    }
+    #video-gallery .vg-item-title { line-height: 1.3; }
+    #video-gallery .vg-item-meta {
+      font-size: 11px;
+      color: inherit;
+      opacity: 0.6;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    #video-gallery .vg-player {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border: 1px solid var(--vg-line);
+      overflow: hidden;
+    }
+    #video-gallery .vg-player iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    #video-gallery .vg-status {
+      font-size: 11px;
+      color: var(--vg-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 10px;
+    }
+  </style>
+
+  <h2 class="vg-heading">Videos</h2>
+
+  <div class="vg-grid">
+    <ul class="vg-list" id="vg-list"></ul>
+
+    <div>
+      <div class="vg-player" id="vg-player"></div>
+      <p class="vg-status" id="vg-status"></p>
+    </div>
+  </div>
+</div>
+
+<div data-site-footer></div>
+
+<script src="/components/helpers/text-helper.js"></script>
+<script src="/components/simple-nav.js"></script>
+<script src="/components/helpers/nav-helper.js"></script>
+<script src="/components/simple-footer.js"></script>
+<script src="/components/helpers/footer-helper.js"></script>
+
+<script>
+(function () {
+  var ENDPOINT = '/api/videos';
+
+  var FALLBACK_VIDEOS = [
+    { id: '1', title: 'Fear of God Music Video', date: '', location: '', youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+    { id: '2', title: 'Live in Miami', date: '05/23/2026', location: 'Miami, FL', youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+  ];
+
+  var listEl = document.getElementById('vg-list');
+  var playerEl = document.getElementById('vg-player');
+  var statusEl = document.getElementById('vg-status');
+
+  var videos = [];
+  var selectedId = null;
+
+  function extractYouTubeId(url) {
+    if (!url) return null;
+    var match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/);
+    return match ? match[1] : null;
+  }
+
+  function renderPlayer() {
+    var selected = videos.filter(function (v) { return v.id === selectedId; })[0];
+    var embedId = selected ? extractYouTubeId(selected.youtubeUrl) : null;
+
+    playerEl.innerHTML = '';
+    if (!embedId) return;
+
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + embedId;
+    iframe.title = selected.title || 'Video';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    playerEl.appendChild(iframe);
+  }
+
+  function metaLine(video) {
+    return [video.date, video.location].filter(Boolean).join(' · ');
+  }
+
+  function renderList() {
+    listEl.innerHTML = '';
+    videos.forEach(function (v) {
+      var li = document.createElement('li');
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'vg-item' + (v.id === selectedId ? ' is-selected' : '');
+      btn.setAttribute('aria-pressed', v.id === selectedId ? 'true' : 'false');
+
+      var titleSpan = document.createElement('span');
+      titleSpan.className = 'vg-item-title';
+      titleSpan.textContent = v.title;
+      btn.appendChild(titleSpan);
+
+      var meta = metaLine(v);
+      if (meta) {
+        var metaSpan = document.createElement('span');
+        metaSpan.className = 'vg-item-meta';
+        metaSpan.textContent = meta;
+        btn.appendChild(metaSpan);
+      }
+
+      btn.addEventListener('click', function () {
+        selectedId = v.id;
+        renderList();
+        renderPlayer();
+      });
+
+      li.appendChild(btn);
+      listEl.appendChild(li);
+    });
+  }
+
+  function setStatus(message) {
+    statusEl.textContent = message || '';
+  }
+
+  function init(loadedVideos) {
+    videos = loadedVideos;
+    if (videos.length && !selectedId) {
+      selectedId = videos[0].id;
+    }
+    renderList();
+    renderPlayer();
+  }
+
+  setStatus('Loading videos…');
+
+  fetch(ENDPOINT)
+    .then(function (res) {
+      return res.json().then(function (data) {
+        if (!res.ok) throw new Error(data.error || 'Request failed: ' + res.status);
+        return data;
+      });
+    })
+    .then(function (data) {
+      setStatus('');
+      init(data.videos || []);
+    })
+    .catch(function (err) {
+      setStatus((err.message || "Couldn't load videos.") + ' Showing sample videos instead.');
+      init(FALLBACK_VIDEOS);
+    });
+})();
+</script>
+
+</body>
+</html>

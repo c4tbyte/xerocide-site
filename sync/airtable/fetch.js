@@ -1,7 +1,5 @@
-
 const AIRTABLE_TOKEN = process.env.AIRTABLE_TOKEN;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
-
 const TABLE_NAME = "Videos";
 
 function extractYouTubeId(url) {
@@ -16,9 +14,7 @@ async function getAirtableRows() {
   let offset;
 
   do {
-    const url = new URL(
-      `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLE_NAME}`
-    );
+    const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLE_NAME}`);
     if (offset) url.searchParams.set("offset", offset);
 
     const res = await fetch(url, {
@@ -39,9 +35,7 @@ async function getAirtableRows() {
 
 async function getVideoTitle(youtubeUrl) {
   try {
-    const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(
-      youtubeUrl
-    )}&format=json`;
+    const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(youtubeUrl)}&format=json`;
     const res = await fetch(oembedUrl);
     if (!res.ok) return "";
     const data = await res.json();
@@ -56,19 +50,24 @@ export async function buildManifest() {
 
   const videos = [];
   for (const row of rows) {
-    const rawUrl = row.fields?.Videos;
+    const rawUrl = row.fields?.Link;
     if (!rawUrl) continue;
 
     const youtubeId = extractYouTubeId(rawUrl);
     if (!youtubeId) continue;
 
-    const title = await getVideoTitle(rawUrl);
+    const oembedTitle = await getVideoTitle(rawUrl);
+    const title = row.fields?.Title || oembedTitle || "Untitled";
+    const date = row.fields?.Date || "";
+    const location = row.fields?.Location || "";
     const quote = row.fields?.QUOTE || "";
     const quoteSource = row.fields?.QUOTE_SOURCE || "";
 
     videos.push({
       youtubeId,
-      title: title || "Untitled",
+      title,
+      date,
+      location,
       url: rawUrl,
       quote,
       quoteSource,

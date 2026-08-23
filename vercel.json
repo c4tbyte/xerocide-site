@@ -1,7 +1,8 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/pages/home.html" },
-    { "source": "/shows", "destination": "/pages/shows.html" }
+    { "source": "/shows", "destination": "/pages/shows.html" },
+    { "source": "/media", "destination": "/pages/media.html" }
   ],
   "functions": {
     "api/**/*.js": {
