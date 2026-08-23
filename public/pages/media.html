@@ -191,10 +191,14 @@
 
   listEl.addEventListener('mouseenter', function () {
     autoScrollPaused = true;
+    updateDuplicateForLoop();
   });
 
   listEl.addEventListener('mouseleave', function () {
+    scrollAccumulator = listEl.scrollTop;
     autoScrollPaused = false;
+    updateDuplicateForLoop();
+    listEl.scrollTop = scrollAccumulator;
   });
 
   function tickAutoScroll() {
@@ -277,12 +281,22 @@
     videos.forEach(function (v) {
       listEl.appendChild(buildItem(v));
     });
-
     singleSetHeight = listEl.scrollHeight;
+    updateDuplicateForLoop();
+  }
 
-    videos.forEach(function (v) {
-      listEl.appendChild(buildItem(v));
-    });
+  function updateDuplicateForLoop() {
+    var items = listEl.querySelectorAll('li');
+    var extra = items.length - videos.length;
+    for (var i = 0; i < extra; i++) {
+      listEl.removeChild(listEl.lastChild);
+    }
+
+    if (!autoScrollPaused) {
+      videos.forEach(function (v) {
+        listEl.appendChild(buildItem(v));
+      });
+    }
   }
 
   function setStatus(message) {
