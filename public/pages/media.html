@@ -27,23 +27,28 @@
       background-image: radial-gradient(rgba(255,255,255,0.035) 0.6px, transparent 0.6px);
       background-size: 3px 3px;
       color: var(--vg-white);
-      padding: 48px 40px;
+      padding: 32px;
       box-sizing: border-box;
-      border-top: 1px solid var(--vg-line);
-      border-bottom: 1px solid var(--vg-line);
+      border: 1px solid #737373;
+      max-width: 1100px;
+      margin: 32px auto;
     }
     #video-gallery .vg-heading {
       font-family: 'Archivo Black', 'Arial Black', sans-serif;
-      font-size: clamp(40px, 6vw, 64px);
+      font-size: clamp(28px, 4vw, 40px);
       letter-spacing: 0.01em;
-      margin: 0 0 40px 0;
+      margin: 0 0 20px 0;
       color: var(--vg-white);
     }
     #video-gallery .vg-grid {
       display: grid;
-      grid-template-columns: minmax(220px, 1fr) minmax(300px, 1.7fr);
-      gap: 48px;
+      grid-template-columns: minmax(200px, 0.85fr) minmax(300px, 1.4fr);
+      gap: 28px;
       align-items: start;
+    }
+    #video-gallery .vg-list-col {
+      display: flex;
+      flex-direction: column;
     }
     @media (max-width: 720px) {
       #video-gallery .vg-grid { grid-template-columns: 1fr; }
@@ -119,10 +124,11 @@
     }
   </style>
 
-  <h2 class="vg-heading">Videos</h2>
-
   <div class="vg-grid">
-    <ul class="vg-list" id="vg-list"></ul>
+    <div class="vg-list-col">
+      <h2 class="vg-heading">Videos</h2>
+      <ul class="vg-list" id="vg-list"></ul>
+    </div>
 
     <div>
       <div class="vg-player" id="vg-player"></div>
