@@ -286,6 +286,7 @@ FlyerGallery.STYLES = `
     max-width: 100%;
     display: flex;
     justify-content: center;
+    align-self: center;
     padding: 24px;
   }
   .fg-tile-featured {
@@ -334,6 +335,8 @@ FlyerGallery.STYLES = `
     width: fit-content;
     border: 1px solid #333;
     border-radius: 6px;
+    user-select: none;
+    -webkit-user-select: none;
   }
   .fg-page-btn {
     background: none;
@@ -344,6 +347,8 @@ FlyerGallery.STYLES = `
     line-height: 1;
     cursor: pointer;
     transition: color .15s ease;
+    user-select: none;
+    -webkit-user-select: none;
   }
   .fg-page-btn:hover {
     color: #ddd;
