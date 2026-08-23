@@ -195,8 +195,12 @@
   const gallery = document.getElementById('showsGallery');
   let allFlyers = [];
 
+  // keep this in sync with FRAME_META's keys in flyer-gallery.js —
+  // whenever a frame PNG is added or removed, update this list too.
+  const AVAILABLE_FRAME_IDS = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12];
+
   function randomFrameId() {
-    return Math.floor(Math.random() * 12) + 1; // frames 1–12
+    return AVAILABLE_FRAME_IDS[Math.floor(Math.random() * AVAILABLE_FRAME_IDS.length)];
   }
 
   function yearFromDate(iso) {

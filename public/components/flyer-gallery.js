@@ -6,14 +6,13 @@ const FRAME_META = {
   5:  { w: 294, h: 345, hole: { left: 0.1429, top: 0.1072, right: 0.8639, bottom: 0.8870 } },
   6:  { w: 314, h: 345, hole: { left: 0.1561, top: 0.1275, right: 0.8312, bottom: 0.9072 } },
   7:  { w: 289, h: 345, hole: { left: 0.0692, top: 0.1391, right: 0.8443, bottom: 0.9043 } },
-  8:  { w: 300, h: 345, hole: { left: 0.0800, top: 0.2435, right: 0.9233, bottom: 0.8580 } },
   9:  { w: 294, h: 327, hole: { left: 0.1020, top: 0.0765, right: 0.8401, bottom: 0.9144 } },
   10: { w: 314, h: 327, hole: { left: 0.1369, top: 0.0917, right: 0.8503, bottom: 0.9052 } },
   11: { w: 289, h: 327, hole: { left: 0.1246, top: 0.0826, right: 0.8927, bottom: 0.9083 } },
   12: { w: 300, h: 327, hole: { left: 0.1667, top: 0.1070, right: 0.8867, bottom: 0.9083 } },
 };
 const FEATURED_DEFAULT_FRAME = 4;
-const GRID_FRAME_CYCLE = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12];
+const GRID_FRAME_CYCLE = [1, 2, 3, 5, 6, 7, 9, 10, 11, 12];
 const ROTATIONS = [-2, 1.5, -1, 2.2, -1.6, 1.1, -2.4, 1.8];
 const GRID_PAGE_SIZE = 12;
 
