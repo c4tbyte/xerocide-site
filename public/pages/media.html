@@ -23,10 +23,9 @@
       --vg-dim: #6b6b68;
       --vg-line: #232320;
       font-family: 'JetBrains Mono', monospace;
-      background-color: var(--vg-bg);
-      background-image: radial-gradient(rgba(255,255,255,0.035) 0.6px, transparent 0.6px), linear-gradient(rgba(10,10,10,0.6), rgba(10,10,10,0.6)), url('/images/video-bg.png');
-      background-size: 3px 3px, cover, cover;
-      background-position: center, center, center;
+      background: var(--vg-bg);
+      background-image: radial-gradient(rgba(255,255,255,0.035) 0.6px, transparent 0.6px);
+      background-size: 3px 3px;
       color: var(--vg-white);
       padding: 32px;
       box-sizing: border-box;
@@ -164,7 +163,7 @@
 
 <script>
 (function () {
-  var ENDPOINT = '/api/videos';
+  var ENDPOINT = '/api/videos?fresh=1';
 
   var FALLBACK_VIDEOS = [
     { id: '1', title: 'Fear of God Music Video', date: '', location: '', youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
