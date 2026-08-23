@@ -23,9 +23,10 @@
       --vg-dim: #6b6b68;
       --vg-line: #232320;
       font-family: 'JetBrains Mono', monospace;
-      background: var(--vg-bg);
-      background-image: radial-gradient(rgba(255,255,255,0.035) 0.6px, transparent 0.6px);
-      background-size: 3px 3px;
+      background-color: var(--vg-bg);
+      background-image: radial-gradient(rgba(255,255,255,0.035) 0.6px, transparent 0.6px), linear-gradient(rgba(10,10,10,0.6), rgba(10,10,10,0.6)), url('/images/video-bg.png');
+      background-size: 3px 3px, cover, cover;
+      background-position: center, center, center;
       color: var(--vg-white);
       padding: 32px;
       box-sizing: border-box;
@@ -57,6 +58,7 @@
       min-height: 0;
       overflow-y: auto;
       overflow-x: hidden;
+      direction: rtl;
     }
     #video-gallery .vg-player-col {
       display: flex;
@@ -74,6 +76,9 @@
       flex-direction: column;
       gap: 6px;
     }
+    #video-gallery .vg-list li {
+      direction: ltr;
+    }
     #video-gallery .vg-item {
       all: unset;
       cursor: pointer;
@@ -90,6 +95,8 @@
       overflow-wrap: break-word;
       word-break: break-word;
       max-width: 100%;
+      direction: ltr;
+      text-align: left;
       transition: color 160ms ease, transform 160ms ease, border-color 160ms ease, padding 160ms ease;
     }
     #video-gallery .vg-item:hover,
