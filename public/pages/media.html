@@ -186,7 +186,7 @@
   var statusEl = document.getElementById('vg-status');
 
   var autoScrollPaused = false;
-  var autoScrollSpeed = 0.3;
+  var autoScrollSpeed = 0.15;
   var scrollAccumulator = 0;
 
   listEl.addEventListener('mouseenter', function () {
@@ -200,10 +200,10 @@
   function tickAutoScroll() {
     if (!autoScrollPaused) {
       var maxScroll = listEl.scrollHeight - listEl.clientHeight;
-      if (maxScroll > 0) {
+      if (maxScroll > 0 && singleSetHeight > 0) {
         scrollAccumulator += autoScrollSpeed;
-        if (scrollAccumulator >= maxScroll) {
-          scrollAccumulator = 0;
+        if (scrollAccumulator >= singleSetHeight) {
+          scrollAccumulator -= singleSetHeight;
         }
         listEl.scrollTop = scrollAccumulator;
       }
@@ -215,6 +215,7 @@
 
   var videos = [];
   var selectedId = null;
+  var singleSetHeight = 0;
 
   function extractYouTubeId(url) {
     if (!url) return null;
@@ -241,36 +242,46 @@
     return [video.date, video.location].filter(Boolean).join(' · ');
   }
 
+  function buildItem(v) {
+    var li = document.createElement('li');
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'vg-item' + (v.id === selectedId ? ' is-selected' : '');
+    btn.setAttribute('aria-pressed', v.id === selectedId ? 'true' : 'false');
+
+    var titleSpan = document.createElement('span');
+    titleSpan.className = 'vg-item-title';
+    titleSpan.textContent = v.title;
+    btn.appendChild(titleSpan);
+
+    var meta = metaLine(v);
+    if (meta) {
+      var metaSpan = document.createElement('span');
+      metaSpan.className = 'vg-item-meta';
+      metaSpan.textContent = meta;
+      btn.appendChild(metaSpan);
+    }
+
+    btn.addEventListener('click', function () {
+      selectedId = v.id;
+      renderList();
+      renderPlayer();
+    });
+
+    li.appendChild(btn);
+    return li;
+  }
+
   function renderList() {
     listEl.innerHTML = '';
     videos.forEach(function (v) {
-      var li = document.createElement('li');
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'vg-item' + (v.id === selectedId ? ' is-selected' : '');
-      btn.setAttribute('aria-pressed', v.id === selectedId ? 'true' : 'false');
+      listEl.appendChild(buildItem(v));
+    });
 
-      var titleSpan = document.createElement('span');
-      titleSpan.className = 'vg-item-title';
-      titleSpan.textContent = v.title;
-      btn.appendChild(titleSpan);
+    singleSetHeight = listEl.scrollHeight;
 
-      var meta = metaLine(v);
-      if (meta) {
-        var metaSpan = document.createElement('span');
-        metaSpan.className = 'vg-item-meta';
-        metaSpan.textContent = meta;
-        btn.appendChild(metaSpan);
-      }
-
-      btn.addEventListener('click', function () {
-        selectedId = v.id;
-        renderList();
-        renderPlayer();
-      });
-
-      li.appendChild(btn);
-      listEl.appendChild(li);
+    videos.forEach(function (v) {
+      listEl.appendChild(buildItem(v));
     });
   }
 
