@@ -58,7 +58,11 @@
       min-height: 0;
       overflow-y: auto;
       overflow-x: hidden;
-      direction: rtl;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    #video-gallery .vg-list::-webkit-scrollbar {
+      display: none;
     }
     #video-gallery .vg-player-col {
       display: flex;
