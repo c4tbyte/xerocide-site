@@ -81,6 +81,12 @@ NAV_TEMPLATE.innerHTML = `
 
   .links a:hover { opacity: 0.7; }
 
+  .links a.is-active {
+    color: var(--nav-active-color, #6fdc4d);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
   .social {
     display: flex;
     align-items: center;
@@ -154,6 +160,12 @@ NAV_TEMPLATE.innerHTML = `
   }
 
   .mobile-menu a:hover { opacity: 0.7; }
+
+  .mobile-menu a.is-active {
+    color: var(--nav-active-color, #6fdc4d);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 
   .mobile-menu .social {
     justify-content: center;
@@ -230,7 +242,7 @@ class SimpleNav extends HTMLElement {
 
     const linksEl = root.querySelector(".links");
     linksEl.innerHTML = links
-      .map(({ label, url }) => `<a href="${window.TextHelper.escapeAttr(url)}">${window.TextHelper.escapeText(label)}</a>`)
+      .map(({ label, url }) => `<a href="${window.TextHelper.escapeAttr(url)}"${this.isCurrentPage(url) ? ' class="is-active"' : ""}>${window.TextHelper.escapeText(label)}</a>`)
       .join("");
 
     const socialEl = root.querySelector(".bar .social");
@@ -238,7 +250,7 @@ class SimpleNav extends HTMLElement {
 
     const mobileMenu = root.querySelector(".mobile-menu");
     const mobileLinksHtml = links
-      .map(({ label, url }) => `<a href="${window.TextHelper.escapeAttr(url)}">${window.TextHelper.escapeText(label)}</a>`)
+      .map(({ label, url }) => `<a href="${window.TextHelper.escapeAttr(url)}"${this.isCurrentPage(url) ? ' class="is-active"' : ""}>${window.TextHelper.escapeText(label)}</a>`)
       .join("");
     const mobileSocialHtml = `<div class="social">${this.buildSocialHtml(social)}</div>`;
     mobileMenu.innerHTML = mobileLinksHtml + mobileSocialHtml;
@@ -246,6 +258,13 @@ class SimpleNav extends HTMLElement {
     mobileMenu.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", () => this.closeMenu());
     });
+  }
+
+  isCurrentPage(url) {
+    if (!url || url.startsWith("http") || url.startsWith("mailto:")) return false;
+    const current = window.location.pathname.replace(/\/$/, "") || "/";
+    const target = url.replace(/\/$/, "") || "/";
+    return current === target;
   }
 
   buildSocialHtml(social) {
