@@ -177,7 +177,7 @@ MERCH_TEMPLATE.innerHTML = `
   }
 
   .card .product-title {
-    font-family: var(--lm-font-heading);
+    font-family: var(--lm-product-font, var(--lm-font-body));
     font-size: 13px;
     font-weight: 600;
     line-height: 1.3;
