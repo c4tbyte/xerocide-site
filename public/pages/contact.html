@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Xerocide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css" />
+<style>
+  :root{
+    --bg:    #0a0a0a;
+    --text:  #f2f2f0;
+    --text-dim: #9a9a97;
+    --display: 'Bebas Neue', sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Bebas Neue', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  img{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--text); color:var(--bg); }
+  .wrap{
+    max-width:700px;
+    margin:0 auto;
+    padding:160px 24px 100px;
+    text-align:center;
+    flex:1;
+  }
+  .contact-title{
+    font-family:var(--display);
+    font-size:clamp(40px,6vw,64px);
+    line-height:.95;
+    text-transform:uppercase;
+    letter-spacing:.01em;
+    margin-bottom:40px;
+  }
+  .contact-line{
+    font-size:18px;
+    line-height:2;
+    color:var(--text-dim);
+  }
+  .contact-line span{
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--text);
+    margin-right:8px;
+  }
+  .contact-line a:hover{ opacity:.8; }
+@media (max-width:640px){
+  .wrap{
+    padding:120px 20px 60px;
+    width:100%;
+  }
+  .contact-line{
+    font-size:16px;
+    line-height:1.6;
+    margin-bottom:20px;
+  }
+  .contact-line span{
+    display:block;
+    margin:0 0 4px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div data-site-nav></div>
+
+<main class="wrap">
+  <h1 class="contact-title">Contact</h1>
+  <p class="contact-line"><span>Booking:</span><a href="mailto:booking@xerocide.com">booking@xerocide.com</a></p>
+  <p class="contact-line"><span>Instagram:</span><a href="https://www.instagram.com/xerocidefl/" target="_blank" rel="noopener">@xerocidefl</a></p>
+</main>
+
+<div data-site-footer></div>
+
+<script src="/components/helpers/text-helper.js"></script>
+<script src="/components/simple-nav.js"></script>
+<script src="/components/helpers/nav-helper.js"></script>
+<script src="/components/simple-footer.js"></script>
+<script src="/components/helpers/footer-helper.js"></script>
+
+</body>
+</html>
