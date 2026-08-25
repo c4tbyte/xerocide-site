@@ -20,7 +20,6 @@ FOOTER_TEMPLATE.innerHTML = `
       --sf-border: #262626;
       --sf-link: #d4d4d4;
       --sf-link-hover: #ffffff;
-      --sf-logo-offset: 0px;
       --sf-input-bg: #000000;
       --sf-input-border: #404040;
       --sf-input-text: #ffffff;
@@ -33,6 +32,7 @@ FOOTER_TEMPLATE.innerHTML = `
       --sf-font-heading: inherit;
       --sf-font-body: inherit;
       --sf-columns: repeat(2, minmax(0, 1fr));
+      --sf-logo-offset: 0px;
     }
 
     * { box-sizing: border-box; }
@@ -41,6 +41,7 @@ FOOTER_TEMPLATE.innerHTML = `
       background: var(--sf-bg);
       color: var(--sf-fg);
       font-family: var(--sf-font-body);
+      border-top: var(--sf-top-border, 1px solid var(--sf-border));
     }
 
     .inner {
