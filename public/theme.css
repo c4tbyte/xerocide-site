@@ -53,6 +53,7 @@ flyer-archive {
   --vc-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
   --vc-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   --fa-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
+  --fa-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
 
   --lm-single-image-size: clamp(90px, 15vh, 180px);
   --lm-image-border: 1px solid #737373;
