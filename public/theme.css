@@ -48,11 +48,11 @@ flyer-archive {
   --vc-padding: clamp(20px, 2.6vw, 36px);
   --fa-padding: clamp(20px, 2.6vw, 36px);
 
-  --lm-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --lm-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
   --lm-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --vc-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --vc-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
   --vc-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --fa-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --fa-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
 
   --lm-single-image-size: clamp(100px, 13vh, 150px);
   --lm-image-border: 1px solid #ffffff;
@@ -377,8 +377,8 @@ simple-nav {
    ========================================================================== */
 
 .about-title {
-  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(16px, 3vh, 24px);
+  font-family: 'Archivo Black', 'Arial Black', sans-serif;
+  font-size: clamp(13px, 2.4vh, 20px);
   line-height: 1.05;
   letter-spacing: 0.03em;
   text-transform: uppercase;
