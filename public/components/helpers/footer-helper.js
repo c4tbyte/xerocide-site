@@ -20,7 +20,6 @@ function renderSiteFooter() {
 
         Info:
           Booking|/booking,
-          Contact|/contact,
           Legal|/legal
       "
       connect-heading="Stay connected"
