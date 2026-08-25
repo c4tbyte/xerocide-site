@@ -15,7 +15,7 @@ function renderSiteFooter() {
       columns="
         Quick Links:
           Shows|/shows,
-          Merch|https://YOUR_STORE_HANDLE.bigcartel.com,
+          Merch|https://armageddonrecords.bigcartel.com,
           Media|/media;
 
         Info:

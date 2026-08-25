@@ -3,6 +3,7 @@
     { "source": "/", "destination": "/pages/home.html" },
     { "source": "/shows", "destination": "/pages/shows.html" },
     { "source": "/media", "destination": "/pages/media.html" }
+    { "source": "/about", "destination": "/pages/about.html" }
   ],
   "functions": {
     "api/**/*.js": {
