@@ -15,9 +15,9 @@ function renderSiteFooter() {
       columns="
         Quick Links:
           Shows|/shows,
-          Merch|https://YOUR_STORE_HANDLE.bigcartel.com
+          Merch|https://YOUR_STORE_HANDLE.bigcartel.com,
           Media|/media;
-          
+
         Info:
           Booking|/booking,
           Contact|/contact,
