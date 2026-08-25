@@ -7,7 +7,6 @@ function renderSiteNav() {
       links="
         Home|/,
         Shows|/shows,
-        Releases|/releases,
         Media|/media,
         About|/about,
         Booking|/booking
