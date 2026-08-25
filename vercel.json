@@ -5,7 +5,7 @@
     { "source": "/media", "destination": "/pages/media.html" },
     { "source": "/about", "destination": "/pages/about.html" },
     { "source": "/booking", "destination": "/pages/booking.html" },
-    { "source": "/legal", "destination": "/pages/legel.html" }
+    { "source": "/legal", "destination": "/pages/legal.html" }
   ],
   "functions": {
     "api/**/*.js": {
