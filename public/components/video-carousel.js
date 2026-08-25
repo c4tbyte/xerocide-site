@@ -1,4 +1,3 @@
-
 const VIDEO_TEMPLATE = document.createElement("template");
 VIDEO_TEMPLATE.innerHTML = `
 <style>
@@ -17,7 +16,7 @@ VIDEO_TEMPLATE.innerHTML = `
     --vc-arrow-offset: -8px;
     --vc-min-height: 380px;
     --vc-video-max-height: 300px;
-
+ 
     position: relative;
     display: flex;
     flex-direction: column;
@@ -29,9 +28,9 @@ VIDEO_TEMPLATE.innerHTML = `
     box-sizing: border-box;
     justify-content: var(--vc-content-justify, flex-start);
   }
-
+ 
   * { box-sizing: border-box; }
-
+ 
   .header {
     display: flex;
     align-items: baseline;
@@ -39,7 +38,7 @@ VIDEO_TEMPLATE.innerHTML = `
     gap: 16px;
     margin-bottom: var(--vc-header-gap);
   }
-
+ 
   h2 {
     margin: 0;
     font-family: var(--vc-font-heading);
@@ -48,19 +47,19 @@ VIDEO_TEMPLATE.innerHTML = `
     letter-spacing: var(--vc-label-tracking);
     text-transform: uppercase;
   }
-
+ 
   .header .view-all {
-    font-family: var(--vc-font-heading);
+    font-family: var(--vc-font-body);
     font-size: var(--vc-view-all-font-size, 16px);
     letter-spacing: var(--vc-label-tracking);
     text-transform: uppercase;
-    color: var(--vc-fg);
+    color: var(--vc-view-all-color, var(--vc-fg));
     text-decoration: none;
     white-space: nowrap;
   }
-
+ 
   .header .view-all:hover { opacity: 0.8; }
-
+ 
   .video-row {
     display: flex;
     flex-direction: var(--vc-row-direction, row);
@@ -68,7 +67,7 @@ VIDEO_TEMPLATE.innerHTML = `
     gap: var(--vc-row-gap, 20px);
     margin-top: var(--vc-video-row-offset-top, 0px);
   }
-
+ 
   .quote-panel {
     flex: 0 0 auto;
     width: 100%;
@@ -77,7 +76,7 @@ VIDEO_TEMPLATE.innerHTML = `
     min-width: 0;
     text-align: var(--vc-quote-text-align, left);
   }
-
+ 
   .quote-panel blockquote {
     margin: 0 0 12px;
     font-size: var(--vc-quote-font-size, 16px);
@@ -85,15 +84,15 @@ VIDEO_TEMPLATE.innerHTML = `
     color: var(--vc-fg);
     font-style: normal;
   }
-
+ 
   .quote-panel blockquote::before {
     content: "\\201C";
   }
-
+ 
   .quote-panel blockquote::after {
     content: "\\201D";
   }
-
+ 
   .quote-source {
     margin: 0;
     font-family: var(--vc-font-heading);
@@ -102,11 +101,11 @@ VIDEO_TEMPLATE.innerHTML = `
     text-transform: uppercase;
     color: var(--vc-quote-source-color, #6fdc4d);
   }
-
+ 
   .quote-source::before {
     content: "- ";
   }
-
+ 
   .frame-wrap {
     position: relative;
     flex: 0 0 auto;
@@ -114,7 +113,7 @@ VIDEO_TEMPLATE.innerHTML = `
     width: 100%;
     margin-left: var(--vc-frame-offset-left, 0px);
   }
-
+ 
   .video-frame {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -123,14 +122,14 @@ VIDEO_TEMPLATE.innerHTML = `
     border: 1px solid var(--vc-border);
     touch-action: pan-y;
   }
-
+ 
   .video-frame iframe {
     width: 100%;
     height: 100%;
     border: 0;
     display: block;
   }
-
+ 
   .video-arrow {
     position: absolute;
     top: 50%;
@@ -147,17 +146,17 @@ VIDEO_TEMPLATE.innerHTML = `
     z-index: 2;
     transition: opacity 0.15s ease;
   }
-
+ 
   .video-arrow:hover:not(:disabled) { opacity: 1; }
   .video-arrow:disabled { opacity: 0.25; cursor: default; }
-
+ 
   .video-arrow.prev { left: var(--vc-arrow-offset); }
   .video-arrow.next { right: var(--vc-arrow-offset); }
-
+ 
   .video-row.has-quote .video-arrow.next {
     right: var(--vc-arrow-offset-quote, -8px);
   }
-
+ 
   .video-meta {
     margin-top: var(--vc-meta-gap, 14px);
     text-align: center;
@@ -182,7 +181,7 @@ VIDEO_TEMPLATE.innerHTML = `
     text-transform: uppercase;
     color: var(--vc-muted);
   }
-
+ 
   .state-message {
     font-size: 13px;
     color: var(--vc-muted);
@@ -190,7 +189,7 @@ VIDEO_TEMPLATE.innerHTML = `
     text-align: center;
   }
 </style>
-
+ 
 <div class="header">
   <h2 part="title"></h2>
   <a class="view-all" href="#" target="_blank" rel="noopener"></a>
@@ -211,12 +210,12 @@ VIDEO_TEMPLATE.innerHTML = `
   <div class="video-count"></div>
 </div>
 `;
-
+ 
 class VideoCarousel extends HTMLElement {
   static get observedAttributes() {
     return ["api-endpoint", "title", "view-all-text", "view-all-url"];
   }
-
+ 
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -224,28 +223,28 @@ class VideoCarousel extends HTMLElement {
     this._videos = [];
     this._index = 0;
   }
-
+ 
   connectedCallback() {
     this._render();
     this._loadData();
     this._setupSwipe();
   }
-
+ 
   attributeChangedCallback() {
     if (this.isConnected) this._render();
   }
-
+ 
   get apiEndpoint() { return this.getAttribute("api-endpoint"); }
   get titleText() { return this.getAttribute("title") || "Media"; }
   get viewAllText() { return this.getAttribute("view-all-text") || ""; }
   get viewAllUrl() { return this.getAttribute("view-all-url") || ""; }
-
+ 
   _render() {
     const root = this.shadowRoot;
     root.querySelector("h2").textContent = this.titleText;
-
+ 
     const link = root.querySelector(".view-all");
-
+ 
     if (this.viewAllText && this.viewAllUrl) {
       link.hidden = false;
       link.textContent = this.viewAllText + " →";
@@ -254,44 +253,44 @@ class VideoCarousel extends HTMLElement {
       link.hidden = true;
     }
   }
-
+ 
   async _loadData() {
     const frame = this.shadowRoot.querySelector(".video-frame");
-
+ 
     if (!this.apiEndpoint) {
       frame.innerHTML = `<div class="state-message">Set api-endpoint to load videos.</div>`;
       return;
     }
-
+ 
     frame.innerHTML = `<div class="state-message">Loading videos…</div>`;
-
+ 
     try {
       const res = await fetch(this.apiEndpoint);
       if (!res.ok) throw new Error(`Server responded ${res.status}`);
       const data = await res.json();
-
+ 
       this._videos = Array.isArray(data.videos) ? data.videos : [];
       this._fallbackQuote = this._videos.find((v) => v.quote && v.quote.trim()) || null;
-
+ 
       if (this._videos.length === 0) {
         frame.innerHTML = `<div class="state-message">No videos yet.</div>`;
         return;
       }
-
+ 
       this._showVideo(0);
     } catch (err) {
       console.error("[video-carousel] failed to load:", err);
       frame.innerHTML = `<div class="state-message">Couldn't load videos right now.</div>`;
     }
   }
-
+ 
   _showVideo(index) {
     const videos = this._videos;
     if (videos.length === 0) return;
-
+ 
     this._index = window.PaginationHelper.wrapPage(index, videos.length);
     const video = videos[this._index];
-
+ 
     const frame = this.shadowRoot.querySelector(".video-frame");
     const titleEl = this.shadowRoot.querySelector(".video-title");
     const countEl = this.shadowRoot.querySelector(".video-count");
@@ -301,7 +300,7 @@ class VideoCarousel extends HTMLElement {
     const quotePanel = this.shadowRoot.querySelector(".quote-panel");
     const quoteEl = this.shadowRoot.querySelector("blockquote");
     const sourceEl = this.shadowRoot.querySelector(".quote-source");
-
+ 
     frame.innerHTML = `<iframe
       src="https://www.youtube.com/embed/${window.TextHelper.escapeAttr(video.youtubeId)}"
       title="${window.TextHelper.escapeAttr(video.title)}"
@@ -309,30 +308,30 @@ class VideoCarousel extends HTMLElement {
       allowfullscreen
       loading="lazy"
     ></iframe>`;
-
+ 
     const hasOwnQuote = Boolean(video.quote && video.quote.trim());
     const showQuoteAttr = this.getAttribute("show-quote");
     const quoteDisabled = showQuoteAttr === "false";
     const quote = hasOwnQuote ? video : this._fallbackQuote;
     const hasQuote = !quoteDisabled && Boolean(quote);
-
+ 
     videoRow.classList.toggle("has-quote", hasQuote);
     quotePanel.hidden = !hasQuote;
     quoteEl.textContent = hasQuote ? quote.quote : "";
     sourceEl.textContent = hasQuote && quote.quoteSource ? quote.quoteSource : "";
     sourceEl.hidden = !(hasQuote && quote.quoteSource);
-
+ 
     titleEl.textContent = video.title;
     countEl.textContent = `${this._index + 1} / ${videos.length}`;
-
+ 
     const showArrows = videos.length > 1;
     prevBtn.hidden = !showArrows;
     nextBtn.hidden = !showArrows;
-
+ 
     prevBtn.onclick = () => this._showVideo(this._index - 1);
     nextBtn.onclick = () => this._showVideo(this._index + 1);
   }
-
+ 
   _setupSwipe() {
     window.SwipeHelper.attachSwipeBehavior(
       this.shadowRoot.querySelector(".video-frame"),
@@ -344,5 +343,5 @@ class VideoCarousel extends HTMLElement {
     );
   }
 }
-
+ 
 customElements.define("video-carousel", VideoCarousel);

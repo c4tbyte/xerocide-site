@@ -54,8 +54,8 @@ flyer-archive {
   --vc-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   --fa-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
 
-  --lm-single-image-size: clamp(100px, 13vh, 150px);
-  --lm-image-border: 1px solid #ffffff;
+  --lm-single-image-size: clamp(90px, 15vh, 180px);
+  --lm-image-border: 1px solid #737373;
   --lm-single-title-size: clamp(16px, 1.8vw, 25px);
   --lm-single-price-size: clamp(16px, 1.8vw, 25px);
 
@@ -69,6 +69,13 @@ flyer-archive {
   --lm-view-all-font-size: clamp(12px, 1.1vw, 16px);
   --vc-view-all-font-size: clamp(12px, 1.1vw, 16px);
   --fa-view-all-font-size: clamp(12px, 1.1vw, 16px);
+
+  --lm-view-all-color: #6fdc4d;
+  --vc-view-all-color: #6fdc4d;
+  --fa-view-all-color: #6fdc4d;
+
+  --fa-image-border: 1px solid #737373;
+  --fa-card-gap: clamp(14px, 2vw, 22px);
 }
 
 simple-footer {
@@ -306,10 +313,10 @@ simple-nav {
 }
 
 .row-col-about {
-  padding: clamp(20px, 3vh, 36px) clamp(16px, 1.8vw, 24px);
+  padding-top: clamp(10px, 1.4vh, 16px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 
