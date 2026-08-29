@@ -171,6 +171,7 @@ FLYER_TEMPLATE.innerHTML = `
     max-height: 85vh;
     object-fit: contain;
     display: block;
+    touch-action: none;
   }
  
   .lightbox-close {
@@ -422,14 +423,22 @@ class FlyerArchive extends HTMLElement {
       if (e.key === "ArrowRight") this._lightboxStep(1);
     });
  
-    window.SwipeHelper.attachSwipeBehavior(lightbox, {
-      getPage: () => this._lightboxIndex,
-      getTotalPages: () => this._flatList.length,
-      goToPage: (index) => {
-        this._lightboxIndex = window.PaginationHelper.wrapPage(index, this._flatList.length);
-        this._renderLightboxImage();
-      },
-    });
+    let touchStartX = 0;
+    const img = root.querySelector(".lightbox img");
+ 
+    img.addEventListener("touchstart", (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+ 
+    img.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+    }, { passive: false });
+ 
+    img.addEventListener("touchend", (e) => {
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) < 40) return;
+      this._lightboxStep(deltaX < 0 ? 1 : -1);
+    }, { passive: true });
   }
  
   _openLightbox(index) {
