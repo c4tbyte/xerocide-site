@@ -148,6 +148,10 @@ FLYER_TEMPLATE.innerHTML = `
  
   @media (max-width: 700px) {
     :host { --fa-columns: 2; }
+ 
+    .lightbox-arrow {
+      display: none;
+    }
   }
  
   .lightbox {
@@ -417,6 +421,15 @@ class FlyerArchive extends HTMLElement {
       if (e.key === "ArrowLeft") this._lightboxStep(-1);
       if (e.key === "ArrowRight") this._lightboxStep(1);
     });
+ 
+    window.SwipeHelper.attachSwipeBehavior(lightbox, {
+      getPage: () => this._lightboxIndex,
+      getTotalPages: () => this._flatList.length,
+      goToPage: (index) => {
+        this._lightboxIndex = window.PaginationHelper.wrapPage(index, this._flatList.length);
+        this._renderLightboxImage();
+      },
+    });
   }
  
   _openLightbox(index) {
@@ -446,3 +459,4 @@ class FlyerArchive extends HTMLElement {
 }
  
 customElements.define("flyer-archive", FlyerArchive);
+ 
