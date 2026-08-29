@@ -15,6 +15,7 @@ const FEATURED_DEFAULT_FRAME = 4;
 const GRID_FRAME_CYCLE = [1, 2, 3, 5, 6, 7, 9, 10, 11, 12];
 const ROTATIONS = [-2, 1.5, -1, 2.2, -1.6, 1.1, -2.4, 1.8];
 const GRID_PAGE_SIZE = 12;
+const MOBILE_BREAKPOINT = 500;
 
 function getTotalPages(itemCount, perPage) {
   return Math.max(1, Math.ceil(itemCount / perPage));
@@ -115,17 +116,23 @@ class FlyerGallery extends HTMLElement {
     return `${this._source.frameBaseUrl}frame-${padded}.png`;
   }
 
+  _isMobile() {
+    return window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
+  }
+
   _render() {
     const root = this.shadowRoot;
+    const isMobile = this._isMobile();
     const total = this._images.length;
     if (this._selectedIndex >= total) this._selectedIndex = 0;
     const featured = this._images[this._selectedIndex];
 
     const totalPages = getTotalPages(total, GRID_PAGE_SIZE);
     if (this._page >= totalPages) this._page = 0;
-    const start = this._page * GRID_PAGE_SIZE;
-    const visible = this._images.slice(start, start + GRID_PAGE_SIZE);
-    const emptyCount = GRID_PAGE_SIZE - visible.length;
+
+    const start = isMobile ? 0 : this._page * GRID_PAGE_SIZE;
+    const visible = isMobile ? this._images : this._images.slice(start, start + GRID_PAGE_SIZE);
+    const emptyCount = isMobile ? 0 : GRID_PAGE_SIZE - visible.length;
 
     const gridTiles = visible.map((it, i) => this._tile(it, {
       isFeatured: false,
@@ -135,6 +142,8 @@ class FlyerGallery extends HTMLElement {
       idx: start + i,
       isSelected: start + i === this._selectedIndex,
     })).join('') + Array.from({ length: emptyCount }, (_, j) => this._emptyTile(visible.length + j)).join('');
+
+    const showNextBtn = !isMobile && totalPages > 1;
 
     root.innerHTML = `<style>${FlyerGallery.STYLES}</style>` +
       `<div class="fg-wrap">` +
@@ -146,7 +155,7 @@ class FlyerGallery extends HTMLElement {
         }) : ''}</div>` +
         `<div class="fg-grid-col">` +
           `<div class="fg-grid">${gridTiles}</div>` +
-          (totalPages > 1 ? `
+          (showNextBtn ? `
           <button class="fg-page-btn fg-page-next" aria-label="Next flyers">&#8250;</button>` : '') +
         `</div>` +
       `</div>`;
@@ -323,7 +332,7 @@ FlyerGallery.STYLES = `
   }
   @media (max-width: 500px) {
     .fg-grid { grid-template-columns: repeat(2, 1fr); min-height: 0; }
-    .fg-featured-col { min-height: 0; }
+    .fg-featured-col { display: none; }
     .fg-grid-col { padding-right: 0; }
     .fg-page-btn {
       position: static;
