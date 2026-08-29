@@ -325,11 +325,15 @@ simple-nav {
 }
 
 .row-col-about {
-  padding-top: clamp(10px, 1.4vh, 16px);
+  padding-top: clamp(6px, 1vh, 10px);
   padding-bottom: clamp(6px, 1vh, 12px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.row-col-about .about-text {
+  margin-bottom: clamp(4px, 0.8vh, 8px);
 }
 
 
@@ -584,6 +588,7 @@ simple-nav {
   line-height: 1.6;
   color: #b0b0ac;
   margin: 0 0 16px;
+  text-align: center;
 }
 
 .mobile-about .about-link {
