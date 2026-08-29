@@ -59,7 +59,6 @@ FLYER_TEMPLATE.innerHTML = `
 
   .grid-wrap {
     position: relative;
-    flex: 1;
     display: flex;
   }
 
@@ -91,6 +90,7 @@ FLYER_TEMPLATE.innerHTML = `
     justify-content: center;
     gap: var(--fa-card-gap);
     flex: 1;
+    min-height: var(--fa-grid-min-height, auto);
     align-content: start;
     touch-action: pan-y;
     transition: transform 0.25s ease;
