@@ -333,7 +333,7 @@ simple-nav {
 }
 
 .row-col-about .about-text {
-  margin-bottom: clamp(4px, 0.8vh, 8px);
+  margin-bottom: 4px;
 }
 
 
@@ -421,7 +421,7 @@ simple-nav {
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0 0 clamp(6px, 1vh, 12px);
+  margin: 0 0 4px;
 }
 
 .about-text {
