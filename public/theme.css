@@ -528,7 +528,6 @@ simple-nav {
   --vc-count-display: none;
   --vc-frame-offset-left: 0;
   --vc-row-justify: center;
-  --vc-arrow-offset: clamp(-56px, -8vw, -40px);
 }
 
 
@@ -580,7 +579,7 @@ simple-nav {
     --fa-padding: 0px;
     --lm-min-height: auto;
     --vc-min-height: auto;
-    --fa-min-height: auto;
+    --fa-min-height: clamp(140px, 32vw, 220px);
     --fa-card-max-height: 100px;
   }
 }
