@@ -18,6 +18,8 @@ html, body {
 
 /* ==========================================================================
    COMPONENT THEME VARIABLES (band-merch, video-carousel, flyer-archive)
+   All sizing below scales with viewport instead of staying fixed, so it
+   can never overflow a row that itself also scales (see .content-row).
    ========================================================================== */
 
 band-merch,
@@ -48,15 +50,14 @@ flyer-archive {
   --vc-padding: clamp(20px, 2.6vw, 36px);
   --fa-padding: clamp(20px, 2.6vw, 36px);
 
-  --lm-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
+  --lm-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   --lm-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --vc-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
+  --vc-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   --vc-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --fa-font-heading: 'Archivo Black', 'Arial Black', sans-serif;
-  --fa-font-body: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  --fa-font-heading: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
 
-  --lm-single-image-size: clamp(90px, 15vh, 180px);
-  --lm-image-border: 1px solid #737373;
+  --lm-single-image-size: clamp(100px, 13vh, 150px);
+  --lm-image-border: 1px solid #ffffff;
   --lm-single-title-size: clamp(16px, 1.8vw, 25px);
   --lm-single-price-size: clamp(16px, 1.8vw, 25px);
 
@@ -70,13 +71,6 @@ flyer-archive {
   --lm-view-all-font-size: clamp(12px, 1.1vw, 16px);
   --vc-view-all-font-size: clamp(12px, 1.1vw, 16px);
   --fa-view-all-font-size: clamp(12px, 1.1vw, 16px);
-
-  --lm-view-all-color: #6fdc4d;
-  --vc-view-all-color: #6fdc4d;
-  --fa-view-all-color: #6fdc4d;
-
-  --fa-image-border: 1px solid #737373;
-  --fa-card-gap: clamp(14px, 2vw, 22px);
 }
 
 simple-footer {
@@ -90,7 +84,7 @@ simple-footer {
 
 simple-nav {
   --nav-font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  --nav-font-size: clamp(14px, 1.4vw, 20px);
+  --nav-font-size: clamp(12px, 1.1vw, 16px);
   --nav-letter-spacing: 0.15em;
   --nav-link-gap: clamp(20px, 3vw, 48px);
   --nav-icon-size: clamp(18px, 1.8vw, 26px);
@@ -244,17 +238,12 @@ simple-nav {
   margin: 0;
 }
 
-.hero-badge-link {
+.hero-badge {
   position: absolute;
   top: 2vh;
   right: 2vw;
   width: 18vh;
   z-index: 2;
-}
-
-.hero-badge {
-  display: block;
-  width: 100%;
 }
 
 .texture {
@@ -282,6 +271,9 @@ simple-nav {
 
 /* ==========================================================================
    DESKTOP - CONTENT ROW (Shows / Merch / About)
+   The row itself now scales with viewport height (clamp) instead of a
+   fixed px value, so it grows/shrinks in step with the components inside
+   it rather than fighting them.
    ========================================================================== */
 
 .content-row {
@@ -314,10 +306,10 @@ simple-nav {
 }
 
 .row-col-about {
-  padding-top: clamp(10px, 1.4vh, 16px);
+  padding: clamp(20px, 3vh, 36px) clamp(16px, 1.8vw, 24px);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 
@@ -327,22 +319,20 @@ simple-nav {
 
 .row-two {
   display: flex;
-  height: clamp(280px, 32vh, 380px);
+  height: auto;
   align-items: stretch;
   background-color: transparent;
   border-bottom: 2px solid #737373;
 }
 
 .row-two-photo {
-  flex: 0 1 auto;
-  max-width: clamp(500px, 62vw, 880px);
+  flex: 2;
   min-width: 0;
 }
 
 .row-two-photo img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
 }
 
@@ -357,17 +347,16 @@ simple-nav {
 
 .row-two-media video-carousel {
   --vc-padding: clamp(24px, 3.5vw, 48px);
-  --vc-video-max-height: clamp(200px, 28vh, 320px);
-  --vc-header-gap: clamp(8px, 1.2vh, 14px);
+  --vc-video-max-height: clamp(130px, 15vh, 190px);
   --vc-row-direction: column;
+  --vc-quote-margin-left: 0;
+  --vc-quote-text-align: center;
+  --vc-quote-max-width: clamp(280px, 35vw, 460px);
   --vc-title-display: none;
+  --vc-arrow-offset-quote: clamp(-40px, -2.5vw, -24px);
   --vc-count-display: none;
   --vc-min-height: 100%;
-  --vc-content-justify: flex-start;
-  --vc-arrow-size: clamp(24px, 1.8vw, 30px);
-  --vc-arrow-font-size: clamp(16px, 1.4vw, 20px);
-  --vc-arrow-offset: clamp(-56px, -4vw, -40px);
-  --vc-frame-offset-left: 0;
+  --vc-content-justify: flex-end;
   height: auto;
   max-height: 100%;
   padding: clamp(10px, 1.4vh, 16px) clamp(16px, 1.8vw, 24px)
@@ -385,26 +374,26 @@ simple-nav {
    ========================================================================== */
 
 .about-title {
-  font-family: 'Archivo Black', 'Arial Black', sans-serif;
-  font-size: clamp(13px, 2.4vh, 20px);
+  font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(18px, 2vw, 24px);
   line-height: 1.05;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0 0 clamp(8px, 1.6vh, 20px);
+  margin: 0 0 clamp(12px, 1.6vh, 20px);
 }
 
 .about-text {
-  font-size: clamp(10px, 1.6vh, 13px);
-  line-height: 1.5;
+  font-size: clamp(11px, 1vw, 13px);
+  line-height: 1.6;
   color: #b0b0ac;
-  margin: 0 0 clamp(8px, 1.6vh, 20px);
+  margin: 0 0 clamp(12px, 1.6vh, 20px);
   max-width: none;
 }
 
 .about-link {
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(11px, 1.8vh, 14px);
+  font-size: clamp(12px, 1.2vw, 14px);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #6fdc4d;
@@ -427,19 +416,6 @@ simple-nav {
   .mobile-only { display: block; }
 }
 
-@media (min-width: 1600px) {
-  .row-two-photo {
-    max-width: clamp(700px, 68vw, 1100px); 
-  }
-
-  .row-two {
-    height: clamp(320px, 34vh, 400px);
-  }
-
-  .row-two-media video-carousel {
-    --vc-video-max-height: clamp(200px, 26vh, 300px);
-  }
-}
 
 /* ==========================================================================
    MOBILE - SHARED SECTION STYLES
@@ -544,6 +520,14 @@ simple-nav {
   border: 1px solid #fff;
   padding: 12px;
   text-align: center;
+}
+
+.mobile-media video-carousel {
+  --vc-view-all-display: none;
+  --vc-title-display: none;
+  --vc-count-display: none;
+  --vc-frame-offset-left: 0;
+  --vc-row-justify: center;
 }
 
 
