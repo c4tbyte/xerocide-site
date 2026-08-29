@@ -174,6 +174,65 @@
       letter-spacing: 0.05em;
       margin-top: 10px;
     }
+
+    #video-gallery .vg-mobile-heading {
+      display: none;
+    }
+
+    #video-gallery .vg-mobile-feed {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      #video-gallery.vg-root {
+        margin: 16px;
+        padding: 20px;
+      }
+
+      #video-gallery .vg-grid {
+        display: none;
+      }
+
+      #video-gallery .vg-mobile-heading {
+        display: block;
+        text-align: center;
+      }
+
+      #video-gallery .vg-mobile-feed {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      #video-gallery .vg-mobile-item {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      #video-gallery .vg-mobile-thumb {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        background: #000;
+        border: 1px solid var(--vg-line);
+      }
+
+      #video-gallery .vg-mobile-title {
+        margin-top: 10px;
+        font-size: 15px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: var(--vg-white);
+      }
+
+      #video-gallery .vg-mobile-meta {
+        margin-top: 4px;
+        font-size: 12px;
+        color: var(--vg-dim);
+      }
+    }
   </style>
 
   <div class="vg-grid">
@@ -187,6 +246,9 @@
       <p class="vg-status" id="vg-status"></p>
     </div>
   </div>
+
+  <h2 class="vg-heading vg-mobile-heading">VIDEOS</h2>
+  <div class="vg-mobile-feed" id="vgMobileFeed"></div>
 </div>
 
 <div id="photo-grid" class="pg-root">
@@ -202,6 +264,7 @@
       box-sizing: border-box;
       border: 1px solid #737373;
       margin: 0 80px 32px;
+      position: relative;
     }
     #photo-grid .pg-header {
       display: flex;
@@ -211,13 +274,16 @@
     }
     #photo-grid .pg-heading {
       font-family: 'Archivo Black', 'Arial Black', sans-serif;
-      font-size: clamp(36px, 5vw, 56px);
+      font-size: clamp(28px, 4vw, 40px);
       letter-spacing: 0.01em;
       margin: 0;
       color: var(--pg-white);
     }
     #photo-grid .pg-view-more {
       all: unset;
+      position: absolute;
+      top: 32px;
+      right: 32px;
       cursor: pointer;
       font-size: 13px;
       letter-spacing: 0.05em;
@@ -247,6 +313,20 @@
     }
     @media (max-width: 600px) {
       #photo-grid .pg-preview { column-count: 3; }
+    }
+    @media (max-width: 700px) {
+      #photo-grid .pg-header {
+        justify-content: center;
+      }
+      #photo-grid .pg-heading {
+        text-align: center;
+      }
+      #photo-grid .pg-view-more {
+        position: static;
+        display: block;
+        width: fit-content;
+        margin: 20px auto 0;
+      }
     }
     #photo-grid .pg-status {
       font-size: 13px;
@@ -296,13 +376,14 @@
   </style>
 
   <div class="pg-header">
-    <h2 class="pg-heading">PHOTOS</h2>
-    <button class="pg-view-more" id="pgViewMore">View More Photos</button>
+    <h2 class="pg-heading">Photos</h2>
   </div>
 
   <div class="pg-preview" id="pgPreview">
     <div class="pg-status">Loading photos…</div>
   </div>
+
+  <button class="pg-view-more" id="pgViewMore">View More Photos</button>
 
   <div class="pg-modal" id="pgModal" hidden>
     <button class="pg-modal-close" id="pgModalClose" aria-label="Close">&times;</button>
@@ -330,6 +411,8 @@
   var closeBtn = document.getElementById('pgModalClose');
 
   var allPhotos = [];
+  var mobileBatchSize = 12;
+  var mobileShownCount = mobileBatchSize;
 
   function shuffle(arr) {
     var a = arr.slice();
@@ -342,14 +425,25 @@
     return a;
   }
 
+  function isMobile() {
+    return window.matchMedia('(max-width: 700px)').matches;
+  }
+
   function renderPreview() {
     if (allPhotos.length === 0) {
       previewEl.innerHTML = '<div class="pg-status">No photos yet.</div>';
       return;
     }
-    previewEl.innerHTML = allPhotos.slice(0, PREVIEW_COUNT).map(function (p) {
+    var visible = isMobile() ? allPhotos.slice(0, mobileShownCount) : allPhotos.slice(0, PREVIEW_COUNT);
+    previewEl.innerHTML = visible.map(function (p) {
       return '<img src="' + p.url + '" alt="" loading="lazy" />';
     }).join('');
+
+    if (isMobile()) {
+      viewMoreBtn.hidden = mobileShownCount >= allPhotos.length;
+    } else {
+      viewMoreBtn.hidden = false;
+    }
   }
 
   function renderModalGrid() {
@@ -359,6 +453,11 @@
   }
 
   viewMoreBtn.addEventListener('click', function () {
+    if (isMobile()) {
+      mobileShownCount += mobileBatchSize;
+      renderPreview();
+      return;
+    }
     renderModalGrid();
     modalEl.hidden = false;
     document.body.style.overflow = 'hidden';
@@ -393,6 +492,7 @@
   var listEl = document.getElementById('vg-list');
   var playerEl = document.getElementById('vg-player');
   var statusEl = document.getElementById('vg-status');
+  var mobileFeedEl = document.getElementById('vgMobileFeed');
 
   var autoScrollPaused = false;
   var autoScrollSpeed = 0.3;
@@ -482,6 +582,42 @@
     return li;
   }
 
+  function renderMobileFeed() {
+    mobileFeedEl.innerHTML = '';
+    videos.forEach(function (v) {
+      var embedId = extractYouTubeId(v.youtubeUrl);
+      if (!embedId) return;
+
+      var a = document.createElement('a');
+      a.className = 'vg-mobile-item';
+      a.href = v.youtubeUrl;
+      a.target = '_blank';
+      a.rel = 'noopener';
+
+      var thumb = document.createElement('img');
+      thumb.className = 'vg-mobile-thumb';
+      thumb.src = 'https://img.youtube.com/vi/' + embedId + '/hqdefault.jpg';
+      thumb.alt = v.title || '';
+      thumb.loading = 'lazy';
+      a.appendChild(thumb);
+
+      var title = document.createElement('div');
+      title.className = 'vg-mobile-title';
+      title.textContent = v.title;
+      a.appendChild(title);
+
+      var meta = metaLine(v);
+      if (meta) {
+        var metaEl = document.createElement('div');
+        metaEl.className = 'vg-mobile-meta';
+        metaEl.textContent = meta;
+        a.appendChild(metaEl);
+      }
+
+      mobileFeedEl.appendChild(a);
+    });
+  }
+
   function renderList() {
     listEl.innerHTML = '';
     videos.forEach(function (v) {
@@ -504,6 +640,7 @@
     }
     renderList();
     renderPlayer();
+    renderMobileFeed();
   }
 
   setStatus('Loading videos…');
