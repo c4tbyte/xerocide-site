@@ -308,6 +308,7 @@ simple-nav {
   padding-right: clamp(16px, 1.8vw, 24px) !important;
   padding-top: clamp(16px, 2vh, 24px) !important;
   padding-bottom: clamp(14px, 1.6vh, 20px) !important;
+}
 
 .row-divider {
   width: 1px;
