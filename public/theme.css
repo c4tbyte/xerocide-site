@@ -347,16 +347,17 @@ simple-nav {
 
 .row-two-media video-carousel {
   --vc-padding: clamp(24px, 3.5vw, 48px);
-  --vc-video-max-height: clamp(130px, 15vh, 190px);
+  --vc-video-max-height: clamp(200px, 28vh, 320px);
+  --vc-header-gap: clamp(8px, 1.2vh, 14px);
   --vc-row-direction: column;
-  --vc-quote-margin-left: 0;
-  --vc-quote-text-align: center;
-  --vc-quote-max-width: clamp(280px, 35vw, 460px);
   --vc-title-display: none;
-  --vc-arrow-offset-quote: clamp(-40px, -2.5vw, -24px);
   --vc-count-display: none;
   --vc-min-height: 100%;
-  --vc-content-justify: flex-end;
+  --vc-content-justify: flex-start;
+  --vc-arrow-size: clamp(24px, 1.8vw, 30px);
+  --vc-arrow-font-size: clamp(16px, 1.4vw, 20px);
+  --vc-arrow-offset: clamp(-56px, -4vw, -40px);
+  --vc-frame-offset-left: 0;
   height: auto;
   max-height: 100%;
   padding: clamp(10px, 1.4vh, 16px) clamp(16px, 1.8vw, 24px)
