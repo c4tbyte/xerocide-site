@@ -306,9 +306,8 @@ simple-nav {
 .row-col > * {
   padding-left: clamp(16px, 1.8vw, 24px) !important;
   padding-right: clamp(16px, 1.8vw, 24px) !important;
-  padding-top: clamp(10px, 1.4vh, 16px) !important;
-  padding-bottom: clamp(8px, 1vh, 12px) !important;
-}
+  padding-top: clamp(16px, 2vh, 24px) !important;
+  padding-bottom: clamp(14px, 1.6vh, 20px) !important;
 
 .row-divider {
   width: 1px;
@@ -316,7 +315,8 @@ simple-nav {
 }
 
 .row-col-about {
-  padding-top: clamp(10px, 1.4vh, 16px);
+  padding-top: clamp(16px, 2vh, 24px);
+  padding-bottom: clamp(14px, 1.6vh, 20px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -372,8 +372,8 @@ simple-nav {
   --vc-frame-offset-left: 0;
   height: auto;
   max-height: 100%;
-  padding: clamp(10px, 1.4vh, 16px) clamp(16px, 1.8vw, 24px)
-           clamp(8px, 1vh, 12px) clamp(16px, 1.8vw, 24px) !important;
+  padding: clamp(16px, 2vh, 24px) clamp(16px, 1.8vw, 24px)
+         clamp(14px, 1.6vh, 20px) clamp(16px, 1.8vw, 24px) !important;
   overflow: hidden;
 }
 
