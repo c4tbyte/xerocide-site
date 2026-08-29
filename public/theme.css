@@ -579,7 +579,7 @@ simple-nav {
     --fa-padding: 0px;
     --lm-min-height: auto;
     --vc-min-height: auto;
-    --fa-min-height: clamp(140px, 32vw, 220px);
+    --fa-min-height: clamp(220px, 46vw, 340px);
     --fa-card-max-height: 100px;
   }
 }
