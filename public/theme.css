@@ -109,6 +109,15 @@ simple-nav {
   background-color: #0a0a0a;
 }
 
+  @media (max-width: 700px) {
+  simple-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #0a0a0a;
+  }
+}
+
 
 /* ==========================================================================
    HERO
@@ -316,8 +325,8 @@ simple-nav {
 }
 
 .row-col-about {
-  padding-top: clamp(16px, 2vh, 24px);
-  padding-bottom: clamp(14px, 1.6vh, 20px);
+  padding-top: clamp(10px, 1.4vh, 16px);
+  padding-bottom: clamp(6px, 1vh, 12px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -578,11 +587,16 @@ simple-nav {
 }
 
 .mobile-about .about-link {
+  display: block;
+  margin-top: 16px;
   font-family: 'Bebas Neue', 'Helvetica Neue', Arial, sans-serif;
   font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #6fdc4d;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 12px;
+  text-align: center;
   text-decoration: none;
 }
 
