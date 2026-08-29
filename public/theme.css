@@ -417,7 +417,7 @@ simple-nav {
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: #fff;
-  margin: 0 0 clamp(8px, 1.6vh, 20px);
+  margin: 0 0 clamp(6px, 1vh, 12px);
 }
 
 .about-text {
