@@ -34,7 +34,7 @@ VIDEO_TEMPLATE.innerHTML = `
   .header {
     display: flex;
     align-items: baseline;
-    justify-content: space-between;
+    justify-content: var(--vc-header-justify, space-between);
     gap: 16px;
     margin-bottom: var(--vc-header-gap);
   }

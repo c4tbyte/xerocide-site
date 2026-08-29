@@ -550,6 +550,10 @@ simple-nav {
   text-align: center;
 }
 
+.mobile-shows flyer-archive {
+  --fa-header-justify: center;
+}
+
 .mobile-media video-carousel {
   --vc-view-all-display: none;
   --vc-title-display: none;
@@ -557,6 +561,7 @@ simple-nav {
   --vc-frame-offset-left: 0;
   --vc-row-justify: center;
   --vc-arrow-offset: clamp(-56px, -8vw, -40px);
+  --vc-header-justify: center;
 }
 
 

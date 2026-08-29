@@ -32,7 +32,7 @@ FLYER_TEMPLATE.innerHTML = `
   .header {
     display: flex;
     align-items: baseline;
-    justify-content: space-between;
+    justify-content: var(--fa-header-justify, space-between);
     gap: 16px;
     margin-bottom: var(--fa-header-gap);
   }
