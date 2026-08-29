@@ -1,3 +1,4 @@
+
 const FLYER_TEMPLATE = document.createElement("template");
 FLYER_TEMPLATE.innerHTML = `
 <style>
@@ -97,7 +98,6 @@ FLYER_TEMPLATE.innerHTML = `
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    will-change: transform;
   }
 
   .card {
