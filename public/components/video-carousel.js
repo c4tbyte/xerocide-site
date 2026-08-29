@@ -123,6 +123,10 @@ VIDEO_TEMPLATE.innerHTML = `
     background: var(--vc-panel);
     border: 1px solid var(--vc-border);
     touch-action: pan-y;
+    position: relative;
+    isolation: isolate;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 
   .video-frame iframe {
