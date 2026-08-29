@@ -149,6 +149,58 @@ FLYER_TEMPLATE.innerHTML = `
   @media (max-width: 700px) {
     :host { --fa-columns: 2; }
   }
+ 
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  .lightbox[hidden] { display: none; }
+ 
+  .lightbox img {
+    max-width: min(90vw, 800px);
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+  }
+ 
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+  }
+ 
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 22px;
+    width: 44px;
+    height: 44px;
+    line-height: 1;
+    z-index: 2;
+  }
+ 
+  .lightbox-arrow:hover { background: rgba(255, 255, 255, 0.15); }
+ 
+  .lightbox-arrow.prev { left: 16px; }
+  .lightbox-arrow.next { right: 16px; }
 </style>
  
 <div class="header">
@@ -164,6 +216,13 @@ FLYER_TEMPLATE.innerHTML = `
   <div class="grid"></div>
 </div>
 <div class="swipe-dots"></div>
+ 
+<div class="lightbox" hidden>
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-arrow prev" aria-label="Previous image">&#8249;</button>
+  <img src="" alt="" />
+  <button class="lightbox-arrow next" aria-label="Next image">&#8250;</button>
+</div>
 `;
  
 class FlyerArchive extends HTMLElement {
@@ -183,6 +242,7 @@ class FlyerArchive extends HTMLElement {
     this._render();
     this._loadData();
     this._setupSwipe();
+    this._setupLightbox();
  
     let lastWidth = window.innerWidth;
     window.ResizeHelper.onResizeOnce(this, () => {
@@ -284,16 +344,22 @@ class FlyerArchive extends HTMLElement {
     const pageItems = this._pages[this._page];
  
     grid.innerHTML = pageItems
-      .map((flyer) => {
+      .map((flyer, i) => {
         const thumb = flyer.thumb || flyer.full || "";
-        const full = flyer.full || flyer.thumb || "";
+        const globalIndex = this._page * this.perPage + i;
         return `
-          <a class="card" href="${window.TextHelper.escapeAttr(full)}" target="_blank" rel="noopener">
+          <div class="card" data-idx="${globalIndex}">
             <img src="${window.TextHelper.escapeAttr(thumb)}" alt="Show flyer" loading="lazy" />
-          </a>
+          </div>
         `;
       })
       .join("");
+ 
+    grid.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", () => {
+        this._openLightbox(Number(card.dataset.idx));
+      });
+    });
  
     if (totalPages > 1) {
       const prevBtn = this.shadowRoot.querySelector(".prev");
@@ -329,6 +395,53 @@ class FlyerArchive extends HTMLElement {
   _renderPageDots() {
     const dotsEl = this.shadowRoot.querySelector(".swipe-dots");
     window.SwipeHelper.renderPageDots(dotsEl, this._page, this._totalPages());
+  }
+ 
+  _setupLightbox() {
+    const root = this.shadowRoot;
+    const lightbox = root.querySelector(".lightbox");
+    const closeBtn = root.querySelector(".lightbox-close");
+    const prevBtn = root.querySelector(".lightbox-arrow.prev");
+    const nextBtn = root.querySelector(".lightbox-arrow.next");
+ 
+    closeBtn.addEventListener("click", () => this._closeLightbox());
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) this._closeLightbox();
+    });
+    prevBtn.addEventListener("click", () => this._lightboxStep(-1));
+    nextBtn.addEventListener("click", () => this._lightboxStep(1));
+ 
+    document.addEventListener("keydown", (e) => {
+      if (this.shadowRoot.querySelector(".lightbox").hidden) return;
+      if (e.key === "Escape") this._closeLightbox();
+      if (e.key === "ArrowLeft") this._lightboxStep(-1);
+      if (e.key === "ArrowRight") this._lightboxStep(1);
+    });
+  }
+ 
+  _openLightbox(index) {
+    this._lightboxIndex = index;
+    this._renderLightboxImage();
+    this.shadowRoot.querySelector(".lightbox").hidden = false;
+  }
+ 
+  _closeLightbox() {
+    this.shadowRoot.querySelector(".lightbox").hidden = true;
+  }
+ 
+  _lightboxStep(direction) {
+    const total = this._flatList.length;
+    this._lightboxIndex = ((this._lightboxIndex + direction) % total + total) % total;
+    this._renderLightboxImage();
+  }
+ 
+  _renderLightboxImage() {
+    const flyer = this._flatList[this._lightboxIndex];
+    if (!flyer) return;
+    const full = flyer.full || flyer.thumb || "";
+    const img = this.shadowRoot.querySelector(".lightbox img");
+    img.src = full;
+    img.alt = "Show flyer";
   }
 }
  
