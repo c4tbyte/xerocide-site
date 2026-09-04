@@ -1,0 +1,14 @@
+name: Refresh Site Data
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call refresh endpoint
+        run: |
+          curl -sf "https://${{ secrets.SITE_DOMAIN }}/api/refresh?secret=${{ secrets.CRON_SECRET }}"
